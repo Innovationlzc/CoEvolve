@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+env_*/
+
+# Local runtime and generated setup output
+logs/
+*.log
+
+# Heavy or rerunnable experiment artifacts. Keep README/metrics/policy JSONs.
+results/**/history.csv
+results/**/*.png
+results/*_eps_test/
+results/*_newton_smoke/
+
+# Training/checkpoint artifacts that should be added intentionally.
+checkpoints/
+runs/
+wandb/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Isaac/Omniverse local caches or exports
+*.usd~
+*.usdc
+*.usda

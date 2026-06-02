@@ -1,0 +1,20 @@
+[
+  {
+    "method": "independent",
+    "initial_v": 5.845703125,
+    "final_v": 12.332944077456835,
+    "mean_update_alignment": 2.4852378984933565e-18,
+    "conflict_rate": 0.78,
+    "constraint_violation_rate": 1.0,
+    "final_theta_norm": 3.106408976909634
+  },
+  {
+    "method": "halypo",
+    "initial_v": 5.845703125,
+    "final_v": 0.030724722345582205,
+    "mean_update_alignment": 0.1961161328546288,
+    "conflict_rate": 0.0,
+    "constraint_violation_rate": 0.0,
+    "final_theta_norm": 0.1535024899212453
+  }
+]

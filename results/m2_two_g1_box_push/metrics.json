@@ -1,0 +1,20 @@
+{
+  "task": "CoEvolve-TwoG1BoxPush-Direct-v0",
+  "num_envs": 1,
+  "steps": 126,
+  "final": {
+    "step": 126,
+    "mean_reward": 1.0034602880477905,
+    "mean_box_x": 1.8121614456176758,
+    "mean_box_y": 0.000163760720170103,
+    "mean_robot_a_z": 0.7400000095367432,
+    "mean_robot_b_z": 0.7400000095367432,
+    "mean_distance": 0.1878386288881302,
+    "success_rate": 1.0,
+    "success_event_rate": 1.0,
+    "done_rate": 1.0,
+    "first_success_step": 126.0,
+    "best_distance": 0.1878386288881302
+  },
+  "note": "Proxy M2 smoke: two visible G1 bodies, box velocity controlled by averaged two-agent push action."
+}

@@ -1,0 +1,19 @@
+{
+  "task": "CoEvolve-OSP-Alignment-Lite-Direct-v0",
+  "num_envs": 1,
+  "steps": 29,
+  "final": {
+    "step": 29,
+    "mean_reward": 3.3784384727478027,
+    "mean_object_x": 2.0055222511291504,
+    "mean_object_y": 0.002243537688627839,
+    "mean_distance": 0.14449526369571686,
+    "mean_yaw_error": 0.011061668395996094,
+    "mean_g1_contact": 0.6436607837677002,
+    "success_event_rate": 1.0,
+    "done_rate": 1.0,
+    "first_success_step": 29.0,
+    "best_distance": 0.14449526369571686
+  },
+  "note": "M3 OSP-Alignment-Lite smoke. This has a paper-like OSP scene, 11D command surface, G1 wrist target markers, contact scores, and a temporary root-stabilized arm tracker. It is not yet true G1 walking/WBC or physical hand-object manipulation."
+}
