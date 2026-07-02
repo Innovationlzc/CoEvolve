@@ -26,7 +26,6 @@ from .skill_mapper import map_skill_graph_to_sonic_stream
 from .upper_body import (
     DEFAULT_LEFT_HAND_JOINTS,
     DEFAULT_RIGHT_HAND_JOINTS,
-    HIGH_PARALLEL_CARRY_UPPER_BODY,
     HORIZONTAL_CARRY_UPPER_BODY,
     OPEN_LEFT_HAND_JOINTS,
     OPEN_RIGHT_HAND_JOINTS,
@@ -53,7 +52,6 @@ __all__ = [
     "SonicReleasePolicyController",
     "DEFAULT_LEFT_HAND_JOINTS",
     "DEFAULT_RIGHT_HAND_JOINTS",
-    "HIGH_PARALLEL_CARRY_UPPER_BODY",
     "HORIZONTAL_CARRY_UPPER_BODY",
     "OPEN_LEFT_HAND_JOINTS",
     "OPEN_RIGHT_HAND_JOINTS",

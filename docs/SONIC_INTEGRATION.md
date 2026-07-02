@@ -42,8 +42,6 @@ Praxis-Coop sends low-frequency planner intent:
 - speed;
 - height;
 - start/stop/planner control;
-- upper-body pose targets;
-- hand joint targets;
 - phase/contact/sync metadata for logging and future verifier use.
 
 Praxis-Coop does not send high-frequency balance actions or raw motor torques
@@ -61,31 +59,13 @@ The dual MuJoCo runtime keeps the MuJoCo `ElasticBand` support enabled until:
 This avoids the earlier failure mode where the robots were dropped before the
 official deploy planner was actually publishing valid commands.
 
-## Upper-Body Carry Pose
-
-Planner-side `upper_body_position` conditions the official SONIC reference
-stream but is not a hard joint controller. For strict payload-support posture,
-the dual MuJoCo runtime overlays a motor-side upper-body PD pose lock while
-leaving SONIC responsible for lower-body standing and walking.
-
-Current carry presets live in:
-
-```text
-src/praxis_coop/sonic/upper_body.py
-```
-
-`high_parallel_carry` is the current preferred support pose. Its offline FK
-check puts elbow and wrist at nearly the same height, making the forearm roughly
-parallel to the ground.
-
 ## Current Boundary
 
 Valid current evidence:
 
 - official SONIC-controlled single-G1 stand/walk;
 - dual-G1 official deploy stand/walk in the generated manual-layout MuJoCo
-  scene;
-- high parallel carry pose hold and low-speed walk without proxy root teleports.
+  scene without payload contact.
 
 Not valid as current paper evidence:
 

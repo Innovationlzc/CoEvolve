@@ -19,8 +19,7 @@ The reproducible milestone in this repository is:
 - run two official `gear_sonic_deploy` processes, one per G1;
 - send synchronized ZMQ planner commands;
 - use lowcmd readiness plus planner heartbeat before dropping the virtual
-  support band;
-- hold a high parallel carry arm posture while SONIC controls standing/walking.
+  support band.
 
 Start here:
 
@@ -32,8 +31,7 @@ docs/REPRODUCTION.md
 
 This is the current stable baseline that has visually passed: two official
 GEAR-SONIC deploy processes control two G1 robots in the generated manual-layout
-MuJoCo scene, with no box and no upper-body pose lock. Use this before testing
-high carry or payload contact.
+MuJoCo scene, with no box and no payload contact.
 
 Use four terminals. Keep the heartbeat path identical in Terminal 1 and
 Terminal 4.

@@ -51,3 +51,6 @@ source/*.pdf
 # Isaac/Omniverse local caches or exports
 *.usd~
 *.usdc
+
+
+HaLyPO

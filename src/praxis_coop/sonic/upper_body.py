@@ -84,29 +84,6 @@ SOFT_HORIZONTAL_CARRY_UPPER_BODY = (
 
 HORIZONTAL_CARRY_UPPER_BODY = SOFT_HORIZONTAL_CARRY_UPPER_BODY
 
-# Higher support pose for box carrying.  The left/right elbow-to-wrist segment
-# is nearly level in the G1 MJCF, so the forearm reads parallel to the ground
-# while keeping the wrists in front of the torso.
-HIGH_PARALLEL_CARRY_UPPER_BODY = (
-    0.0,
-    0.0,
-    0.0,
-    -1.05,
-    -1.05,
-    0.16,
-    -0.16,
-    0.0,
-    0.0,
-    0.95,
-    0.95,
-    0.0,
-    0.0,
-    -0.20,
-    -0.20,
-    0.0,
-    0.0,
-)
-
 # First stable stepping stone for SONIC: keep the arms modestly forward while
 # preserving enough shoulder freedom for balance recovery.
 BALANCE_CARRY_UPPER_BODY = (
@@ -134,7 +111,6 @@ UPPER_BODY_POSES = {
     "sonic_default": SONIC_DEFAULT_UPPER_BODY,
     "balance_carry": BALANCE_CARRY_UPPER_BODY,
     "soft_horizontal_carry": SOFT_HORIZONTAL_CARRY_UPPER_BODY,
-    "high_parallel_carry": HIGH_PARALLEL_CARRY_UPPER_BODY,
     "horizontal_carry": HORIZONTAL_CARRY_UPPER_BODY,
     "parallel_carry": HORIZONTAL_CARRY_UPPER_BODY,
     "isaac_initial_carry": HORIZONTAL_CARRY_UPPER_BODY,

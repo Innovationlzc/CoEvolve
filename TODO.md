@@ -22,16 +22,14 @@ then build verified cooperative SkillGraph evolution above it.
 - [x] Record the exact four-terminal baseline command in `README.md` and
   `docs/REPRODUCTION.md`.
 
-## M2: Carry Posture On Official SONIC
+## M2: Payload-Contact Preparation
 
-- [x] Add planner-side upper-body and hand pose fields for carry experiments.
-- [x] Add motor-side upper-body pose lock in the MuJoCo dual runtime because
-  planner conditioning alone is not strict joint control.
-- [x] Add `high_parallel_carry` with roughly level forearms.
-- [ ] Re-test high carry hold with both robots and record the stable command as
-  a reproducible baseline.
-- [ ] Re-test low-speed high carry walk and record whether it is stable enough
-  to become evidence.
+- [ ] Add the physical `long_box` contact trial only after the no-box motor
+  baseline remains stable.
+- [ ] Tune contact geometry, friction, and payload mass in local experiments
+  before adding any payload run to public reproduction docs.
+- [ ] Keep failed or unstable payload trials out of README and GitHub-facing
+  reproduction commands.
 
 ## M3: Payload Contact Transport
 
