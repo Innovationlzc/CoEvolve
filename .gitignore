@@ -1,22 +1,41 @@
+# Python/cache
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.ipynb_checkpoints/
+
+# Local virtual environments
 .venv/
+venv/
 env_*/
 
-# Local runtime and generated setup output
+# Local external runtimes and model weights
+third_party/
+models/
+
+# Old local archive. Keep it on the workstation, not in the reproducible repo.
+HaLyPO/
+
+# Logs and generated local runtime output
 logs/
 *.log
+MUJOCO_LOG.TXT
 
-# Heavy or rerunnable experiment artifacts. Keep README/metrics/policy JSONs.
-results/**/history.csv
-results/**/*.png
-results/*_eps_test/
-results/*_newton_smoke/
+# Generated experiment artifacts. Keep only lightweight docs and curated static specs.
+results/**
+!results/
+!results/README.md
+!results/deployment/
+!results/deployment/README.md
+!results/spec_memory/
+!results/spec_memory/static/
+!results/spec_memory/static/default_specs.jsonl
+!results/spec_memory/dynamic/
+!results/spec_memory/dynamic/README.md
 
-# Training/checkpoint artifacts that should be added intentionally.
+# Training/checkpoint artifacts
 checkpoints/
 runs/
 wandb/
@@ -24,8 +43,11 @@ wandb/
 *.pth
 *.ckpt
 *.onnx
+*.safetensors
+
+# Large local paper PDFs; keep source notes in git instead.
+source/*.pdf
 
 # Isaac/Omniverse local caches or exports
 *.usd~
 *.usdc
-*.usda

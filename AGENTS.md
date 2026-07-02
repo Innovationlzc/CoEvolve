@@ -2,30 +2,38 @@
 
 Guidance for Codex and other coding agents working in this repository.
 
+## Current Direction
+
+`/home/admin1/Project/CoEvolve` is now the clean workspace for the new
+Praxis-Coop / SONIC-based cooperative skill orchestration project.
+
+The old HALyPO / MARL-style reproduction work is archived under `HaLyPO/`.
+Treat it as reference material unless the user explicitly asks to revive or
+reuse a piece of it.
+
 ## Catalogue
 
 | Path | Purpose |
 |---|---|
-| `ENV_SETUP.md` | concise runtime status and launch commands |
-| `HALyPO_REPRO_TODO.md` | current research and implementation plan |
-| `source/HALyPO.pdf` | source paper |
-| `logs/setup/` | historical install and smoke-test logs |
+| `README.md` | current workspace overview |
+| `TODO.md` | current milestone plan |
+| `ENV_SETUP.md` | concise runtime and external dependency notes |
+| `docs/README.md` | docs index and ownership rules |
+| `docs/REPRODUCTION.md` | current official SONIC/MuJoCo reproduction commands |
+| `docs/PROJECT_CHARTER.md` | paper positioning and contribution boundary |
+| `docs/SONIC_INTEGRATION.md` | SONIC adapter boundary |
+| `docs/SYSTEM_DESIGN.md` | modules, code layout, contracts, verifier, spec memory |
+| `docs/PAPER_PLAN_AAAI27.md` | paper experiments, baselines, metrics |
+| `assets/manual_scenes/two_g1_box_push_layout.usda` | tracked user-authored manual scene |
+| `source/README.md` | local paper/source-note policy |
+| `source/praxis_coop_refined_plan_aaai27.md` | refined plan notes |
+| `src/praxis_coop/` | new implementation package |
+| `HaLyPO/` | local ignored archive of old experiments; not current evidence |
 | `/home/admin1/Project/IsaacLab` | external Isaac Lab runtime; do not edit casually |
-
-Planned project layout:
-
-| Path | Purpose |
-|---|---|
-| `coevolve/algorithms/` | HALyPO, PCGrad, baseline adapters |
-| `coevolve/envs/` | non-Isaac and Isaac Lab task definitions |
-| `configs/` | experiment and algorithm configs |
-| `scripts/` | train, evaluate, plot, and utility entrypoints |
-| `tests/` | projection, env, and smoke tests |
-| `third_party/` | optional vendored baseline references |
 
 ## Build & Test
 
-Activate the Isaac Lab runtime:
+Activate the Isaac Lab runtime when Isaac-dependent work is needed:
 
 ```bash
 cd /home/admin1/Project/IsaacLab
@@ -41,35 +49,39 @@ Useful runtime checks:
 ./isaaclab.sh -p scripts/environments/random_agent.py --task Isaac-Velocity-Flat-G1-Play-v0 --num_envs 1 --viz newton
 ```
 
-Once CoEvolve code exists, prefer:
+For new CoEvolve work, prefer tests and scripts under the clean root once they
+exist:
 
 ```bash
 pytest -q
-/home/admin1/Project/IsaacLab/env_isaaclab/bin/python scripts/run_m0_toy.py
-/home/admin1/Project/IsaacLab/env_isaaclab/bin/python scripts/run_m1_transport.py --show
-/home/admin1/Project/IsaacLab/env_isaaclab/bin/python scripts/run_m2_g1_smoke.py --timeout 120
 ```
+
+Current motor-layer reproduction commands live in `docs/REPRODUCTION.md`.
+Archived old commands live under local ignored `HaLyPO/scripts/` and should not
+be used as current evidence.
 
 ## Safety
 
 - Keep `/home/admin1/Project/IsaacLab` as an external runtime unless the user
   explicitly asks to modify it.
 - Do not move `env_isaaclab` into CoEvolve without a fresh migration plan.
-- Do not use `--viz kit` as a required test until the missing Kit extension is
-  fixed.
-- Do not treat `create_empty.py --viz newton` as a failure signal; empty stages
-  have no bodies for Newton to visualize.
-- Keep training headless where possible. Use visualization scripts for policy
-  evaluation and progress inspection.
-- Avoid deleting logs or generated artifacts unless they are clearly obsolete or
-  the user asks for cleanup.
-- Keep documentation short. Prefer one current plan over many stale TODO lists.
+- Treat `third_party/GR00T-WholeBodyControl` as a git-ignored local runtime.
+  Keep CoEvolve integration through a narrow adapter instead of mixing project
+  code into the SONIC tree.
+- Do not use old `HaLyPO/` experiments as current evidence without clearly
+  labeling them as archived.
+- Keep new implementation work out of `HaLyPO/` unless it is intentionally
+  archived there.
+- Keep GitHub uploads lean: do not track `third_party/`, `models/`,
+  generated `results/deployment/` outputs, local paper PDFs, or `HaLyPO/`.
+- Keep documentation short. Prefer one current plan in root docs over many
+  stale TODO lists.
 
 ## Working Style
 
-- Make small, verifiable milestones: M0 toy kernel, M1 2D transport, M2 Isaac
-  Two-G1 Box Push Lite, M3 one paper-like OSP scenario.
-- Use existing Isaac Lab task patterns before inventing new abstractions.
-- Keep paper-scale goals separate from minimum validation goals.
-- Record decisions in `HALyPO_REPRO_TODO.md`; record runtime facts in
-  `ENV_SETUP.md`.
+- New method focus: frozen/wrapped SONIC whole-body control plus verified
+  self-evolution of cooperative skill graphs.
+- Do not put LLMs in the high-frequency control loop.
+- Prefer state/physics verifiers over VLM-only judging.
+- Record new decisions in `TODO.md` or `docs/`; keep old HALyPO notes in
+  `HaLyPO/legacy_docs/`.

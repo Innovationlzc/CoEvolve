@@ -1,37 +1,20 @@
-# Environment Notes
+# Environment Setup
 
-This project uses Isaac Lab as an external runtime and keeps CoEvolve focused on
-HALyPO / two-G1 co-evolution code, configs, and notes.
+This repository keeps Praxis-Coop code in git and treats heavy runtimes/models
+as local external dependencies.
 
-## Runtime Location
+## Local Runtime Paths
 
-Do not move the Isaac Lab virtual environment into this repository for now.
-
-| Component | Location | Status |
+| Component | Expected local path | Git status |
 |---|---|---|
-| CoEvolve workspace | `/home/admin1/Project/CoEvolve` | project docs/code |
-| Isaac Lab runtime | `/home/admin1/Project/IsaacLab` | external upstream repo |
-| Python venv | `/home/admin1/Project/IsaacLab/env_isaaclab` | primary runtime |
-| HALyPO paper | `source/HALyPO.pdf` | local source paper |
+| CoEvolve repo | `/home/admin1/Project/CoEvolve` | tracked |
+| Isaac Lab | `/home/admin1/Project/IsaacLab` | external |
+| SONIC / GR00T-WholeBodyControl | `third_party/GR00T-WholeBodyControl` | ignored |
+| Qwen models | `models/` | ignored |
 
-Reason: `env_isaaclab` is large and tied to Isaac Lab editable packages, Kit
-extension caches, and launcher paths. Moving it into CoEvolve risks breaking the
-runtime without improving reproducibility. If CoEvolve needs a local entrypoint,
-add a small wrapper script later instead of relocating the environment.
+## Isaac Lab
 
-## Installed Versions
-
-| Package | Version / state |
-|---|---|
-| Python | 3.12.13 |
-| Isaac Sim | 6.0.0.0 |
-| Isaac Lab | `release/3.0.0-beta2`, `isaaclab 6.0.0` |
-| PyTorch | 2.10.0+cu128 |
-| GPU | RTX 4090, driver 595.58.03 |
-| RL extras | `rsl-rl-lib`, `skrl`, `rl-games`, `stable-baselines3` installed |
-| HAPPO/HATRPO | not installed yet; candidate baseline is `morning9393/HAPPO-HATRPO` |
-
-## Activate
+Use Isaac Lab's environment for tests that need USD/PXR or Isaac packages:
 
 ```bash
 cd /home/admin1/Project/IsaacLab
@@ -39,117 +22,73 @@ source env_isaaclab/bin/activate
 export OMNI_KIT_ACCEPT_EULA=YES
 ```
 
-## Current Validation Commands
-
-Headless Isaac startup:
-
-```bash
-./isaaclab.sh -p scripts/tutorials/00_sim/create_empty.py
-```
-
-Newton visualizer with a real environment:
-
-```bash
-./isaaclab.sh -p scripts/environments/random_agent.py \
-  --task Isaac-Cartpole-v0 \
-  --num_envs 8 \
-  --viz newton
-```
-
-G1 environment smoke test:
-
-```bash
-./isaaclab.sh -p scripts/environments/random_agent.py \
-  --task Isaac-Velocity-Flat-G1-Play-v0 \
-  --num_envs 1 \
-  --viz newton
-```
-
-CoEvolve M2 Two-G1 Box Push smoke test from this repo:
+Run repo tests from CoEvolve:
 
 ```bash
 cd /home/admin1/Project/CoEvolve
-OMNI_KIT_ACCEPT_EULA=YES /home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
-  scripts/run_m2_two_g1_box_push.py \
-  --num_envs 1 \
-  --max_steps 600 \
-  --log-every 50 \
-  --viz none
+/home/admin1/Project/IsaacLab/env_isaaclab/bin/python -m pytest -q
 ```
 
-Open the same M2 scene with Newton visualization:
+## SONIC Runtime
+
+Clone SONIC locally:
 
 ```bash
 cd /home/admin1/Project/CoEvolve
-OMNI_KIT_ACCEPT_EULA=YES /home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
-  scripts/run_m2_two_g1_box_push.py \
-  --num_envs 1 \
-  --max_steps 600 \
-  --log-every 50 \
-  --viz newton
+mkdir -p third_party
+git clone https://github.com/NVlabs/GR00T-WholeBodyControl.git third_party/GR00T-WholeBodyControl
 ```
 
-Train the M2 proxy independent-vs-HALyPO comparison:
+Install the upstream runtime following NVLabs' instructions. The current local
+setup expects:
+
+```text
+third_party/GR00T-WholeBodyControl/.venv_sim
+third_party/GR00T-WholeBodyControl/gear_sonic_deploy
+third_party/GR00T-WholeBodyControl/gear_sonic_deploy/policy/release/
+third_party/GR00T-WholeBodyControl/gear_sonic_deploy/planner/target_vel/V2/
+```
+
+The CoEvolve wrappers are:
+
+```text
+scripts/run_dual_sonic_manual_layout_sim.py
+scripts/run_official_sonic_deploy_zmq_manager.sh
+scripts/run_dual_official_sonic_motor_preflight.py
+```
+
+See `docs/REPRODUCTION.md` for the four-terminal launch sequence.
+
+## Qwen Models
+
+Qwen is not required for the current motor-layer preflight. For later
+SkillGraph/Qwen evolution experiments, download locally:
 
 ```bash
 cd /home/admin1/Project/CoEvolve
-/home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
-  scripts/run_m2_proxy_train.py
+PYTHONPATH=src /home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
+  scripts/download_phase1_models.py --model all
 ```
 
-Evaluate the trained HALyPO proxy policy in Isaac with Newton visualization:
+Expected local paths:
 
-```bash
-cd /home/admin1/Project/CoEvolve
-OMNI_KIT_ACCEPT_EULA=YES /home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
-  scripts/run_m2_two_g1_box_push.py \
-  --num_envs 1 \
-  --max_steps 130 \
-  --log-every 40 \
-  --policy-path results/m2_proxy_training/halypo_policy.json \
-  --stop-on-success \
-  --viz newton
+```text
+models/Qwen3-8B
+models/Qwen3-VL-8B-Instruct
 ```
 
-Run the newer M2 base-command adapter smoke:
+These are intentionally ignored by git.
 
-```bash
-cd /home/admin1/Project/CoEvolve
-OMNI_KIT_ACCEPT_EULA=YES /home/admin1/Project/IsaacLab/env_isaaclab/bin/python \
-  scripts/run_m2_two_g1_box_push.py \
-  --num_envs 1 \
-  --max_steps 120 \
-  --log-every 20 \
-  --action-mode base_command \
-  --stop-on-success \
-  --viz newton \
-  --output-dir results/m2_base_command_smoke
+## Spec Memory
+
+Curated static specs are tracked:
+
+```text
+results/spec_memory/static/default_specs.jsonl
 ```
 
-## Known Runtime Notes
+Generated dynamic specs are local outputs:
 
-- `create_empty.py --viz newton` is not a useful test: the stage has no bodies,
-  so Newton has no model to visualize.
-- `--viz kit` currently fails because the GUI experience depends on
-  `isaacsim.core.experimental.primdata`, which is missing from the installed
-  Isaac Sim extension set.
-- Training and environment development can proceed headless or with
-  `--viz newton`; Kit GUI can be fixed later if needed.
-- From CoEvolve, the same G1 visual smoke can be launched with
-  `scripts/run_m2_g1_smoke.py`.
-- `CoEvolve-TwoG1BoxPush-Direct-v0` registers correctly and runs headless or
-  with `--viz newton`. It is currently a proxy action task, not a full G1
-  control policy.
-- In M2 Lite, the G1 bodies are kept upright as visual actors. Without a G1
-  controller, free articulated G1 bodies fall over.
-- The current M2 eval does not use robot foot motion, arm motion, or contact to
-  push the box. The proxy action moves the box, and the G1 visuals follow
-  smoothly with fixed joints. This is training/eval plumbing only.
-- `--action-mode base_command` is one step closer: action moves the G1 base
-  visuals first, and the box moves through a virtual contact adapter. It still
-  is not walking, WBC, or true rigid-body contact pushing.
-
-## Historical Logs
-
-Install and smoke-test logs are archived under `logs/setup/`. Treat them as
-diagnostic history, not current truth.
+```text
+results/spec_memory/dynamic/
+```

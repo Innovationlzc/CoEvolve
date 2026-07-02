@@ -1,0 +1,14 @@
+[project]
+name = "praxis-coop"
+version = "0.1.0"
+description = "Verified self-evolution of cooperative skill graphs over SONIC whole-body control."
+requires-python = ">=3.10"
+dependencies = [
+  "accelerate",
+  "huggingface-hub",
+  "transformers",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
