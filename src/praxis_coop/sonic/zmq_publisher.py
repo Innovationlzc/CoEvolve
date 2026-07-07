@@ -61,6 +61,34 @@ class SonicZmqPublisher:
         if self.config.verbose:
             print("[sonic-zmq] command stop=True")
 
+    def send_delta_heading(self, delta_heading: float, *, planner: bool = True) -> None:
+        """Set SONIC's cumulative heading offset through the command channel."""
+
+        self._socket.send(
+            build_command_message(
+                start=False,
+                stop=False,
+                planner=planner,
+                delta_heading=float(delta_heading),
+            )
+        )
+        if self.config.verbose:
+            print(f"[sonic-zmq] command delta_heading={float(delta_heading):.3f} planner={planner}")
+
+    def send_heading_increment(self, heading_increment: float, *, planner: bool = True) -> None:
+        """Increment SONIC's current heading offset through the command channel."""
+
+        self._socket.send(
+            build_command_message(
+                start=False,
+                stop=False,
+                planner=planner,
+                heading_increment=float(heading_increment),
+            )
+        )
+        if self.config.verbose:
+            print(f"[sonic-zmq] command heading_increment={float(heading_increment):.4f} planner={planner}")
+
     def send_planner_command(self, command: SonicCommand) -> None:
         self._socket.send(
             build_planner_message(
@@ -153,6 +181,7 @@ def build_command_message(
     stop: bool,
     planner: bool,
     delta_heading: float | None = None,
+    heading_increment: float | None = None,
 ) -> bytes:
     fields = [
         {"name": "start", "dtype": "u8", "shape": [1]},
@@ -167,6 +196,9 @@ def build_command_message(
     if delta_heading is not None:
         fields.append({"name": "delta_heading", "dtype": "f32", "shape": [1]})
         payload += struct.pack("<f", float(delta_heading))
+    if heading_increment is not None:
+        fields.append({"name": "heading_increment", "dtype": "f32", "shape": [1]})
+        payload += struct.pack("<f", float(heading_increment))
     return b"command" + _build_header(fields) + payload
 
 

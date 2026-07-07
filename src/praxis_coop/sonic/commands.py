@@ -13,6 +13,7 @@ class SonicLocomotionMode(IntEnum):
     SLOW_WALK = 1
     WALK = 2
     RUN = 3
+    IDLE_SQUAT = 4
     OBJECT_CARRYING = 21
 
 

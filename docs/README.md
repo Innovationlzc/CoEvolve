@@ -7,7 +7,8 @@ This directory keeps one document per responsibility.
 | `PROJECT_CHARTER.md` | research direction, contribution boundary, non-goals |
 | `SYSTEM_DESIGN.md` | architecture, code layout, roles, verifier, SpecMemory, evolution loop |
 | `SONIC_INTEGRATION.md` | official SONIC/GEAR-SONIC backend boundary and motor-layer status |
-| `REPRODUCTION.md` | current runnable commands and expected behavior |
+| `STATIC_SONIC_SKILLS.md` | current successful static skill commands |
+| `REPRODUCTION.md` | concise reproduction boundary and test entry |
 | `PAPER_PLAN_AAAI27.md` | paper experiments, baselines, metrics, figures |
 
 Avoid duplicating sections across documents. If a topic spans multiple files,

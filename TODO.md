@@ -19,13 +19,19 @@ then build verified cooperative SkillGraph evolution above it.
 - [x] Add lowcmd readiness plus planner-heartbeat gating before releasing the
   MuJoCo support band.
 - [x] Visually pass the known-good no-box dual-G1 synchronized stand/walk run.
-- [x] Record the exact four-terminal baseline command in `README.md` and
-  `docs/REPRODUCTION.md`.
+- [x] Record the exact four-terminal baseline and static-skill commands in
+  `docs/STATIC_SONIC_SKILLS.md`.
 
 ## M2: Payload-Contact Preparation
 
-- [ ] Add the physical `long_box` contact trial only after the no-box motor
-  baseline remains stable.
+- [x] Build the first static SONIC skill library above the official deploy
+  backend: parallel forward, carry forward/backward, carry turn, carry-place
+  crouch, plus selected single-robot publishing.
+- [x] Validate carry backward and carry turn as static motor skills.
+- [x] Tune carry-place crouch and add `carry_recover_stand` for returning to
+  upright.
+- [ ] Add the physical 5kg `long_box` contact/stability trial on top of the
+  static skill library.
 - [ ] Tune contact geometry, friction, and payload mass in local experiments
   before adding any payload run to public reproduction docs.
 - [ ] Keep failed or unstable payload trials out of README and GitHub-facing
@@ -46,11 +52,15 @@ then build verified cooperative SkillGraph evolution above it.
 
 - [x] Define typed schemas for taxonomy, roles, SkillGraph, verifier reports,
   patches, and deployment specs.
-- [x] Add text-first static/dynamic SpecMemory layout.
+- [x] Keep text-first SpecMemory code/layout ready for later model-driven
+  experiments.
 - [x] Wire Qwen JSON parsing for critic/coder/spec outputs.
+- [x] Add a DeploymentExperienceMemory helper for future dynamic rollout
+  evidence.
+- [ ] Promote the static SONIC skill library into the Stage 1 SkillGraph runner.
 - [ ] Promote the official dual SONIC backend into the Stage 1 SkillGraph runner.
-- [ ] Save only verifier-backed success/failure deployment specs into dynamic
-  SpecMemory.
+- [ ] Start SpecMemory generation only inside the real Qwen/Orchestrator
+  evolution loop, after verifier-backed success/failure rollouts.
 - [ ] Add regression checks before promoting a learned spec.
 
 ## M5: Models And Paper Experiments

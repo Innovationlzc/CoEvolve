@@ -64,6 +64,7 @@ def generate_manual_layout_scene(
     source_usda: Path = DEFAULT_USDA_SCENE,
     gear_root: Path = DEFAULT_GEAR_ROOT,
     scene_rel_path: Path = DEFAULT_SCENE_REL_PATH,
+    payload_mass_kg: float = 5.0,
 ) -> SonicMujocoSceneResult:
     """Write a SONIC-compatible MJCF scene containing the manual layout.
 
@@ -78,7 +79,7 @@ def generate_manual_layout_scene(
 
     scene_path = gear_root / scene_rel_path
     scene_path.parent.mkdir(parents=True, exist_ok=True)
-    scene_path.write_text(_build_scene_xml(prims), encoding="utf-8")
+    scene_path.write_text(_build_scene_xml(prims, payload_mass_kg=payload_mass_kg), encoding="utf-8")
     return SonicMujocoSceneResult(
         source_usda=source_usda,
         gear_root=gear_root,
@@ -99,6 +100,7 @@ def generate_dual_manual_layout_scene(
     back_g1_rel_path: Path = DEFAULT_BACK_G1_XML,
     use_official_standing_z: bool = True,
     include_payload: bool = True,
+    payload_mass_kg: float = 5.0,
 ) -> SonicMujocoDualSceneResult:
     """Write a dual-G1 SONIC-native MJCF scene for the manual layout.
 
@@ -142,6 +144,7 @@ def generate_dual_manual_layout_scene(
             front_g1_rel_path.name,
             back_g1_rel_path.name,
             include_payload=include_payload,
+            payload_mass_kg=payload_mass_kg,
         ),
         encoding="utf-8",
     )
@@ -156,17 +159,18 @@ def generate_dual_manual_layout_scene(
             "two namespaced G1 MJCF copies start at the hand-authored USDA x/y/yaw; "
             "z uses the official standing pelvis height unless disabled; "
             f"payload={'included' if include_payload else 'omitted'}"
+            + (f", payload_mass_kg={payload_mass_kg:.3g}" if include_payload else "")
         ),
     )
 
 
-def _build_scene_xml(prims: list[UsdaPrim2D]) -> str:
+def _build_scene_xml(prims: list[UsdaPrim2D], *, payload_mass_kg: float = 5.0) -> str:
     walls = [prim for prim in prims if prim.kind == "wall"]
     long_box = _require_prim(prims, "long_box")
     target = _require_prim(prims, "target")
 
     wall_xml = "\n".join(_wall_geom_xml(prim) for prim in walls)
-    box_xml = _free_box_xml(long_box)
+    box_xml = _free_box_xml(long_box, mass_kg=payload_mass_kg)
     target_xml = _target_xml(target)
 
     return f"""<mujoco model="praxis_manual_layout_g1_43dof_scene">
@@ -209,13 +213,14 @@ def _build_dual_scene_xml(
     back_file: str,
     *,
     include_payload: bool = True,
+    payload_mass_kg: float = 5.0,
 ) -> str:
     walls = [prim for prim in prims if prim.kind == "wall"]
     long_box = _require_prim(prims, "long_box")
     target = _require_prim(prims, "target")
 
     wall_xml = "\n".join(_wall_geom_xml(prim) for prim in walls)
-    box_xml = _free_box_xml(long_box) if include_payload else ""
+    box_xml = _free_box_xml(long_box, mass_kg=payload_mass_kg) if include_payload else ""
     target_xml = _target_xml(target)
 
     return f"""<mujoco model="praxis_manual_layout_two_g1_43dof_scene">
@@ -345,11 +350,13 @@ def _wall_geom_xml(prim: UsdaPrim2D) -> str:
     )
 
 
-def _free_box_xml(prim: UsdaPrim2D) -> str:
+def _free_box_xml(prim: UsdaPrim2D, *, mass_kg: float = 5.0) -> str:
+    if mass_kg <= 0.0:
+        raise ValueError(f"payload mass must be positive, got {mass_kg}")
     size = _half_extents(prim)
     return f"""    <body name="long_box" pos="{_vec3(prim.x, prim.y, prim.z)}" quat="{_yaw_quat(prim.yaw)}">
       <freejoint name="long_box_freejoint"/>
-      <geom name="long_box_geom" type="box" size="{_vec3(*size)}" mass="10.0"
+      <geom name="long_box_geom" type="box" size="{_vec3(*size)}" mass="{mass_kg:.9g}"
         rgba="0.1 0.45 0.9 1" friction="1.2 0.03 0.001"/>
     </body>"""
 

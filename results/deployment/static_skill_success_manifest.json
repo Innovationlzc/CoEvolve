@@ -1,0 +1,139 @@
+{
+  "status": "local_manual_static_skill_manifest",
+  "scope": "official GEAR-SONIC / MuJoCo motor-layer static skills only; no payload success claimed",
+  "notes": [
+    "These entries record the current local manually verified skill state.",
+    "SpecMemory is not generated in this static skill tuning phase.",
+    "Most generated result artifacts remain git-ignored; tracked reproduction commands live in docs/REPRODUCTION.md."
+  ],
+  "skills": [
+    {
+      "skill": "parallel_forward",
+      "label": "dual G1 synchronized forward walk",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_dual_sonic_manual_layout_sim.py",
+        "scripts/run_dual_official_sonic_motor_preflight.py"
+      ],
+      "artifact": "results/deployment/arm_pose_tuning/elbow110_walk/dual_preflight_result.json"
+    },
+    {
+      "skill": "elbow110_carry_ready",
+      "label": "motor-side upper-body carry pose lock",
+      "state": "manual_success",
+      "primary_code": [
+        "src/praxis_coop/sonic/upper_body.py",
+        "src/praxis_coop/sonic_mujoco/dual_runtime.py"
+      ],
+      "artifact": "results/deployment/arm_pose_tuning/elbow110/planner_heartbeat.json"
+    },
+    {
+      "skill": "carry_forward",
+      "label": "forward walk with carry-ready upper-body lock",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_forward_validation/carry_forward_result.json",
+      "default_parameters": {
+        "distance_m": 1.5,
+        "speed_mps": 0.15
+      }
+    },
+    {
+      "skill": "carry_backward",
+      "label": "backward walk with carry-ready upper-body lock",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_backward_validation/carry_backward_result.json",
+      "default_parameters": {
+        "distance_m": 1.5,
+        "speed_mps": 0.1
+      }
+    },
+    {
+      "skill": "carry_place_crouch",
+      "label": "stationary knee-bend place posture with carry-ready upper-body lock",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py",
+        "src/praxis_coop/sonic_mujoco/dual_runtime.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_place_crouch_h055/carry_place_crouch_result.json",
+      "default_parameters": {
+        "place_start_height": 0.8,
+        "place_height": 0.55,
+        "place_ramp_seconds": 2,
+        "place_hold_seconds": 10
+      }
+    },
+    {
+      "skill": "carry_recover_stand",
+      "label": "recover from stationary knee-bend place posture to upright carry-ready standing",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py",
+        "src/praxis_coop/sonic_mujoco/dual_runtime.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_recover_stand_validation/carry_recover_stand_result.json",
+      "default_parameters": {
+        "height": 0.8,
+        "place_ramp_seconds": 3,
+        "place_hold_seconds": 5
+      }
+    },
+    {
+      "skill": "carry_turn_clockwise_90 / carry_turn_counterclockwise_90",
+      "label": "explicit incremental heading turn aliases with carry-ready upper-body lock; -yaw is clockwise, +yaw is counterclockwise",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "scripts/validate_static_sonic_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py",
+        "src/praxis_coop/sonic/zmq_publisher.py",
+        "patches/gear_sonic_heading_increment.patch"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_turn_in_place_90deg_incremental_slow/carry_turn_in_place_result.json"
+    },
+    {
+      "skill": "carry_lateral_left",
+      "label": "left side-step with carry-ready upper-body lock",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "scripts/validate_static_sonic_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_lateral_left_validation/carry_lateral_left_result.json",
+      "default_parameters": {
+        "distance_m": 1.5,
+        "speed_mps": 0.45,
+        "reference_frame": "body",
+        "does_not_auto_turn": true
+      }
+    },
+    {
+      "skill": "carry_lateral_right",
+      "label": "right side-step with carry-ready upper-body lock",
+      "state": "manual_success",
+      "primary_code": [
+        "scripts/run_sonic_static_skill.py",
+        "scripts/validate_static_sonic_skill.py",
+        "src/praxis_coop/sonic/skill_presets.py"
+      ],
+      "artifact": "results/deployment/static_skill_live/carry_lateral_right_validation/carry_lateral_right_result.json",
+      "default_parameters": {
+        "distance_m": 1.5,
+        "speed_mps": 0.45,
+        "reference_frame": "body",
+        "does_not_auto_turn": true
+      }
+    }
+  ]
+}

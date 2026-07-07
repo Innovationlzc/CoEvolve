@@ -23,6 +23,7 @@ if str(GEAR_ROOT) not in sys.path:
 from praxis_coop.sonic_mujoco.dual_runtime import (  # noqa: E402
     DualG1SonicMujocoRuntime,
     DualRobotSpec,
+    PlaceCrouchMotorLock,
     UpperBodyPoseLock,
 )
 from praxis_coop.sonic_mujoco.manual_layout_scene import (  # noqa: E402
@@ -46,6 +47,12 @@ def main() -> None:
         "--with-box",
         action="store_true",
         help="Include long_box. Leave off for the first dual no-box motor validation.",
+    )
+    parser.add_argument(
+        "--box-mass-kg",
+        type=float,
+        default=5.0,
+        help="Mass for the included long_box when --with-box is set.",
     )
     parser.add_argument("--no-onscreen", action="store_true")
     parser.add_argument("--disable-elastic-band", action="store_true")
@@ -90,10 +97,24 @@ def main() -> None:
         help="Maximum wall-clock age for --planner-heartbeat-file before drop is blocked.",
     )
     parser.add_argument(
+        "--planner-heartbeat-drop-phase-keyword",
+        default="",
+        help=(
+            "If set, auto-drop is blocked until the planner heartbeat phase contains this keyword. "
+            "The check also matches skill_node and sync_group. Use 'static_sonic_skill' for static skill tests."
+        ),
+    )
+    parser.add_argument(
         "--upper-body-lock-pose",
-        choices=sorted(("none", *UPPER_BODY_POSES)),
+        choices=sorted(("none", "custom", *UPPER_BODY_POSES)),
         default="none",
         help="Apply a symmetric motor-side arm pose lock in MuJoCo; leaves SONIC in charge of lower-body control.",
+    )
+    parser.add_argument(
+        "--upper-body-lock-values",
+        nargs=17,
+        metavar="RAD",
+        help="Custom 17-float motor-side arm pose lock target; requires --upper-body-lock-pose custom.",
     )
     parser.add_argument(
         "--upper-body-lock-kp",
@@ -130,11 +151,84 @@ def main() -> None:
         help="Also lock waist joints. Off by default because waist motion helps SONIC balance.",
     )
     parser.add_argument(
+        "--upper-body-lock-observed-by-policy",
+        action="store_true",
+        help=(
+            "Expose the physical locked arm pose to the SONIC policy. By default the locked "
+            "upper-body joints are hidden from policy observation so lower-body balance does "
+            "not crouch in response to a motor-side carry pose lock."
+        ),
+    )
+    parser.add_argument(
+        "--upper-body-lock-world-level",
+        action="store_true",
+        help=(
+            "Compensate torso pitch by adjusting shoulder pitch so the carry forearms stay "
+            "closer to their world-frame level during squat/place skills."
+        ),
+    )
+    parser.add_argument(
+        "--upper-body-lock-level-gain",
+        type=float,
+        default=1.0,
+        help="Gain for world-level shoulder-pitch compensation when --upper-body-lock-world-level is set.",
+    )
+    parser.add_argument(
+        "--upper-body-lock-level-limit-rad",
+        type=float,
+        default=0.45,
+        help="Absolute radian limit for world-level shoulder-pitch compensation.",
+    )
+    parser.add_argument(
+        "--upper-body-lock-world-level-phase-keyword",
+        default="carry_place_crouch",
+        help=(
+            "Only enable world-level compensation while the planner heartbeat phase contains this keyword. "
+            "Use an empty string to enable whenever the lock is active."
+        ),
+    )
+    parser.add_argument(
         "--smoke-steps",
         type=int,
         default=0,
         help="Run N physics steps and exit; useful for headless mapping checks.",
     )
+    parser.add_argument(
+        "--max-sim-time-s",
+        type=float,
+        default=None,
+        help="Stop automatically after this many MuJoCo seconds. Useful for no-onscreen regression runs.",
+    )
+    parser.add_argument(
+        "--summary-file",
+        type=Path,
+        default=None,
+        help="Write a JSON runtime summary on exit.",
+    )
+    parser.add_argument(
+        "--runtime-state-file",
+        type=Path,
+        default=None,
+        help=(
+            "Continuously write live MuJoCo root poses/yaws for Terminal 4 body-relative skills. "
+            "Defaults to <planner-heartbeat-dir>/runtime_state.json when a heartbeat file is set."
+        ),
+    )
+    parser.add_argument(
+        "--runtime-state-write-interval-s",
+        type=float,
+        default=0.1,
+        help="Minimum interval for --runtime-state-file updates.",
+    )
+    parser.add_argument(
+        "--disable-place-crouch-lock",
+        action="store_true",
+        help="Disable the runtime-side stationary crouch assist for carry_place_crouch.",
+    )
+    parser.add_argument("--place-crouch-kp", type=float, default=40.0)
+    parser.add_argument("--place-crouch-kd", type=float, default=7.0)
+    parser.add_argument("--place-crouch-torque-blend", type=float, default=0.55)
+    parser.add_argument("--place-crouch-torque-limit-fraction", type=float, default=0.45)
     args = parser.parse_args()
 
     interface = _resolve_interface(args.interface)
@@ -144,6 +238,7 @@ def main() -> None:
         gear_root=GEAR_ROOT,
         scene_rel_path=scene_rel_path,
         include_payload=args.with_box,
+        payload_mass_kg=args.box_mass_kg,
     )
     config = _load_official_wbc_config()
     config["ROBOT_SCENE"] = str(generated.scene_rel_path)
@@ -154,6 +249,8 @@ def main() -> None:
 
     print(f"[praxis-dual-sonic] source_usda={generated.source_usda}", flush=True)
     print(f"[praxis-dual-sonic] robot_scene={generated.scene_rel_path}", flush=True)
+    if args.with_box:
+        print(f"[praxis-dual-sonic] long_box_mass_kg={args.box_mass_kg:.3g}", flush=True)
     print(f"[praxis-dual-sonic] using DDS interface: {interface}", flush=True)
     print("[praxis-dual-sonic] deploy terminals:", flush=True)
     print(
@@ -178,7 +275,7 @@ def main() -> None:
             flush=True,
         )
     upper_body_lock = None
-    upper_body_lock_target = resolve_upper_body_pose(args.upper_body_lock_pose)
+    upper_body_lock_target = resolve_upper_body_pose(args.upper_body_lock_pose, args.upper_body_lock_values)
     if upper_body_lock_target is not None:
         upper_body_lock = UpperBodyPoseLock(
             target=upper_body_lock_target,
@@ -188,6 +285,11 @@ def main() -> None:
             include_waist=args.upper_body_lock_include_waist,
             start_after_drop_s=args.upper_body_lock_start_after_drop_s,
             enabled_before_drop=args.upper_body_lock_before_drop,
+            hide_from_policy=not args.upper_body_lock_observed_by_policy,
+            world_level=args.upper_body_lock_world_level,
+            level_gain=args.upper_body_lock_level_gain,
+            level_limit_rad=args.upper_body_lock_level_limit_rad,
+            world_level_phase_keyword=args.upper_body_lock_world_level_phase_keyword,
         )
         print(
             f"[praxis-dual-sonic] upper_body_lock_pose={args.upper_body_lock_pose} "
@@ -195,9 +297,17 @@ def main() -> None:
             f"ramp_s={args.upper_body_lock_ramp_s:.2f} "
             f"start_after_drop_s={args.upper_body_lock_start_after_drop_s:.2f} "
             f"include_waist={args.upper_body_lock_include_waist} "
-            f"before_drop={args.upper_body_lock_before_drop}",
+            f"before_drop={args.upper_body_lock_before_drop} "
+            f"hide_from_policy={not args.upper_body_lock_observed_by_policy} "
+            f"world_level={args.upper_body_lock_world_level}",
             flush=True,
         )
+
+    runtime_state_file = args.runtime_state_file
+    if runtime_state_file is None and args.planner_heartbeat_file is not None:
+        runtime_state_file = args.planner_heartbeat_file.parent / "runtime_state.json"
+    if runtime_state_file is not None:
+        print(f"[praxis-dual-sonic] runtime_state_file={runtime_state_file}", flush=True)
 
     runtime = DualG1SonicMujocoRuntime(
         config=config,
@@ -214,7 +324,20 @@ def main() -> None:
         min_drop_time_s=args.min_drop_time_s,
         planner_heartbeat_file=args.planner_heartbeat_file,
         planner_heartbeat_max_age_s=args.planner_heartbeat_max_age_s,
+        planner_heartbeat_drop_phase_keyword=args.planner_heartbeat_drop_phase_keyword,
         stop_on_fall=args.stop_on_fall,
+        max_sim_time_s=args.max_sim_time_s,
+        summary_file=args.summary_file,
+        runtime_state_file=runtime_state_file,
+        runtime_state_write_interval_s=args.runtime_state_write_interval_s,
+        place_crouch_motor_lock=None
+        if args.disable_place_crouch_lock
+        else PlaceCrouchMotorLock(
+            kp=args.place_crouch_kp,
+            kd=args.place_crouch_kd,
+            torque_blend=args.place_crouch_torque_blend,
+            torque_limit_fraction=args.place_crouch_torque_limit_fraction,
+        ),
     )
     if args.smoke_steps > 0:
         for _ in range(args.smoke_steps):

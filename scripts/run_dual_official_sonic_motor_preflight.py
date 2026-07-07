@@ -78,10 +78,22 @@ def main() -> None:
         hand_pose_name = "default"
     upper_body_position = resolve_upper_body_pose(upper_body_pose_name, args.upper_body_values)
     upper_body_start_position = resolve_upper_body_pose(args.upper_body_start_pose, None)
+    planner_controls_upper_body = upper_body_position is not None or args.upper_body_ramp_seconds > 0.0
+    stabilize_upper_body_position = upper_body_start_position if planner_controls_upper_body else None
     left_hand_joints, right_hand_joints = resolve_hand_pose(
         hand_pose_name,
         args.left_hand_values,
         args.right_hand_values,
+    )
+    print(
+        "[dual-sonic-preflight] command config "
+        f"walk_mode={args.walk_mode} height={args.height:.3f} "
+        f"upper_body_pose={upper_body_pose_name} hand_pose={hand_pose_name} "
+        f"upper_body_start_pose={args.upper_body_start_pose} "
+        f"planner_controls_upper_body={planner_controls_upper_body} "
+        f"stand_seconds={args.stand_seconds:.1f} walk_meters={args.walk_meters:.2f} "
+        f"movement=({movement[0]:.3f},{movement[1]:.3f}) facing=({facing[0]:.3f},{facing[1]:.3f})",
+        flush=True,
     )
     if upper_body_position is not None:
         print(
@@ -129,13 +141,14 @@ def main() -> None:
                     phase_id="dual_motor_preflight_stabilize_default",
                     left_hand_joints=left_hand_joints,
                     right_hand_joints=right_hand_joints,
-                    upper_body_position=upper_body_start_position,
+                    upper_body_position=stabilize_upper_body_position,
                 )
                 for robot_id in publishers
             }
             print(
                 f"[dual-sonic-preflight] stabilize with upper_body_start_pose="
-                f"{args.upper_body_start_pose} for {args.stabilize_seconds:.1f}s",
+                f"{args.upper_body_start_pose if planner_controls_upper_body else 'none'} "
+                f"for {args.stabilize_seconds:.1f}s",
                 flush=True,
             )
             counts.append(
@@ -198,7 +211,7 @@ def main() -> None:
                 for robot_id in publishers
             }
             print(
-                f"[dual-sonic-preflight] carry pose hold ready; press 9 now if ElasticBand is still enabled. "
+                f"[dual-sonic-preflight] synchronized stand ready; press 9 now if ElasticBand is still enabled. "
                 f"holding for {args.stand_seconds:.1f}s",
                 flush=True,
             )
@@ -306,7 +319,6 @@ def main() -> None:
         "success_criterion": [
             "two G1 robots remain upright after ElasticBand is disabled",
             "both robots execute the same walking phase at the same time",
-            "upper-body and hand planner targets keep the payload-support pose stable",
             "no root-pose proxy, no Isaac fake success, no payload contact is involved in no-box tests",
         ],
     }
@@ -325,9 +337,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--start-pulse-seconds", type=float, default=6.0)
     parser.add_argument("--start-pulse-hz", type=float, default=10.0)
     parser.add_argument("--stand-seconds", type=float, default=8.0)
-    parser.add_argument("--walk-meters", type=float, default=1.0)
+    parser.add_argument("--walk-meters", type=float, default=2.0)
     parser.add_argument("--walk-seconds", type=float, default=None)
-    parser.add_argument("--walk-speed", type=float, default=0.2)
+    parser.add_argument("--walk-speed", type=float, default=0.25)
     parser.add_argument("--walk-mode", choices=sorted(MODE_BY_NAME), default="slow_walk")
     parser.add_argument("--movement-x", type=float, default=1.0)
     parser.add_argument("--movement-y", type=float, default=0.0)
@@ -338,7 +350,7 @@ def parse_args() -> argparse.Namespace:
         "--stabilize-seconds",
         type=float,
         default=0.0,
-        help="Hold a stable upper-body start pose before ramping into the carrying pose.",
+        help="Hold an optional planner-side upper-body start pose before the main stand/walk phase.",
     )
     parser.add_argument(
         "--upper-body-start-pose",

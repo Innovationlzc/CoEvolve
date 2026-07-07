@@ -29,6 +29,7 @@ results/**
 !results/README.md
 !results/deployment/
 !results/deployment/README.md
+!results/deployment/static_skill_success_manifest.json
 !results/spec_memory/
 !results/spec_memory/static/
 !results/spec_memory/static/default_specs.jsonl
@@ -51,6 +52,3 @@ source/*.pdf
 # Isaac/Omniverse local caches or exports
 *.usd~
 *.usdc
-
-
-HaLyPO

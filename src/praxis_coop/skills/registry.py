@@ -93,6 +93,27 @@ def default_g1_skill_registry() -> SkillRegistry:
                 guards=["stop_if_robot_fall", "stop_if_contact_slips", "stop_if_partner_lag_large"],
                 failure_modes=["robot_fall", "timeout", "yaw_overshoot", "contact_loss"],
             ),
+            "bend_knee_place_payload": SkillDefinition(
+                name="bend_knee_place_payload",
+                skill_type="sonic_height_control_with_upper_body_lock",
+                command_schema={
+                    "start_height_m": "float",
+                    "place_height_m": "float",
+                    "ramp_seconds": "float",
+                    "hold_seconds": "float",
+                    "upper_body_lock": "'elbow110_carry_ready'|'manual_scene_initial'",
+                },
+                allowed_roles=["navigation_leader", "stability_follower"],
+                preconditions=["robot_is_balanced", "payload_near_place_target", "upper_body_lock_active"],
+                postconditions=["payload_lowered_to_place_height"],
+                guards=[
+                    "stop_if_robot_fall",
+                    "stop_if_wrist_drift_large",
+                    "stop_if_partner_lag_large",
+                    "stop_if_payload_tilt_large",
+                ],
+                failure_modes=["robot_fall", "wrist_drift", "partner_lag", "payload_tilt"],
+            ),
             "establish_payload_contact": SkillDefinition(
                 name="establish_payload_contact",
                 skill_type="payload_contact",

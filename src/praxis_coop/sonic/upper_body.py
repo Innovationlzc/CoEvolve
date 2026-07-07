@@ -60,7 +60,7 @@ SONIC_DEFAULT_UPPER_BODY = (
     0.0,
 )
 
-# Conservative initial target for a payload-support pose.  In the G1 MJCF/SONIC
+# Conservative initial target for a payload-support pose. In the G1 MJCF/SONIC
 # convention, negative shoulder pitch moves the wrists in front of the torso.
 SOFT_HORIZONTAL_CARRY_UPPER_BODY = (
     0.0,
@@ -82,7 +82,31 @@ SOFT_HORIZONTAL_CARRY_UPPER_BODY = (
     0.0,
 )
 
-HORIZONTAL_CARRY_UPPER_BODY = SOFT_HORIZONTAL_CARRY_UPPER_BODY
+# Arm-only box support target validated with MuJoCo FK on the G1 MJCF:
+# the elbow-to-wrist segment is nearly horizontal, the palm stays in front of
+# the torso, and the left/right hands are height-symmetric. This is meant for
+# the motor-side pose lock, not as evidence of a completed payload experiment.
+BOX_SUPPORT_PARALLEL_UPPER_BODY = (
+    0.0,
+    0.0,
+    0.0,
+    -0.50,
+    -0.50,
+    0.12,
+    -0.12,
+    0.0,
+    0.0,
+    0.40,
+    0.40,
+    0.0,
+    0.0,
+    0.10,
+    0.10,
+    0.0,
+    0.0,
+)
+
+HORIZONTAL_CARRY_UPPER_BODY = BOX_SUPPORT_PARALLEL_UPPER_BODY
 
 # First stable stepping stone for SONIC: keep the arms modestly forward while
 # preserving enough shoulder freedom for balance recovery.
@@ -106,12 +130,40 @@ BALANCE_CARRY_UPPER_BODY = (
     0.0,
 )
 
+# Current best visually validated carry-ready arm pose for the dual-G1 MuJoCo
+# motor-side lock. The user's latest tuning found this elbow angle stable while
+# keeping both robots upright when the locked arm pose is hidden from the SONIC
+# policy observation.
+ELBOW110_CARRY_READY_UPPER_BODY = (
+    0.0,
+    0.0,
+    0.0,
+    -0.75,
+    -0.75,
+    0.12,
+    -0.12,
+    0.0,
+    0.0,
+    0.15,
+    0.15,
+    0.0,
+    0.0,
+    0.10,
+    0.10,
+    0.0,
+    0.0,
+)
+
 UPPER_BODY_POSES = {
     "zero": ZERO_UPPER_BODY,
     "sonic_default": SONIC_DEFAULT_UPPER_BODY,
     "balance_carry": BALANCE_CARRY_UPPER_BODY,
+    "elbow110_carry_ready": ELBOW110_CARRY_READY_UPPER_BODY,
+    "carry_elbow110": ELBOW110_CARRY_READY_UPPER_BODY,
+    "box_support_parallel": BOX_SUPPORT_PARALLEL_UPPER_BODY,
     "soft_horizontal_carry": SOFT_HORIZONTAL_CARRY_UPPER_BODY,
     "horizontal_carry": HORIZONTAL_CARRY_UPPER_BODY,
+    "parallel_box_support": BOX_SUPPORT_PARALLEL_UPPER_BODY,
     "parallel_carry": HORIZONTAL_CARRY_UPPER_BODY,
     "isaac_initial_carry": HORIZONTAL_CARRY_UPPER_BODY,
 }

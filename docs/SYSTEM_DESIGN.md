@@ -166,6 +166,34 @@ SkillNode(
 3. Geometry: footprint clearance, gate yaw, pivot feasibility.
 4. VLM: semantic failure explanation from camera traces.
 
+## Static Skill Library
+
+The current static SONIC skill library lives in:
+
+```text
+src/praxis_coop/sonic/skill_presets.py
+scripts/run_sonic_static_skill.py
+```
+
+It is the deployment-callable action library used before SkillGraph evolution:
+
+| Skill | Purpose |
+|---|---|
+| `parallel_forward` | synchronized no-arm-lock forward walk |
+| `carry_forward` | forward walk with carry-ready arm lock |
+| `carry_backward` | backward walk with carry-ready arm lock |
+| `carry_lateral_left/right` | body-relative lateral walk with carry-ready arm lock |
+| `carry_turn_in_place` | commanded yaw turn with carry-ready arm lock |
+| `carry_place_crouch` | stationary knee-bend place posture with carry-ready arm lock |
+| `carry_recover_stand` | recover from knee bend to upright with carry-ready arm lock |
+
+The script supports dual publishing (`--robots front back`) and selected
+single-robot publishing (`--robots front`, `--robots back`, or `--robots g1`).
+These skills are not themselves an evolution loop; they are the legal actions
+that Orchestrator/SkillGraph can call.
+
+Current runnable commands live in `STATIC_SONIC_SKILLS.md`.
+
 ## Deployment-Experience SpecMemory
 
 Spec memory is centralized under:
@@ -174,6 +202,16 @@ Spec memory is centralized under:
 results/spec_memory/static/
 results/spec_memory/dynamic/
 ```
+
+Dynamic rollout evidence is stored separately through
+`src/praxis_coop/memory/deployment_experience.py`. It is an experiment log for
+what happened during deployment attempts. Only verifier-backed reusable lessons
+should be promoted from dynamic experience into SpecMemory.
+
+Current static SONIC skill tuning does not write SpecMemory. It only produces
+deployment/debug artifacts under `results/deployment/`. SpecMemory generation
+starts later, inside the real Qwen/Orchestrator evolution loop, after the
+physics verifier accepts a success/failure rollout.
 
 SpecMemory is not a patch-selection policy and does not maintain a separate
 meta-policy. A patch is only the immediate repair action for one failed rollout.

@@ -45,6 +45,12 @@ def main() -> None:
         help="Omit long_box from the dual-G1 scene for motor-only synchronization validation.",
     )
     parser.add_argument(
+        "--box-mass-kg",
+        type=float,
+        default=5.0,
+        help="Mass for long_box when payload is included.",
+    )
+    parser.add_argument(
         "--compile-check",
         action="store_true",
         help="After writing the scene, compile it with mujoco.MjModel.from_xml_path.",
@@ -65,6 +71,7 @@ def main() -> None:
             scene_rel_path=scene_rel_path,
             use_official_standing_z=not args.use_manual_robot_z,
             include_payload=not args.no_payload,
+            payload_mass_kg=args.box_mass_kg,
         )
         print(f"[praxis-sonic] source_usda={result.source_usda}")
         print(f"[praxis-sonic] wrote scene={result.scene_path}")
@@ -77,6 +84,8 @@ def main() -> None:
             )
         print(f"[praxis-sonic] prim_count={result.prim_count}")
         print(f"[praxis-sonic] note={result.robot_start_note}")
+        if not args.no_payload:
+            print(f"[praxis-sonic] long_box_mass_kg={args.box_mass_kg:.3g}")
         if args.compile_check:
             _compile_check(result.scene_path)
         return
@@ -85,12 +94,14 @@ def main() -> None:
         source_usda=args.source_usda,
         gear_root=args.gear_root,
         scene_rel_path=args.scene_rel_path,
+        payload_mass_kg=args.box_mass_kg,
     )
     print(f"[praxis-sonic] source_usda={result.source_usda}")
     print(f"[praxis-sonic] wrote scene={result.scene_path}")
     print(f"[praxis-sonic] robot_scene={result.scene_rel_path}")
     print(f"[praxis-sonic] prim_count={result.prim_count}")
     print(f"[praxis-sonic] note={result.robot_start_note}")
+    print(f"[praxis-sonic] long_box_mass_kg={args.box_mass_kg:.3g}")
     if args.compile_check:
         _compile_check(result.scene_path)
 
