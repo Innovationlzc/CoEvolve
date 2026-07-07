@@ -32,6 +32,31 @@ The generated MJCF files are written into the local ignored SONIC runtime:
 third_party/GR00T-WholeBodyControl/gear_sonic/data/robot_model/model_data/g1/
 ```
 
+## Required Local SONIC Patches
+
+The dual-G1 workflow requires two CoEvolve patches inside the ignored SONIC
+runtime. Script-level `--dds-topic-prefix` is not enough; the C++ deploy binary
+and Python MuJoCo bridge must both understand prefixed DDS topics.
+
+Apply these after cloning or updating `third_party/GR00T-WholeBodyControl`:
+
+```bash
+cd /home/admin1/Project/CoEvolve/third_party/GR00T-WholeBodyControl
+git apply /home/admin1/Project/CoEvolve/patches/gear_sonic_multi_robot_dds_prefix.patch
+git apply /home/admin1/Project/CoEvolve/patches/gear_sonic_heading_increment.patch
+
+cd gear_sonic_deploy
+source scripts/setup_env.sh
+just --justfile .justfile build
+```
+
+Quick checks:
+
+```bash
+grep -R "dds-topic-prefix" gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
+grep -R "DDS_TOPIC_PREFIX" gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
+```
+
 ## Command Boundary
 
 Praxis-Coop sends low-frequency planner intent:

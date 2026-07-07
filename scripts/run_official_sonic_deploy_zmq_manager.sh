@@ -56,6 +56,17 @@ fi
 cd "$DEPLOY_DIR"
 mkdir -p "$LOG_DIR"
 
+DEPLOY_SOURCE="$DEPLOY_DIR/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp"
+if [[ -n "$DDS_TOPIC_PREFIX" ]] && ! grep -q -- "--dds-topic-prefix" "$DEPLOY_SOURCE"; then
+  echo "[praxis-sonic-deploy] ERROR: gear_sonic_deploy does not support --dds-topic-prefix." >&2
+  echo "[praxis-sonic-deploy] Apply and rebuild the CoEvolve SONIC patches first:" >&2
+  echo "  cd $REPO_ROOT/third_party/GR00T-WholeBodyControl" >&2
+  echo "  git apply $REPO_ROOT/patches/gear_sonic_multi_robot_dds_prefix.patch" >&2
+  echo "  git apply $REPO_ROOT/patches/gear_sonic_heading_increment.patch" >&2
+  echo "  cd gear_sonic_deploy && source scripts/setup_env.sh && just --justfile .justfile build" >&2
+  exit 1
+fi
+
 if [[ "$INTERFACE" == "auto" ]]; then
   INTERFACE=""
   while read -r iface; do

@@ -1,0 +1,319 @@
+diff --git a/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py b/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
+index fac16ca..7367382 100644
+--- a/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
++++ b/gear_sonic/utils/mujoco_sim/unitree_sdk2py_bridge.py
+@@ -5,6 +5,7 @@ simulated sensor state (joint pos/vel, IMU, odometry) back over DDS,
+ so the WBC policy sees the sim as a real robot.
+ """
+ 
++import os
+ import sys
+ import threading
+ from typing import Dict, Tuple
+@@ -21,6 +22,13 @@ from unitree_sdk2py.idl.unitree_go.msg.dds_ import WirelessController_
+ from unitree_sdk2py.idl.unitree_hg.msg.dds_ import HandCmd_, HandState_, OdoState_
+ 
+ 
++def _normalize_topic_prefix(prefix: str) -> str:
++    prefix = str(prefix or "").strip().strip("/")
++    if prefix.endswith("/rt"):
++        prefix = prefix[:-3]
++    return prefix
++
++
+ class UnitreeSdk2Bridge:
+     """
+     This class is responsible for bridging the Unitree SDK2 with the Groot environment.
+@@ -58,51 +66,56 @@ class UnitreeSdk2Bridge:
+         self.num_body_motor = config["NUM_MOTORS"]
+         self.num_hand_motor = config.get("NUM_HAND_MOTORS", 0)
+         self.use_sensor = config["USE_SENSOR"]
++        self.topic_prefix = _normalize_topic_prefix(
++            config.get("DDS_TOPIC_PREFIX", os.environ.get("UNITREE_TOPIC_PREFIX", ""))
++        )
+ 
+         self.have_imu_ = False
+         self.have_frame_sensor_ = False
+ 
+         # Unitree sdk2 message
+         self.low_state = LowState_default()
+-        self.low_state_puber = ChannelPublisher("rt/lowstate", LowState_)
++        self.low_state_puber = ChannelPublisher(self._topic("rt/lowstate"), LowState_)
+         self.low_state_puber.Init()
+ 
+         # Only create odo_state for supported robot types
+         if "g1" in robot_type or "h1-2" in robot_type:
+             self.odo_state = OdoState_default()
+-            self.odo_state_puber = ChannelPublisher("rt/odostate", OdoState_)
++            self.odo_state_puber = ChannelPublisher(self._topic("rt/odostate"), OdoState_)
+             self.odo_state_puber.Init()
+         else:
+             self.odo_state = None
+             self.odo_state_puber = None
+         self.torso_imu_state = IMUState_default()
+-        self.torso_imu_puber = ChannelPublisher("rt/secondary_imu", IMUState_)
++        self.torso_imu_puber = ChannelPublisher(self._topic("rt/secondary_imu"), IMUState_)
+         self.torso_imu_puber.Init()
+ 
+         self.left_hand_state = HandState_default()
+-        self.left_hand_state_puber = ChannelPublisher("rt/dex3/left/state", HandState_)
++        self.left_hand_state_puber = ChannelPublisher(self._topic("rt/dex3/left/state"), HandState_)
+         self.left_hand_state_puber.Init()
+         self.right_hand_state = HandState_default()
+-        self.right_hand_state_puber = ChannelPublisher("rt/dex3/right/state", HandState_)
++        self.right_hand_state_puber = ChannelPublisher(self._topic("rt/dex3/right/state"), HandState_)
+         self.right_hand_state_puber.Init()
+ 
+-        self.low_cmd_suber = ChannelSubscriber("rt/lowcmd", LowCmd_)
++        # Locks must exist before subscribers are initialized because DDS can
++        # invoke callbacks immediately if a deploy backend is already running.
++        self.low_cmd_lock = threading.Lock()
++        self.left_hand_cmd_lock = threading.Lock()
++        self.right_hand_cmd_lock = threading.Lock()
++
++        self.low_cmd_suber = ChannelSubscriber(self._topic("rt/lowcmd"), LowCmd_)
+         self.low_cmd_suber.Init(self.LowCmdHandler, 1)
+ 
+         self.left_hand_cmd = HandCmd_default()
+-        self.left_hand_cmd_suber = ChannelSubscriber("rt/dex3/left/cmd", HandCmd_)
++        self.left_hand_cmd_suber = ChannelSubscriber(self._topic("rt/dex3/left/cmd"), HandCmd_)
+         self.left_hand_cmd_suber.Init(self.LeftHandCmdHandler, 1)
+         self.right_hand_cmd = HandCmd_default()
+-        self.right_hand_cmd_suber = ChannelSubscriber("rt/dex3/right/cmd", HandCmd_)
++        self.right_hand_cmd_suber = ChannelSubscriber(self._topic("rt/dex3/right/cmd"), HandCmd_)
+         self.right_hand_cmd_suber.Init(self.RightHandCmdHandler, 1)
+ 
+-        self.low_cmd_lock = threading.Lock()
+-        self.left_hand_cmd_lock = threading.Lock()
+-        self.right_hand_cmd_lock = threading.Lock()
+-
+         self.wireless_controller = unitree_go_msg_dds__WirelessController_()
+         self.wireless_controller_puber = ChannelPublisher(
+-            "rt/wirelesscontroller", WirelessController_
++            self._topic("rt/wirelesscontroller"), WirelessController_
+         )
+         self.wireless_controller_puber.Init()
+ 
+@@ -129,6 +142,11 @@ class UnitreeSdk2Bridge:
+ 
+         self.reset()
+ 
++    def _topic(self, topic: str) -> str:
++        if not self.topic_prefix:
++            return topic
++        return f"{self.topic_prefix}/{topic}"
++
+     def reset(self):
+         with self.low_cmd_lock:
+             self.low_cmd_received = False
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/dex3_hands.hpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/dex3_hands.hpp
+index 7644154..ccab3ac 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/dex3_hands.hpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/dex3_hands.hpp
+@@ -64,7 +64,7 @@ public:
+     Dex3Hands() = default;
+ 
+     // Initializes channels for both hands. If networkInterface is empty, skips ChannelFactory init.
+-    void initialize(const std::string &networkInterface)
++    void initialize(const std::string &networkInterface, const std::string &topic_prefix = "")
+     {
+         if (!networkInterface.empty())
+         {
+@@ -72,11 +72,11 @@ public:
+         }
+ 
+         // Left hand namespaces
+-        const std::string leftPubNs = "rt/dex3/left";
+-        const std::string leftSubNs = "rt/dex3/left/state";
++        const std::string leftPubNs = topicWithPrefix(topic_prefix, "rt/dex3/left");
++        const std::string leftSubNs = topicWithPrefix(topic_prefix, "rt/dex3/left/state");
+         // Right hand namespaces
+-        const std::string rightPubNs = "rt/dex3/right";
+-        const std::string rightSubNs = "rt/dex3/right/state";
++        const std::string rightPubNs = topicWithPrefix(topic_prefix, "rt/dex3/right");
++        const std::string rightSubNs = topicWithPrefix(topic_prefix, "rt/dex3/right/state");
+ 
+ 
+         // initialize left hand cmd with default value
+@@ -375,6 +375,34 @@ public:
+     }
+ 
+ private:
++    static std::string normalizeTopicPrefix(const std::string &topic_prefix)
++    {
++        std::string normalized = topic_prefix;
++        while (!normalized.empty() && normalized.front() == '/')
++        {
++            normalized.erase(normalized.begin());
++        }
++        while (!normalized.empty() && normalized.back() == '/')
++        {
++            normalized.pop_back();
++        }
++        if (normalized.size() >= 3 && normalized.compare(normalized.size() - 3, 3, "/rt") == 0)
++        {
++            normalized.erase(normalized.size() - 3);
++        }
++        return normalized;
++    }
++
++    static std::string topicWithPrefix(const std::string &topic_prefix, const std::string &topic)
++    {
++        const std::string normalized = normalizeTopicPrefix(topic_prefix);
++        if (normalized.empty())
++        {
++            return topic;
++        }
++        return normalized + "/" + topic;
++    }
++
+     struct HandCtx
+     {
+         unitree::robot::ChannelPublisherPtr<unitree_hg::msg::dds_::HandCmd_> publisher;
+@@ -463,4 +491,4 @@ private:
+     static constexpr std::array<double, DEX3_MOTOR_MAX> MIN_LIMITS_RIGHT = {-1.05, -1.05, -1.75, 0.0,  0.0,  0.0,  0.0 };
+ };
+ 
+-#endif // DEX3_HANDS_HPP
+\ No newline at end of file
++#endif // DEX3_HANDS_HPP
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
+index 4dc9f4f..11b96b7 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/src/g1_deploy_onnx_ref.cpp
+@@ -62,6 +62,7 @@
+ #include <unordered_map>
+ #include <fstream>
+ #include <iostream>
++#include <string>
+ #include <chrono>
+ #include <algorithm>
+ #include <numeric>
+@@ -323,10 +324,34 @@ class G1Deploy {
+     // Default 1.0 allows full closure, use --max-close-ratio to limit
+     // Keyboard controls (J/K) always available for runtime adjustment
+     double initial_max_close_ratio_ = 1.0;
++
++    // Optional DDS topic prefix for multi-G1 simulation, e.g. front/rt/lowstate.
++    std::string dds_topic_prefix_;
+     
+     // Track if vr_3point_compliance is observed by the policy
+     // If false, adjusting compliance via keyboard has no effect on the policy
+     bool has_vr_3point_compliance_obs_ = false;
++
++    static std::string NormalizeTopicPrefix(const std::string& topic_prefix) {
++      std::string normalized = topic_prefix;
++      while (!normalized.empty() && normalized.front() == '/') {
++        normalized.erase(normalized.begin());
++      }
++      while (!normalized.empty() && normalized.back() == '/') {
++        normalized.pop_back();
++      }
++      if (normalized.size() >= 3 && normalized.compare(normalized.size() - 3, 3, "/rt") == 0) {
++        normalized.erase(normalized.size() - 3);
++      }
++      return normalized;
++    }
++
++    std::string DdsTopic(const std::string& topic) const {
++      if (dds_topic_prefix_.empty()) {
++        return topic;
++      }
++      return dds_topic_prefix_ + "/" + topic;
++    }
+     
+     // Independent logging counter (not affected by planner buffer cleaning)
+     int logging_counter_ = 0;
+@@ -2156,7 +2181,8 @@ class G1Deploy {
+       std::string zmq_out_topic = "g1_debug",
+       bool enable_motion_recording = false,
+       std::array<double, 3> initial_compliance = {0.05, 0.05, 0.0},
+-      double initial_max_close_ratio = 1.0)
++      double initial_max_close_ratio = 1.0,
++      std::string dds_topic_prefix = "")
+       : time_(0.0),
+         publish_dt_(0.002),
+         control_dt_(0.02),
+@@ -2174,6 +2200,7 @@ class G1Deploy {
+         enable_motion_recording_(enable_motion_recording),
+         initial_vr_3point_compliance_(initial_compliance),
+         initial_max_close_ratio_(initial_max_close_ratio),
++        dds_topic_prefix_(NormalizeTopicPrefix(dds_topic_prefix)),
+         //env(ORT_LOGGING_LEVEL_WARNING, "G1Deploy"),
+         model_path(model_file_path),
+         planner_path(planner_file_path) {
+@@ -2182,7 +2209,10 @@ class G1Deploy {
+       ChannelFactory::Instance()->Init(0, networkInterface);
+ 
+       // Initialize Dex3 hands (ChannelFactory already initialized above)
+-      dex3_hands_.initialize("");
++      dex3_hands_.initialize("", dds_topic_prefix_);
++      if (!dds_topic_prefix_.empty()) {
++        std::cout << "[INFO] DDS topic prefix: " << dds_topic_prefix_ << std::endl;
++      }
+ 
+       audio_thread_ = std::make_unique<AudioThread>();
+ 
+@@ -2252,12 +2282,12 @@ class G1Deploy {
+       }
+ 
+       // create publisher
+-      lowcmd_publisher_.reset(new ChannelPublisher<LowCmd_>(HG_CMD_TOPIC));
++      lowcmd_publisher_.reset(new ChannelPublisher<LowCmd_>(DdsTopic(HG_CMD_TOPIC)));
+       lowcmd_publisher_->InitChannel();
+       // create subscriber
+-      lowstate_subscriber_.reset(new ChannelSubscriber<LowState_>(HG_STATE_TOPIC));
++      lowstate_subscriber_.reset(new ChannelSubscriber<LowState_>(DdsTopic(HG_STATE_TOPIC)));
+       lowstate_subscriber_->InitChannel(std::bind(&G1Deploy::LowStateHandler, this, std::placeholders::_1), 1);
+-      imutorso_subscriber_.reset(new ChannelSubscriber<IMUState_>(HG_IMU_TORSO));
++      imutorso_subscriber_.reset(new ChannelSubscriber<IMUState_>(DdsTopic(HG_IMU_TORSO)));
+       imutorso_subscriber_->InitChannel(std::bind(&G1Deploy::imuTorsoHandler, this, std::placeholders::_1), 1);
+       // Load motion data
+       if (motion_reader_.ReadFromCSV(motion_data_path)) {
+@@ -4125,6 +4155,7 @@ int main(int argc, char const* argv[]) {
+     std::cout << "  --zmq-verbose: enable ZMQ subscriber verbose logs" << std::endl;
+     std::cout << "  --zmq-out-port <port>: ZMQ port for output (default: 5557)" << std::endl;
+     std::cout << "  --zmq-out-topic <topic>: ZMQ topic/prefix for output (default: g1_debug)" << std::endl;
++    std::cout << "  --dds-topic-prefix <prefix>: prefix Unitree DDS topics for multi-robot simulation (e.g. front or back)" << std::endl;
+     std::cout << "  --logs-dir <path>: optional logs output base directory (default: logs/<timestamp>/)" << std::endl;
+     std::cout << "  --enable-csv-logs: enable writing CSV logs (default: OFF)" << std::endl;
+     std::cout << "  --enable-motion-recording: enable motion recording for ZMQ/planner (default: OFF)" << std::endl;
+@@ -4175,6 +4206,7 @@ int main(int argc, char const* argv[]) {
+   bool enableMotionRecording = false;  // default off; enable with --enable-motion-recording
+   int zmq_out_port = 5557;
+   std::string zmq_out_topic = "g1_debug";
++  std::string dds_topic_prefix = "";
+   std::array<double, 3> initial_compliance = {0.5, 0.5, 0.0}; // initial compliance is 0.5 for both hands (keyboard controllable)
+   double initial_max_close_ratio = 1.0; // default allows full closure, use --max-close-ratio to limit
+   for (int i = 4; i < argc; i++) {
+@@ -4281,6 +4313,15 @@ int main(int argc, char const* argv[]) {
+       if (i + 1 < argc) { zmq_out_port = std::stoi(argv[i + 1]); i++; }
+     } else if (std::string(argv[i]) == "--zmq-out-topic") {
+       if (i + 1 < argc) { zmq_out_topic = argv[i + 1]; i++; }
++    } else if (std::string(argv[i]) == "--dds-topic-prefix") {
++      if (i + 1 < argc) {
++        dds_topic_prefix = argv[i + 1];
++        std::cout << "[INFO] Using DDS topic prefix: " << dds_topic_prefix << std::endl;
++        i++;
++      } else {
++        std::cerr << "Error: --dds-topic-prefix requires a prefix argument" << std::endl;
++        exit(1);
++      }
+     } else if (std::string(argv[i]) == "--record-input-file") {
+       if (i + 1 < argc) {
+         recordInputFile = argv[i + 1];
+@@ -4438,7 +4479,8 @@ int main(int argc, char const* argv[]) {
+     zmq_out_topic,
+     enableMotionRecording,
+     initial_compliance,
+-    initial_max_close_ratio
++    initial_max_close_ratio,
++    dds_topic_prefix
+   );
+   std::cout << "[DEBUG] G1Deploy object created successfully!" << std::endl;
+   
+@@ -4465,4 +4507,3 @@ int main(int argc, char const* argv[]) {
+   std::cout << "[DEBUG] Program exiting normally..." << std::endl;
+   return 0;
+ }
+-

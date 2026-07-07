@@ -65,6 +65,17 @@ PYTHONPATH=src third_party/GR00T-WholeBodyControl/.venv_sim/bin/python \
   scripts/run_sonic_static_skill.py --list-skills
 ```
 
+On a new machine, patch the local SONIC runtime before the dual-G1 workflow:
+
+```bash
+cd /home/admin1/Project/CoEvolve/third_party/GR00T-WholeBodyControl
+git apply /home/admin1/Project/CoEvolve/patches/gear_sonic_multi_robot_dds_prefix.patch
+git apply /home/admin1/Project/CoEvolve/patches/gear_sonic_heading_increment.patch
+cd gear_sonic_deploy
+source scripts/setup_env.sh
+just --justfile .justfile build
+```
+
 For the current four-terminal workflow, tuned static-skill commands, and the
 next 5kg box stability trial, use:
 

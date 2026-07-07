@@ -12,6 +12,9 @@ Current entry points:
 | `validate_static_sonic_skill.py` | Term4 wrapper with tuned defaults and dry-run support |
 | `download_phase1_models.py` | Qwen model downloader for later evolution experiments |
 
+On a new machine, apply the SONIC patches in `patches/` before running the
+dual-G1 scripts. See `docs/SONIC_INTEGRATION.md`.
+
 Current static skills:
 
 ```text

@@ -231,6 +231,8 @@ def main() -> None:
     parser.add_argument("--place-crouch-torque-limit-fraction", type=float, default=0.45)
     args = parser.parse_args()
 
+    _require_multi_robot_dds_patch()
+
     interface = _resolve_interface(args.interface)
     scene_rel_path = DEFAULT_DUAL_SCENE_REL_PATH if args.with_box else DEFAULT_DUAL_NO_PAYLOAD_SCENE_REL_PATH
     generated = generate_dual_manual_layout_scene(
@@ -359,6 +361,25 @@ def _load_official_wbc_config() -> dict:
     )
     with config_path.open() as file:
         return yaml.load(file, Loader=yaml.FullLoader)
+
+
+def _require_multi_robot_dds_patch() -> None:
+    bridge_path = GEAR_ROOT / "gear_sonic" / "utils" / "mujoco_sim" / "unitree_sdk2py_bridge.py"
+    try:
+        bridge_source = bridge_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise SystemExit(f"[praxis-dual-sonic] missing SONIC bridge source: {bridge_path}") from exc
+    required_markers = ("DDS_TOPIC_PREFIX", "def _topic", "rt/lowstate")
+    if not all(marker in bridge_source for marker in required_markers):
+        raise SystemExit(
+            "[praxis-dual-sonic] ERROR: SONIC Python bridge does not support per-robot DDS topic prefixes.\n"
+            "Apply the CoEvolve SONIC patches first:\n"
+            f"  cd {GEAR_ROOT}\n"
+            f"  git apply {REPO_ROOT / 'patches' / 'gear_sonic_multi_robot_dds_prefix.patch'}\n"
+            f"  git apply {REPO_ROOT / 'patches' / 'gear_sonic_heading_increment.patch'}\n"
+            "Then rebuild deploy:\n"
+            "  cd gear_sonic_deploy && source scripts/setup_env.sh && just --justfile .justfile build"
+        )
 
 
 def _resolve_interface(requested: str) -> str:

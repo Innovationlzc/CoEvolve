@@ -4,6 +4,10 @@ This page is the canonical command sheet for the current successful no-payload
 static skill library. All commands use official SONIC / GEAR-SONIC in MuJoCo,
 not Isaac proxy/root-teleport control.
 
+Before running on a new machine, apply the required SONIC runtime patches from
+`docs/SONIC_INTEGRATION.md`. In particular, `--dds-topic-prefix` must appear in
+the C++ deploy source, not only in CoEvolve scripts.
+
 ## Terminals 1-3
 
 Use these terminals for carry-ready static skills.
