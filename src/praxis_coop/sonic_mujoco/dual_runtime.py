@@ -81,6 +81,15 @@ class PlaceCrouchMotorLock:
     torque_limit_fraction: float = 0.45
 
 
+@dataclass(frozen=True)
+class PayloadHold:
+    """Keep the payload fixed until the robots are ready for a contact trial."""
+
+    joint_name: str = "long_box_freejoint"
+    release_after_drop_s: float | None = None
+    release_at_sim_time_s: float | None = None
+
+
 @dataclass
 class RobotRuntimeSlots:
     spec: DualRobotSpec
@@ -135,6 +144,7 @@ class DualG1SonicMujocoRuntime:
         runtime_state_file: Path | None = None,
         runtime_state_write_interval_s: float = 0.1,
         place_crouch_motor_lock: PlaceCrouchMotorLock | None = PlaceCrouchMotorLock(),
+        payload_hold: PayloadHold | None = None,
     ) -> None:
         self.config = dict(config)
         self.robot_specs = robot_specs
@@ -155,6 +165,11 @@ class DualG1SonicMujocoRuntime:
         self.runtime_state_file = Path(runtime_state_file) if runtime_state_file is not None else None
         self.runtime_state_write_interval_s = max(0.02, float(runtime_state_write_interval_s))
         self.place_crouch_motor_lock = place_crouch_motor_lock
+        self.payload_hold = payload_hold
+        self._payload_hold_released = payload_hold is None
+        self._payload_hold_qpos_adr: int | None = None
+        self._payload_hold_dof_adr: int | None = None
+        self._payload_hold_qpos: np.ndarray | None = None
         self._lowcmd_first_seen_time: dict[str, float | None] = {}
         self.fall_events: list[dict[str, object]] = []
         self._final_status = "running"
@@ -180,6 +195,7 @@ class DualG1SonicMujocoRuntime:
         self.data = mujoco.MjData(self.model)
         self.model.opt.timestep = self.sim_dt
         mujoco.mj_forward(self.model, self.data)
+        self._initialize_payload_hold()
 
         self.actuator_by_joint = self._build_actuator_by_joint()
         self.initialize_channels()
@@ -278,6 +294,67 @@ class DualG1SonicMujocoRuntime:
                 f"max_height_drop={lock.max_height_drop_m:.2f}",
                 flush=True,
             )
+        if self.payload_hold is not None:
+            print(
+                "[praxis-dual-sonic] payload hold enabled "
+                f"joint={self.payload_hold.joint_name} "
+                f"release_after_drop_s={self.payload_hold.release_after_drop_s} "
+                f"release_at_sim_time_s={self.payload_hold.release_at_sim_time_s}",
+                flush=True,
+            )
+
+    def _initialize_payload_hold(self) -> None:
+        if self.payload_hold is None:
+            return
+        joint_id = mujoco.mj_name2id(
+            self.model,
+            mujoco.mjtObj.mjOBJ_JOINT,
+            self.payload_hold.joint_name,
+        )
+        if joint_id < 0:
+            print(
+                f"[praxis-dual-sonic] WARNING payload hold joint not found: {self.payload_hold.joint_name}",
+                flush=True,
+            )
+            self._payload_hold_released = True
+            return
+        self._payload_hold_qpos_adr = int(self.model.jnt_qposadr[joint_id])
+        self._payload_hold_dof_adr = int(self.model.jnt_dofadr[joint_id])
+        self._payload_hold_qpos = self.data.qpos[
+            self._payload_hold_qpos_adr : self._payload_hold_qpos_adr + 7
+        ].copy()
+        self.data.qvel[self._payload_hold_dof_adr : self._payload_hold_dof_adr + 6] = 0.0
+
+    def _apply_payload_hold(self) -> None:
+        if self.payload_hold is None or self._payload_hold_released:
+            return
+        if self._payload_hold_should_release():
+            self._payload_hold_released = True
+            print(
+                f"[praxis-dual-sonic] payload hold released at sim_t={self.data.time:.2f}s",
+                flush=True,
+            )
+            return
+        if (
+            self._payload_hold_qpos_adr is None
+            or self._payload_hold_dof_adr is None
+            or self._payload_hold_qpos is None
+        ):
+            return
+        self.data.qpos[self._payload_hold_qpos_adr : self._payload_hold_qpos_adr + 7] = self._payload_hold_qpos
+        self.data.qvel[self._payload_hold_dof_adr : self._payload_hold_dof_adr + 6] = 0.0
+        mujoco.mj_forward(self.model, self.data)
+
+    def _payload_hold_should_release(self) -> bool:
+        hold = self.payload_hold
+        if hold is None:
+            return True
+        sim_time = float(self.data.time)
+        if hold.release_at_sim_time_s is not None and sim_time >= hold.release_at_sim_time_s:
+            return True
+        if hold.release_after_drop_s is not None and self._elastic_band_drop_time is not None:
+            return sim_time - self._elastic_band_drop_time >= hold.release_after_drop_s
+        return False
 
     def initialize_channels(self) -> None:
         try:
@@ -322,6 +399,7 @@ class DualG1SonicMujocoRuntime:
         try:
             self._track_lowcmd_readiness()
             self._maybe_auto_drop()
+            self._apply_payload_hold()
             for slot in self.slots:
                 obs = self._prepare_obs(slot)
                 self._mask_upper_body_lock_policy_observation(slot, obs)
@@ -335,6 +413,7 @@ class DualG1SonicMujocoRuntime:
 
         self.data.ctrl[:] = ctrl
         mujoco.mj_step(self.model, self.data)
+        self._apply_payload_hold()
         self._track_runtime_extrema()
         self._maybe_write_runtime_state()
         self._check_fall()
@@ -1062,6 +1141,8 @@ class DualG1SonicMujocoRuntime:
             "fall_events": self.fall_events[-20:],
             "elastic_band_dropped": self._elastic_band_drop_time is not None,
             "upper_body_lock_enabled": self.upper_body_pose_lock is not None,
+            "payload_hold_enabled": self.payload_hold is not None,
+            "payload_hold_released": self._payload_hold_released,
             "max_sim_time_s": self.max_sim_time_s,
             "robots": {
                 slot.spec.robot_id: {
@@ -1107,6 +1188,7 @@ class DualG1SonicMujocoRuntime:
                 "yaw_deg": float(np.degrees(yaw)),
                 "pelvis_height_m": float(self.data.xpos[slot.pelvis_body_id][2]),
                 "lower_body_qpos": self._lower_body_qpos_dict(slot),
+                "upper_body_lock": self._upper_body_lock_state_dict(slot),
                 "place_crouch": self._last_place_crouch_debug.get(slot.spec.robot_id, {}),
             }
         mean_yaw = _circular_mean(yaws)
@@ -1115,6 +1197,8 @@ class DualG1SonicMujocoRuntime:
             "time_unix": time.time(),
             "sim_time_s": float(self.data.time),
             "elastic_band_dropped": self._elastic_band_drop_time is not None,
+            "payload_hold_enabled": self.payload_hold is not None,
+            "payload_hold_released": self._payload_hold_released,
             "mean_heading_yaw_rad": mean_yaw,
             "mean_heading_yaw_deg": float(np.degrees(mean_yaw)),
             "convention": "+yaw=counterclockwise, -yaw=clockwise, zero=world +X",
@@ -1126,6 +1210,56 @@ class DualG1SonicMujocoRuntime:
         return {
             key: float(value) if np.isfinite(value) else 0.0
             for key, value in extrema.items()
+        }
+
+    def _upper_body_lock_state_dict(self, slot: RobotRuntimeSlots) -> dict[str, object]:
+        lock = self.upper_body_pose_lock
+        enabled_now = False
+        alpha = 0.0
+        if lock is not None and len(slot.upper_body_lock_joint_ids) > 0:
+            if lock.enabled_before_drop:
+                lock_t = float(self.data.time)
+                enabled_now = lock_t >= 0.0
+            elif self._elastic_band_drop_time is not None:
+                lock_t = float(self.data.time) - self._elastic_band_drop_time - float(lock.start_after_drop_s)
+                enabled_now = lock_t >= 0.0
+            else:
+                lock_t = -1.0
+            if enabled_now:
+                alpha = 1.0
+                if lock.ramp_s > 1.0e-9:
+                    alpha = min(1.0, max(0.0, lock_t / float(lock.ramp_s)))
+                    alpha = alpha * alpha * (3.0 - 2.0 * alpha)
+        qpos_adrs = self.model.jnt_qposadr[slot.upper_body_lock_joint_ids]
+        current = self.data.qpos[qpos_adrs] if len(qpos_adrs) > 0 else np.asarray([], dtype=np.float64)
+        target = (
+            (1.0 - alpha) * slot.upper_body_lock_start_q + alpha * slot.upper_body_lock_targets
+            if len(slot.upper_body_lock_joint_ids) > 0
+            else np.asarray([], dtype=np.float64)
+        )
+        wanted = {
+            "left_shoulder_pitch",
+            "right_shoulder_pitch",
+            "left_elbow",
+            "right_elbow",
+            "left_wrist_pitch",
+            "right_wrist_pitch",
+        }
+        joints = {}
+        for name, q, q_target in zip(slot.upper_body_lock_joint_names, current, target):
+            if name.removesuffix("_joint") in wanted:
+                joints[name.removesuffix("_joint")] = {
+                    "q": float(q),
+                    "target": float(q_target),
+                    "error": float(q_target - q),
+                }
+        return {
+            "configured": lock is not None,
+            "joint_count": int(len(slot.upper_body_lock_joint_ids)),
+            "enabled_before_drop": bool(lock.enabled_before_drop) if lock is not None else False,
+            "enabled_now": enabled_now,
+            "alpha": float(alpha),
+            "joints": joints,
         }
 
     def _root_pose_report(self, slot: RobotRuntimeSlots) -> dict[str, float]:

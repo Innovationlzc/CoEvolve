@@ -23,6 +23,7 @@ if str(GEAR_ROOT) not in sys.path:
 from praxis_coop.sonic_mujoco.dual_runtime import (  # noqa: E402
     DualG1SonicMujocoRuntime,
     DualRobotSpec,
+    PayloadHold,
     PlaceCrouchMotorLock,
     UpperBodyPoseLock,
 )
@@ -53,6 +54,23 @@ def main() -> None:
         type=float,
         default=5.0,
         help="Mass for the included long_box when --with-box is set.",
+    )
+    parser.add_argument(
+        "--payload-hold",
+        action="store_true",
+        help="Keep long_box fixed at its initial pose until the configured release condition.",
+    )
+    parser.add_argument(
+        "--payload-release-after-drop-s",
+        type=float,
+        default=None,
+        help="Release --payload-hold this many seconds after ElasticBand drop.",
+    )
+    parser.add_argument(
+        "--payload-release-at-s",
+        type=float,
+        default=None,
+        help="Release --payload-hold at this MuJoCo sim time, independent of drop.",
     )
     parser.add_argument("--no-onscreen", action="store_true")
     parser.add_argument("--disable-elastic-band", action="store_true")
@@ -311,6 +329,21 @@ def main() -> None:
     if runtime_state_file is not None:
         print(f"[praxis-dual-sonic] runtime_state_file={runtime_state_file}", flush=True)
 
+    if args.payload_hold and not args.with_box:
+        raise ValueError("--payload-hold requires --with-box")
+    payload_hold = None
+    if args.payload_hold:
+        payload_hold = PayloadHold(
+            release_after_drop_s=args.payload_release_after_drop_s,
+            release_at_sim_time_s=args.payload_release_at_s,
+        )
+        print(
+            "[praxis-dual-sonic] payload_hold requested "
+            f"release_after_drop_s={args.payload_release_after_drop_s} "
+            f"release_at_sim_time_s={args.payload_release_at_s}",
+            flush=True,
+        )
+
     runtime = DualG1SonicMujocoRuntime(
         config=config,
         robot_specs=(
@@ -332,6 +365,7 @@ def main() -> None:
         summary_file=args.summary_file,
         runtime_state_file=runtime_state_file,
         runtime_state_write_interval_s=args.runtime_state_write_interval_s,
+        payload_hold=payload_hold,
         place_crouch_motor_lock=None
         if args.disable_place_crouch_lock
         else PlaceCrouchMotorLock(
