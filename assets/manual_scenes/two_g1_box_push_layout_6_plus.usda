@@ -1,0 +1,133 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Z"
+    subLayers = [
+        @./two_g1_box_push_layout_6.usda@
+    ]
+)
+
+# Lightweight door-scene overrides. The source layout remains unchanged.
+over "World"
+{
+    # The source was saved while physics was running; start the task object
+    # at rest so repeated trials do not inherit snapshot momentum.
+    over "long_box"
+    {
+        vector3f physics:angularVelocity = (0, 0, 0)
+        vector3f physics:velocity = (0, 0, 0)
+    }
+
+    # Remove saved simulation drift and give both doors a predictable,
+    # moderately grippy contact surface.
+    over "Door" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        vector3f physics:angularVelocity = (0, 0, 0)
+        vector3f physics:velocity = (0, 0, 0)
+        rel material:binding:physics = </World/Looks/DoorPhysicsMaterial>
+        custom float task:openThresholdDeg = 70
+        custom token task:openDirection = "negative"
+    }
+
+    over "Door_01" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        vector3f physics:angularVelocity = (0, 0, 0)
+        vector3f physics:velocity = (0, 0, 0)
+        rel material:binding:physics = </World/Looks/DoorPhysicsMaterial>
+        custom float task:openThresholdDeg = 70
+        custom token task:openDirection = "positive"
+    }
+
+    # A zero-stiffness angular drive acts as a viscous damper. It removes
+    # unrealistic perpetual swinging without forcing either door closed.
+    over "DoorHinge" (
+        prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI"]
+    )
+    {
+        float drive:angular:physics:damping = 0.05
+        float drive:angular:physics:maxForce = 20
+        float drive:angular:physics:stiffness = 0
+        float drive:angular:physics:targetVelocity = 0
+        uniform token drive:angular:physics:type = "force"
+        float physxJoint:maxJointVelocity = 120
+    }
+
+    over "DoorHinge_01" (
+        prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI"]
+    )
+    {
+        float drive:angular:physics:damping = 0.05
+        float drive:angular:physics:maxForce = 20
+        float drive:angular:physics:stiffness = 0
+        float drive:angular:physics:targetVelocity = 0
+        uniform token drive:angular:physics:type = "force"
+        float physxJoint:maxJointVelocity = 120
+    }
+
+    over "Looks"
+    {
+        def Material "DoorPhysicsMaterial" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.5
+            float physics:restitution = 0
+            float physics:staticFriction = 0.6
+        }
+    }
+
+    # Small static jambs close the original ~0.275 m gaps between each door
+    # edge and the corridor walls. A 0.04 m clearance avoids hinge contact.
+    def Cube "DoorFrame_1_Left" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        color3f[] primvars:displayColor = [(0.22, 0.22, 0.25)]
+        bool physics:collisionEnabled = 1
+        double3 xformOp:scale = (0.3, 0.235, 2)
+        double3 xformOp:translate = (1, 1.1925, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "DoorFrame_1_Right" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        color3f[] primvars:displayColor = [(0.22, 0.22, 0.25)]
+        bool physics:collisionEnabled = 1
+        double3 xformOp:scale = (0.3, 0.235, 2)
+        double3 xformOp:translate = (1, 3.5075, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "DoorFrame_2_Left" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        color3f[] primvars:displayColor = [(0.22, 0.22, 0.25)]
+        bool physics:collisionEnabled = 1
+        double3 xformOp:scale = (0.3, 0.235, 2)
+        double3 xformOp:translate = (4, 1.1925, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "DoorFrame_2_Right" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        color3f[] primvars:displayColor = [(0.22, 0.22, 0.25)]
+        bool physics:collisionEnabled = 1
+        double3 xformOp:scale = (0.3, 0.235, 2)
+        double3 xformOp:translate = (4, 3.5075, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
