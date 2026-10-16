@@ -1,0 +1,51 @@
+{
+  "kind": "coevolve_protocol_contract_artifact",
+  "payload": {
+    "common_across_conditions": [
+      "observation_contract",
+      "task_instruction",
+      "sonic_skill_api",
+      "physics_verifier",
+      "checkpoint_rollback",
+      "terminal_predicate",
+      "physical_budget"
+    ],
+    "consecutive_payload_drop_limit": {
+      "count": 5,
+      "reset_on": [
+        "accepted_transition",
+        "non_drop_physical_outcome",
+        "checkpoint_change"
+      ],
+      "scope": "same_trusted_checkpoint"
+    },
+    "exact_rejected_transaction_scope": "same_trusted_checkpoint",
+    "foundation_model_control_frequency": "between_physical_transactions_only",
+    "infrastructure_invalid_terminals": [
+      "PROVIDER_FATAL",
+      "BACKEND_FATAL",
+      "HOST_CONTRACT_ERROR"
+    ],
+    "no_human_intervention": true,
+    "physical_transaction_budget": 80,
+    "rollback_checkpoint": "latest_accepted",
+    "seeds": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "system_stall_recovery_cycles": 3,
+    "team_dispatch": "single_atomic_front_back_barrier",
+    "valid_terminals": [
+      "SUCCESS",
+      "SYSTEM_STALL",
+      "PHYSICAL_BUDGET_EXHAUSTED",
+      "CONSECUTIVE_PAYLOAD_DROP_LIMIT"
+    ]
+  },
+  "payload_sha256": "422614dc7ce97591f2b50032df629527bb05f756bd42a80fa80e1d076a277385",
+  "role": "invariant",
+  "schema_version": 1
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "table_id": "table3_scene_generalization",
+  "conditions": [
+    {
+      "condition_id": "base",
+      "label": "Base",
+      "core": true,
+      "execution": "reuse",
+      "method_variant": "coevolve_full",
+      "scene_id": "base",
+      "memory_condition": "empty",
+      "source": "table1_gpt_base"
+    },
+    {
+      "condition_id": "mirrored",
+      "label": "Mirrored",
+      "core": true,
+      "execution": "new",
+      "method_variant": "coevolve_full",
+      "scene_id": "mirrored",
+      "memory_condition": "empty"
+    },
+    {
+      "condition_id": "narrow",
+      "label": "Narrow",
+      "core": true,
+      "execution": "new",
+      "method_variant": "coevolve_full",
+      "scene_id": "narrow",
+      "memory_condition": "empty"
+    },
+    {
+      "condition_id": "altered_topology",
+      "label": "Altered Topology",
+      "core": false,
+      "execution": "new",
+      "method_variant": "coevolve_full",
+      "scene_id": "altered_topology",
+      "memory_condition": "empty"
+    }
+  ]
+}

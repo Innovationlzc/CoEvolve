@@ -1,0 +1,59 @@
+{
+  "kind": "coevolve_production_decision_prompt_artifact",
+  "schema_version": 1,
+  "method_variant": "flat_reflective_repair",
+  "artifact_scope": "production_live_decision_roles",
+  "policy_representation": "praxis_code_as_policy",
+  "shared_prompt_contract_binding": "lock://shared_prompt_contract_fingerprint",
+  "frozen_v83_prompt_binding": "lock://full_method_compatibility.prompt_sha256",
+  "decision_structure": "flat_failure_conditioned_code_regeneration",
+  "hierarchical_evolution": false,
+  "durable_dynamic_memory": true,
+  "memory_gates": {
+    "strategy_retrieval": true,
+    "strategy_promotion": true,
+    "action_exemplar_retrieval": true,
+    "action_exemplar_promotion": true,
+    "memory_writer_call": true
+  },
+  "common_runtime_roles": [
+    "vlm_failure_analyzer",
+    "code_repair"
+  ],
+  "forbidden_method_roles": [
+    "evolution_manager",
+    "mutation_operator"
+  ],
+  "roles": [
+    {
+      "role": "flat_task_planner",
+      "prompt_base": "frozen_v83_task_orchestrator",
+      "output_contract": "v83_task_orchestrator_json_v1",
+      "prompt_file": "flat_task_planner.txt"
+    },
+    {
+      "role": "flat_strategy_selector",
+      "prompt_base": "frozen_v83_task_orchestrator",
+      "output_contract": "v83_flat_strategy_commit_json_v1",
+      "prompt_file": "flat_strategy_selector.txt"
+    },
+    {
+      "role": "flat_policy_generator",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": "flat_policy_generator.txt"
+    },
+    {
+      "role": "reflective_rewrite",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": "reflective_rewrite.txt"
+    },
+    {
+      "role": "memory_update",
+      "prompt_base": "frozen_v83_memory_update",
+      "output_contract": "v83_memory_update_json_v1",
+      "prompt_file": "memory_update.txt"
+    }
+  ]
+}

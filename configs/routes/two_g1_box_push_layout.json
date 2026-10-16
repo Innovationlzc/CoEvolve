@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "directed_connected_route",
+  "scene_id": "two_g1_box_push_layout",
+  "mission_topology": [
+    "transport through the initial straight passage",
+    "negotiate the first corner into the cross passage",
+    "transport through the cross passage",
+    "negotiate the second corner into the final straight passage",
+    "transport through the final straight passage",
+    "place and release the payload on the target"
+  ],
+  "progress_gates": [
+    {
+      "phase_name": "first_corner",
+      "normal_x": 1.0,
+      "normal_y": 0.0,
+      "threshold_m": 1.15
+    },
+    {
+      "phase_name": "cross_passage",
+      "normal_x": 0.0,
+      "normal_y": 1.0,
+      "threshold_m": 2.85
+    },
+    {
+      "phase_name": "second_corner",
+      "normal_x": 0.0,
+      "normal_y": 1.0,
+      "threshold_m": 7.35
+    },
+    {
+      "phase_name": "final_straight",
+      "normal_x": -1.0,
+      "normal_y": 0.0,
+      "threshold_m": -0.85
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "initial_straight",
+      "direction_x": 1.0,
+      "direction_y": 0.0,
+      "start_x_m": -1.55,
+      "start_y_m": 2.28,
+      "goal_x_m": 1.35,
+      "goal_y_m": 2.35,
+      "center_x_m": -0.10,
+      "center_y_m": 2.32,
+      "half_width_m": 1.45,
+      "detour_margin_m": 0.35
+    },
+    {
+      "segment_id": "first_corner_entry",
+      "direction_x": 0.0,
+      "direction_y": 1.0,
+      "start_x_m": 1.35,
+      "start_y_m": 2.35,
+      "goal_x_m": 1.35,
+      "goal_y_m": 2.85,
+      "center_x_m": 1.35,
+      "center_y_m": 2.60,
+      "half_width_m": 1.30,
+      "detour_margin_m": 0.35
+    },
+    {
+      "segment_id": "cross_passage",
+      "direction_x": 0.0,
+      "direction_y": 1.0,
+      "start_x_m": 1.35,
+      "start_y_m": 2.85,
+      "goal_x_m": 1.35,
+      "goal_y_m": 7.35,
+      "center_x_m": 1.35,
+      "center_y_m": 5.10,
+      "half_width_m": 1.30,
+      "detour_margin_m": 0.35
+    },
+    {
+      "segment_id": "second_corner_entry",
+      "direction_x": -1.0,
+      "direction_y": 0.0,
+      "start_x_m": 1.35,
+      "start_y_m": 7.35,
+      "goal_x_m": 0.85,
+      "goal_y_m": 7.60,
+      "center_x_m": 1.10,
+      "center_y_m": 7.48,
+      "half_width_m": 1.45,
+      "detour_margin_m": 0.35
+    },
+    {
+      "segment_id": "final_straight",
+      "direction_x": -1.0,
+      "direction_y": 0.0,
+      "start_x_m": 0.85,
+      "start_y_m": 7.60,
+      "goal_x_m": -1.50,
+      "goal_y_m": 7.60,
+      "center_x_m": -0.33,
+      "center_y_m": 7.60,
+      "half_width_m": 1.45,
+      "detour_margin_m": 0.35
+    }
+  ]
+}

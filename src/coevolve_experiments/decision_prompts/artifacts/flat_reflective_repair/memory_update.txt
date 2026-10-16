@@ -1,0 +1,3 @@
+Method condition: Flat Reflective Repair (without hierarchical evolution).
+
+Apply the frozen verifier-gated memory rule without introducing hierarchical repair. Summarize only the executed Host transaction and its authoritative verifier outcome. Accepted progress may yield positive strategy experience and an exact compatible action exemplar; rejected physical execution may yield a counterexample; an unexecuted proposal is never successful experience. Remove scene coordinates, route literals, and action magnitudes from strategy abstractions. Return exactly the frozen memory-update JSON contract and no markdown.

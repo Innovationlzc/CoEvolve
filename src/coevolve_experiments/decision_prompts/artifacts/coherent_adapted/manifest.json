@@ -1,0 +1,54 @@
+{
+  "kind": "coevolve_production_decision_prompt_artifact",
+  "schema_version": 1,
+  "method_variant": "coherent_adapted",
+  "artifact_scope": "production_live_decision_roles",
+  "policy_representation": "praxis_code_as_policy",
+  "shared_prompt_contract_binding": "lock://shared_prompt_contract_fingerprint",
+  "frozen_v83_prompt_binding": "lock://full_method_compatibility.prompt_sha256",
+  "decision_structure": "central_proposal_execution_feedback_adjustment",
+  "hierarchical_evolution": false,
+  "durable_dynamic_memory": false,
+  "memory_gates": {
+    "strategy_retrieval": false,
+    "strategy_promotion": false,
+    "action_exemplar_retrieval": false,
+    "action_exemplar_promotion": false,
+    "memory_writer_call": false
+  },
+  "common_runtime_roles": [
+    "vlm_failure_analyzer",
+    "code_repair"
+  ],
+  "forbidden_method_roles": [
+    "evolution_manager",
+    "mutation_operator",
+    "memory_update"
+  ],
+  "roles": [
+    {
+      "role": "coherent_central_proposer",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": "coherent_central_proposer.txt"
+    },
+    {
+      "role": "coherent_front_feasibility",
+      "prompt_base": "none",
+      "output_contract": "coherent_executor_feasibility_json_v1",
+      "prompt_file": "coherent_executor_feasibility.txt"
+    },
+    {
+      "role": "coherent_back_feasibility",
+      "prompt_base": "none",
+      "output_contract": "coherent_executor_feasibility_json_v1",
+      "prompt_file": "coherent_executor_feasibility.txt"
+    },
+    {
+      "role": "coherent_feedback_adjuster",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": "coherent_feedback_adjuster.txt"
+    }
+  ]
+}

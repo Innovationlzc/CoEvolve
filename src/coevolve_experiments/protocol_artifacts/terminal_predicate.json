@@ -1,0 +1,18 @@
+{
+  "kind": "coevolve_protocol_contract_artifact",
+  "payload": {
+    "authority": "mujoco_state_contacts_forces",
+    "both_robots_upright": true,
+    "payload_center_z_error_max_m": 0.08,
+    "payload_com_within_target_support_radius_m": 0.3,
+    "payload_tilt_max_deg": 20.0,
+    "post_placement_retreat_required": true,
+    "reported_alignment_is_success_gate": false,
+    "reported_alignment_xy_m": 0.18,
+    "robot_target_clearance_min_m": 1.1,
+    "stable_duration_s": 3.0
+  },
+  "payload_sha256": "10bcbd59ec5d7a58b7e5213c52ddd9567311c90e504220b6c3dd29afcd0701e7",
+  "role": "terminal_predicate",
+  "schema_version": 1
+}

@@ -1,0 +1,176 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+*.egg-info/
+.local/
+.cleanup-quarantine/
+.vscode/
+.idea/
+.agents/
+.codex/
+
+# Local virtual environments
+.venv/
+venv/
+env_*/
+
+# Local credentials. These files must never be committed.
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+.DS_Store
+Thumbs.db
+
+# Local external runtimes and model weights
+third_party/
+models/
+
+# Old local archive. Keep it on the workstation, not in the reproducible repo.
+HaLyPO/
+
+# Logs and generated local runtime output
+logs/
+*.log
+MUJOCO_LOG.TXT
+
+# All results stay local, including indexes and historical static catalogs.
+# Runtime skill definitions are shipped in src/praxis_coop/data/ instead.
+/results/
+
+# Training/checkpoint artifacts
+checkpoints/
+runs/
+wandb/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+
+# Local media and bundles. Only the exact documentation images below are allowed.
+*.pdf
+*.ppt
+*.pptx
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.bundle
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp4
+*.webm
+*.mov
+*.avi
+*.npz
+*.npy
+
+# Paper drafts, selected-result exports and reference papers stay local.
+# This includes source/ICLR27_CoEvolve.zip; never upload the full paper package.
+/source/
+
+# Reviewed public entrypoints only. Historical continuations, one-case repairs,
+# result exports and their original scripts remain available locally.
+/scripts/**
+!/scripts/run_cap_box_carry_evolution.py
+!/scripts/run_dual_sonic_manual_layout_sim.py
+!/scripts/run_official_sonic_deploy_zmq_manager.sh
+!/scripts/run_dual_official_sonic_motor_preflight.py
+!/scripts/run_sonic_static_skill.py
+!/scripts/run_sonic_coordinated_skill.py
+!/scripts/validate_static_sonic_skill.py
+!/scripts/build_sonic_manual_layout_scene.py
+!/scripts/calibrate_sonic_pivot.py
+!/scripts/download_phase1_models.py
+!/scripts/prepare_formal_evaluation.py
+!/scripts/summarize_formal_evaluation.py
+!/scripts/smoke_formal_backbones.py
+!/scripts/smoke_formal_roles.py
+!/scripts/reconcile_api_costs.py
+!/scripts/manage_accepted_episode.py
+!/scripts/rebuild_strategy_memory.py
+!/scripts/rebuild_verified_action_memory.py
+
+# Keep reusable software regressions, not local campaign/evidence audits.
+# New top-level test modules require explicit review; package contract tests
+# live under tests/experiments/ and publication checks under tests/maintenance/.
+/tests/test_*.py
+!/tests/test_action_video.py
+!/tests/test_billing_ledger.py
+!/tests/test_codebase_guard.py
+!/tests/test_coordination_primitives.py
+!/tests/test_dual_runtime_lifecycle.py
+!/tests/test_formal_eval.py
+!/tests/test_generation_recovery.py
+!/tests/test_model_role_pipeline.py
+!/tests/test_mutation_scope.py
+!/tests/test_offscreen_renderer.py
+!/tests/test_payload_attitude.py
+!/tests/test_pivot_calibration.py
+!/tests/test_place_crouch_stationary.py
+!/tests/test_praxis_coop_core.py
+!/tests/test_reconcile_api_costs.py
+!/tests/test_release_preflight_evidence.py
+!/tests/test_result_review.py
+!/tests/test_sonic_team_sync.py
+!/tests/test_transfer_contract_repair.py
+!/tests/test_transition_verifier.py
+/tests/fixtures/
+/tests/experiments/test_manuscript_audit.py
+/tests/experiments/test_table1_source.py
+
+# Exactly eight public Markdown guides. Internal notes remain local even when
+# colocated with source code; required contracts remain in code/configuration.
+*.md
+!/README.md
+!/ENV_SETUP.md
+!/CONTRIBUTING.md
+!/tests/README.md
+
+# Necessary public guides only. Dated audits, queue diaries and freeze reports
+# stay local; their paths may still be needed by historical experiment scripts.
+/docs/**
+!/docs/API.md
+!/docs/ARCHITECTURE.md
+!/docs/REPRODUCTION.md
+!/docs/BASELINES.md
+
+# Exact image allowlist: rasterized from the six active paper figure PDFs.
+# No general *.png exception: a new image requires an explicit review.
+!/docs/assets/
+/docs/assets/**
+!/docs/assets/figures/
+/docs/assets/figures/**
+!/docs/assets/figures/teaser.png
+!/docs/assets/figures/framework.png
+!/docs/assets/figures/baseline_comparison.png
+!/docs/assets/figures/cross_layouts.png
+!/docs/assets/figures/repair_case.png
+!/docs/assets/figures/layout_overview.png
+!/docs/assets/figures/manifest.json
+
+# Ignore rules do not untrack files already committed. Review those with:
+# git ls-files -ci --exclude-standard
+# Untrack reviewed exclusions with --cached only; preserve local evidence.
+
+# Isaac/Omniverse local caches or exports
+*.usd~
+*.usdc

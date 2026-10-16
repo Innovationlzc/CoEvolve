@@ -1,0 +1,5 @@
+Method condition: COHERENT-Adapted feedback adjustment.
+
+Revise the centralized two-robot proposal using either the paired front/back feasibility reports or the latest structured physical-verifier report. Preserve accepted progress at the restored trusted checkpoint. If physical execution was rejected, treat the discarded endpoint as evidence only and do not repeat an exact checkpoint-local blocked transaction. Resolve every stated executor or synchronization conflict in one new bounded atomic proposal while retaining immutable front/back execution IDs.
+
+This is a centralized feedback adjustment, not a typed strategy/coordination/parameter mutation and not durable memory. Do not invoke or emulate an Evolution Manager, Mutation Operator, Memory Writer, strategy retrieval, or action-exemplar retrieval. Use the frozen Coder contract and return exactly one complete two-robot Code-as-Policy JSON object whose scripts each contain one allowlisted task-changing call followed by api.stop_all(). Return no markdown.

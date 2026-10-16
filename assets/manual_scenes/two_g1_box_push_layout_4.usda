@@ -1,0 +1,2044 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (8.829586914483544, 5.6214976699658425, 6.8842308144150826)
+                double3 target = (5.195188610215225, -5.350925766271395, -16.82591883401299)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./two_g1_box_push_layout_4.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def "g1" (
+        prepend payload = @https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Robots/Unitree/G1/g1.usd@
+    )
+    {
+        string[] isaac:changelog (
+            displayName = "Changelog"
+        )
+        string isaac:description (
+            displayName = "Description"
+        )
+        token isaac:license (
+            displayName = "License"
+        )
+        string isaac:namespace (
+            displayName = "Namespace"
+            doc = "Namespace of the prim in Isaac Sim"
+        )
+        rel isaac:physics:robotJoints (
+            displayName = "Robot Joints"
+        )
+        rel isaac:physics:robotLinks (
+            displayName = "Robot Links"
+        )
+        token isaac:robotType (
+            displayName = "Robot Type"
+        )
+        string isaac:source (
+            displayName = "Source"
+        )
+        string isaac:version (
+            displayName = "Version"
+        )
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1.75, 1.9, 0.85)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "pelvis"
+        {
+            vector3f physics:angularVelocity = (14.399918, 53.629276, 23.867311)
+            vector3f physics:velocity = (0.102923095, -0.021825805, 0.010844266)
+            quatd xformOp:orient = (0.9999179860885348, 0.0009672968284873198, 0.010057172117998238, -0.007870115785891616)
+            double3 xformOp:translate = (0.009663939476013184, 0.0008066654205323154, -0.05705968141555784)
+        }
+
+        over "left_hip_pitch_link"
+        {
+            vector3f physics:angularVelocity = (13.756125, 12.780458, 23.79475)
+            vector3f physics:velocity = (0.025551537, -0.007434203, 0.037397202)
+            quatd xformOp:orient = (0.9999346651759821, 0.0009529244959355166, 0.008233566785660618, -0.00787182903064833)
+            double3 xformOp:translate = (0.008615612983703613, 0.06546542644500741, -0.15962419509887693)
+        }
+
+        over "left_hip_roll_link"
+        {
+            vector3f physics:angularVelocity = (4.685559, 12.925988, 22.345482)
+            vector3f physics:velocity = (0.004990292, 0.016068479, 0.029118806)
+            quatd xformOp:orient = (0.9968321892633812, -0.001052362785754522, -0.07912022179914109, -0.00802928909657409)
+            double3 xformOp:translate = (0.008933782577514648, 0.11752090454101571, -0.18999270200729368)
+        }
+
+        over "left_hip_yaw_link"
+        {
+            vector3f physics:angularVelocity = (7.7012877, 12.861578, 3.4643898)
+            vector3f physics:velocity = (-0.038455907, 0.03865023, 0.03504808)
+            quatd xformOp:orient = (0.9968335717801838, -0.0010661370959149966, -0.07912004669943548, -0.007855681633883992)
+            double3 xformOp:translate = (0.05319499969482422, 0.11670670509338388, -0.30861434936523435)
+        }
+
+        over "left_knee_link"
+        {
+            vector3f physics:angularVelocity = (7.249639, -15.665005, 3.4895647)
+            vector3f physics:velocity = (-0.013083379, 0.05716953, 0.041937698)
+            quatd xformOp:orient = (0.9999436985999681, -0.0003853757067752642, 0.007053433695865732, -0.007918345084597064)
+            double3 xformOp:translate = (0.003916144371032715, 0.11947069168090829, -0.4960835039615631)
+        }
+
+        over "left_ankle_pitch_link"
+        {
+            vector3f physics:angularVelocity = (8.45333, 60.362446, 3.4224718)
+            vector3f physics:velocity = (0.0479034, 0.07727122, 0.04685546)
+            quatd xformOp:orient = (0.9999671793962989, -0.00042800264219760567, 0.0016711352899685633, -0.007916075466488015)
+            double3 xformOp:translate = (-0.0003191232681274414, 0.11917862892150888, -0.7960635036230087)
+        }
+
+        over "left_ankle_roll_link"
+        {
+            vector3f physics:angularVelocity = (-118.59183, 62.374226, 3.8462675)
+            vector3f physics:velocity = (-0.00029811845, 0.049533032, 0.01120243)
+            quatd xformOp:orient = (0.9999647621815638, 0.002239971680184611, 0.001649990696760792, -0.007920508363802956)
+            double3 xformOp:translate = (-0.00037789344787597656, 0.11916408538818368, -0.8136213928461075)
+        }
+
+        over "right_hip_pitch_link"
+        {
+            vector3f physics:angularVelocity = (14.144278, 37.40887, 23.8385)
+            vector3f physics:velocity = (0.10746846, -0.008575435, -0.016786672)
+            quatd xformOp:orient = (0.9999527408612217, 0.0009323325315495041, 0.005625064108306935, -0.007874354193109504)
+            double3 xformOp:translate = (0.006584286689758301, -0.06342234611511222, -0.1598531365394592)
+        }
+
+        over "right_hip_roll_link"
+        {
+            vector3f physics:angularVelocity = (-0.5806961, 37.645264, 21.406923)
+            vector3f physics:velocity = (0.052389346, 0.006833632, -0.044696886)
+            quatd xformOp:orient = (0.9966227709462295, -0.000547250251231076, -0.08172458173009661, -0.007990349783494806)
+            double3 xformOp:translate = (0.005422472953796387, -0.11535623073577872, -0.1904085040092468)
+        }
+
+        over "right_hip_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-0.91228193, 37.650143, 23.415396)
+            vector3f physics:velocity = (-0.07985158, -0.008785369, -0.024463888)
+            quatd xformOp:orient = (0.9966197630858459, -0.0005171764932482539, -0.08172476005621554, -0.008357269227520548)
+            double3 xformOp:translate = (0.05030405521392822, -0.11604967117309561, -0.3087976336479187)
+        }
+
+        over "right_knee_link"
+        {
+            vector3f physics:angularVelocity = (-1.8625301, -19.097158, 23.396374)
+            vector3f physics:velocity = (-0.052133378, -0.018026443, -0.012053875)
+            quatd xformOp:orient = (0.9999553137837683, 0.0002043121459083718, 0.0043884840967674255, -0.008370776516241013)
+            double3 xformOp:translate = (0.0019382238388061523, -0.11732604503631583, -0.49652049541473386)
+        }
+
+        over "right_ankle_pitch_link"
+        {
+            vector3f physics:angularVelocity = (-1.2546991, 17.201979, 23.408543)
+            vector3f physics:velocity = (0.009164428, -0.02942323, -0.012329945)
+            quatd xformOp:orient = (0.9999648886489246, 0.0001647901961073398, -0.00033171475073405206, -0.008371635375431322)
+            double3 xformOp:translate = (-0.0006922483444213867, -0.11708703041076651, -0.7965188533067703)
+        }
+
+        over "right_ankle_roll_link"
+        {
+            vector3f physics:angularVelocity = (-82.82195, 18.567833, 23.354643)
+            vector3f physics:velocity = (-0.0045449827, -0.039984766, -0.022484783)
+            quatd xformOp:orient = (0.9999648200399278, 0.0004054117460019458, -0.00033376854218035776, -0.00837155435933096)
+            double3 xformOp:translate = (-0.0006805658340454102, -0.11708130836486808, -0.8140768282115459)
+        }
+
+        over "waist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (15.013122, 53.56543, 54.372353)
+            vector3f physics:velocity = (0.19079192, -0.04133806, 0.0058048638)
+            quatd xformOp:orient = (0.9999242361931481, 0.0009757242577022185, 0.010056400135857733, -0.00703126247766882)
+            double3 xformOp:translate = (0.009663939476013184, 0.0008066654205323154, -0.05705968141555784)
+        }
+
+        over "waist_roll_link"
+        {
+            vector3f physics:angularVelocity = (2.629552, 53.73937, 54.621647)
+            vector3f physics:velocity = (0.21535367, -0.054762106, 0.012242777)
+            quatd xformOp:orient = (0.9999246776353103, 0.0002628761954913584, 0.01006140481965469, -0.007024107422410567)
+            double3 xformOp:translate = (0.006585955619812012, 0.0007701873779297763, -0.012988901138305642)
+        }
+
+        over "torso_link"
+        {
+            string isaac:nameOverride (
+                displayName = "Name Override"
+            )
+            vector3f physics:angularVelocity = (1.3326176, -38.54241, 54.586174)
+            vector3f physics:velocity = (0.09104818, -0.05426515, 0.015628275)
+            quatd xformOp:orient = (0.9999424501467826, 0.0002491306876880156, 0.00810486472760431, -0.007024634944026181)
+            double3 xformOp:translate = (0.0065860748291015625, 0.0007701873779297763, -0.012988901138305642)
+
+            over "visuals"
+            {
+                over "head_link" (
+                    active = false
+                )
+                {
+                }
+            }
+        }
+
+        over "left_shoulder_pitch_link"
+        {
+            vector3f physics:angularVelocity = (0.8760453, -62.682922, 47.65228)
+            vector3f physics:velocity = (-0.07650869, -0.05111969, 0.02204479)
+            quatd xformOp:orient = (0.9901783865764876, 0.13943096537435748, 0.0060345982012157484, -0.008327801397036344)
+            double3 xformOp:translate = (0.01596510410308838, 0.10077295303344735, 0.23473277091979983)
+        }
+
+        over "left_shoulder_roll_link"
+        {
+            vector3f physics:angularVelocity = (-14.554787, -62.454357, 47.87257)
+            vector3f physics:velocity = (-0.014219514, -0.067997165, 0.01912964)
+            quatd xformOp:orient = (0.9999470463344783, 0.000369024479240834, 0.007134125319340535, -0.007407604458555021)
+            double3 xformOp:translate = (0.016522526741027832, 0.1411107540130616, 0.23192944526672366)
+        }
+
+        over "left_shoulder_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-14.626572, -62.450108, 42.839783)
+            vector3f physics:velocity = (0.11109876, -0.089614846, 0.030343652)
+            quatd xformOp:orient = (0.9999462679645753, 0.00036828076843622455, 0.0071342031503926024, -0.007511903780153261)
+            double3 xformOp:translate = (0.015143275260925293, 0.14743695259094247, 0.12874391078948977)
+        }
+
+        over "left_elbow_link"
+        {
+            vector3f physics:angularVelocity = (-15.113638, -94.85617, 42.819386)
+            vector3f physics:velocity = (0.13386132, -0.04253489, 0.14145483)
+            quatd xformOp:orient = (0.9999467401105662, 0.0003677839096124517, 0.0070677272468479095, -0.007511917785215403)
+            double3 xformOp:translate = (0.02977454662322998, 0.14726791381835946, 0.04800888299942019)
+        }
+
+        over "left_wrist_roll_link"
+        {
+            vector3f physics:angularVelocity = (-25.103453, -94.706116, 42.960674)
+            vector3f physics:velocity = (0.13708204, -0.0037449966, 0.22842787)
+            quatd xformOp:orient = (0.9999467940583606, 0.00016593064474242937, 0.007069249999104102, -0.007510474277822452)
+            double3 xformOp:translate = (0.1296403408050537, 0.14766225814819345, 0.03659709692001345)
+        }
+
+        over "left_wrist_pitch_link"
+        {
+            vector3f physics:angularVelocity = (-21.537289, 142.65616, 43.01424)
+            vector3f physics:velocity = (0.100224175, 0.018522609, 0.22180566)
+            quatd xformOp:orient = (0.9393790036200395, 0.0026810148845027755, 0.3427982702481436, -0.007017523202074083)
+            double3 xformOp:translate = (0.16763222217559814, 0.1470914840698243, 0.03605970144271853)
+        }
+
+        over "left_wrist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-39.96074, 142.9379, 21.130177)
+            vector3f physics:velocity = (0.030423904, 0.023775574, 0.13282873)
+            quatd xformOp:orient = (0.9393759742522013, 0.0025369002791873637, 0.3427993570990093, -0.007412415747039657)
+            double3 xformOp:translate = (0.20281672477722168, 0.1465698242187501, 0.0064323782920837624)
+        }
+
+        over "left_hand"
+        {
+            over "left_hand_palm_link"
+            {
+                vector3f physics:angularVelocity = (-39.96074, 142.9379, 21.130177)
+                vector3f physics:velocity = (-0.081212014, 0.010465901, 0.0117413495)
+                quatd xformOp:orient = (0.9393759595189862, 0.0024717327937050157, 0.3427994311345814, -0.007432847945967981)
+                double3 xformOp:translate = (-0.008420627936322811, -0.0025818971994895357, -0.11489189297705604)
+            }
+
+            over "left_hand_index_0_link"
+            {
+                vector3f physics:angularVelocity = (-42.224323, 142.97272, 18.441704)
+                vector3f physics:velocity = (-0.13500796, 0.019190291, -0.163775)
+                quatd xformOp:orient = (0.9393749981816593, 0.0024271045521946965, 0.34279971185226427, -0.00755509819294014)
+                double3 xformOp:translate = (0.06938602381618808, -0.00223754517989061, -0.14314190166368757)
+            }
+
+            over "left_hand_index_1_link"
+            {
+                vector3f physics:angularVelocity = (-49.26793, 143.08109, 10.075971)
+                vector3f physics:velocity = (-0.19475162, 0.0054303748, -0.23340641)
+                quatd xformOp:orient = (0.939375023589175, 0.0024274941457836582, 0.3427996628871078, -0.00755403557672019)
+                double3 xformOp:translate = (0.10441490570010359, -0.002820077994642567, -0.17264227097066387)
+            }
+
+            over "left_hand_middle_0_link"
+            {
+                vector3f physics:angularVelocity = (-41.55872, 142.9625, 19.232244)
+                vector3f physics:velocity = (-0.24399254, -0.024116747, -0.0725881)
+                quatd xformOp:orient = (0.9393771045573659, 0.0025233879332355238, 0.34279895790503084, -0.007291255446282756)
+                double3 xformOp:translate = (0.032675669096608795, -0.0016787938654569956, -0.18674290584333675)
+            }
+
+            over "left_hand_middle_1_link"
+            {
+                vector3f physics:angularVelocity = (-41.58242, 142.96286, 19.204094)
+                vector3f physics:velocity = (-0.3039132, -0.03221272, -0.14201623)
+                quatd xformOp:orient = (0.9393769789362592, 0.0025172167696672154, 0.34279898838642725, -0.007308120521966331)
+                double3 xformOp:translate = (0.0677050229376881, -0.0022358158015411966, -0.2162432766548178)
+            }
+
+            over "left_hand_thumb_0_link"
+            {
+                vector3f physics:angularVelocity = (-39.752846, 156.05226, 21.125021)
+                vector3f physics:velocity = (-0.042138554, 0.014568063, 0.05731105)
+                quatd xformOp:orient = (0.9394132068043127, 0.002470902465362755, 0.3426973442331479, -0.007433153986803406)
+                double3 xformOp:translate = (0.011081428754999845, -0.0029074546978486993, -0.13131879384602896)
+            }
+
+            over "left_hand_thumb_1_link"
+            {
+                vector3f physics:angularVelocity = (-33.66059, 155.95853, 28.364017)
+                vector3f physics:velocity = (-0.018532885, 0.013486078, 0.095592186)
+                quatd xformOp:orient = (0.9393700973990597, 0.0009248458333324434, 0.34270504776368016, -0.011671118625017839)
+                double3 xformOp:translate = (0.008863202383145197, -0.022173910741200675, -0.1296987191114014)
+            }
+
+            over "left_hand_thumb_2_link"
+            {
+                vector3f physics:angularVelocity = (-37.374363, 156.01566, 23.951204)
+                vector3f physics:velocity = (0.0007626014, 0.01380967, 0.122072555)
+                quatd xformOp:orient = (0.9393700329182776, 0.0009235627998978072, 0.34270510831112944, -0.011674631656963875)
+                double3 xformOp:translate = (0.007821472972680876, -0.06796118953680774, -0.12940837750311163)
+            }
+
+            over "joints"
+            {
+                over "left_hand_index_0_joint"
+                {
+                    float state:angular:physics:position = -0.014930767
+                    float state:angular:physics:velocity = -3.514672
+                }
+
+                over "left_hand_middle_0_joint"
+                {
+                    float state:angular:physics:position = 0.017287942
+                    float state:angular:physics:velocity = -2.48119
+                }
+
+                over "left_hand_thumb_0_joint"
+                {
+                    float state:angular:physics:position = -0.012445656
+                    float state:angular:physics:velocity = 13.116017
+                }
+
+                over "left_hand_index_1_joint"
+                {
+                    float state:angular:physics:position = 0.00014144008
+                    float state:angular:physics:velocity = -10.936621
+                }
+
+                over "left_hand_middle_1_joint"
+                {
+                    float state:angular:physics:position = -0.0020812342
+                    float state:angular:physics:velocity = -0.036798924
+                }
+
+                over "left_hand_thumb_1_joint"
+                {
+                    float state:angular:physics:position = -0.51696587
+                    float state:angular:physics:velocity = 9.461895
+                }
+
+                over "left_hand_thumb_2_joint"
+                {
+                    float state:angular:physics:position = -0.0004299895
+                    float state:angular:physics:velocity = -5.7678676
+                }
+            }
+        }
+
+        over "right_shoulder_pitch_link"
+        {
+            vector3f physics:angularVelocity = (1.3217224, -39.727062, 54.92541)
+            vector3f physics:velocity = (0.18148828, -0.05472777, 0.01309876)
+            quatd xformOp:orient = (0.9902547310748602, -0.13895424799368178, 0.007536415724473146, -0.005521502186421156)
+            double3 xformOp:translate = (0.01314854621887207, -0.09963717460632315, 0.23465576171875002)
+        }
+
+        over "right_shoulder_roll_link"
+        {
+            vector3f physics:angularVelocity = (-18.347723, -39.47073, 55.18886)
+            vector3f physics:velocity = (0.23565844, -0.076119, 0.014529051)
+            quatd xformOp:orient = (0.9999563309759936, -0.00022690597208342762, 0.006697510227312745, -0.006513678796508177)
+            double3 xformOp:translate = (0.012585043907165527, -0.13997247219085684, 0.2318213224411011)
+        }
+
+        over "right_shoulder_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-18.309973, -39.469696, 58.006325)
+            vector3f physics:velocity = (0.309101, -0.102286294, 0.019897746)
+            quatd xformOp:orient = (0.9999543226773763, -0.00022892225030902636, 0.006697488085794369, -0.006814969315676216)
+            double3 xformOp:translate = (0.011121153831481934, -0.14624979496002188, 0.12863394021987917)
+        }
+
+        over "right_elbow_link"
+        {
+            vector3f physics:angularVelocity = (-19.351957, -115.93169, 58.048317)
+            vector3f physics:velocity = (0.34584332, -0.038266912, 0.15698056)
+            quatd xformOp:orient = (0.9999473883041937, -0.00022235976642966723, 0.007663154370866711, -0.0068152215550609605)
+            double3 xformOp:translate = (0.02582252025604248, -0.1464944124221801, 0.04791184663772585)
+        }
+
+        over "right_wrist_roll_link"
+        {
+            vector3f physics:angularVelocity = (-37.804996, -115.68006, 58.33112)
+            vector3f physics:velocity = (0.3460052, 0.014370717, 0.26233196)
+            quatd xformOp:orient = (0.9999473469199279, -0.0003635462137287047, 0.0076641158217535315, -0.006814143425151619)
+            double3 xformOp:translate = (0.12562251091003418, -0.14974894523620597, 0.036381745338439964)
+        }
+
+        over "right_wrist_pitch_link"
+        {
+            vector3f physics:angularVelocity = (-32.970337, 239.19722, 58.035927)
+            vector3f physics:velocity = (0.27981475, 0.043387678, 0.23354118)
+            quatd xformOp:orient = (0.9386962866377302, 0.0019574101439397296, 0.34467769817039984, -0.006537153969384397)
+            double3 xformOp:translate = (0.16361451148986816, -0.1502669095993041, 0.03579952716827395)
+        }
+
+        over "right_wrist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-38.946262, 239.27278, 50.995014)
+            vector3f physics:velocity = (0.1655527, 0.059622962, 0.08722019)
+            quatd xformOp:orient = (0.9386944843653927, 0.001864326876060044, 0.3446782214857945, -0.006790650976032742)
+            double3 xformOp:translate = (0.19868063926696777, -0.15076937675476065, 0.006031954288482688)
+        }
+
+        over "right_hand"
+        {
+            over "right_hand_palm_link"
+            {
+                vector3f physics:angularVelocity = (-38.946262, 239.27278, 50.995014)
+                vector3f physics:velocity = (-0.06476912, 0.0748663, -0.16020581)
+                quatd xformOp:orient = (0.9386944630393086, 0.0019306194238261725, 0.34467832348045696, -0.006769866371351752)
+                double3 xformOp:translate = (-0.012759019002163807, -0.0025614823180477586, -0.11540609221788534)
+            }
+
+            over "right_hand_index_0_link"
+            {
+                vector3f physics:angularVelocity = (-121.04262, 240.30319, -45.72118)
+                vector3f physics:velocity = (-0.108024865, 0.040712252, -0.39839157)
+                quatd xformOp:orient = (0.9386990396689988, 0.0021722927375723636, 0.3446767193268842, -0.0061117283004054595)
+                double3 xformOp:translate = (0.06488888867837916, -0.005257185826303745, -0.1439641124607599)
+            }
+
+            over "right_hand_index_1_link"
+            {
+                vector3f physics:angularVelocity = (323.87326, 234.71901, 478.42596)
+                vector3f physics:velocity = (-0.19020303, 0.2830189, -0.52482074)
+                quatd xformOp:orient = (0.9386990426212076, 0.0021715353750663214, 0.34467667831396176, -0.00611385660583851)
+                double3 xformOp:translate = (0.09980325619882002, -0.005714007292661583, -0.1736023580544196)
+            }
+
+            over "right_hand_middle_0_link"
+            {
+                vector3f physics:angularVelocity = (-30.514933, 239.16698, 60.927803)
+                vector3f physics:velocity = (-0.2872201, 0.06493238, -0.24596697)
+                quatd xformOp:orient = (0.9386970132234166, 0.0020613782422119285, 0.3446774321826398, -0.006413721942925207)
+                double3 xformOp:translate = (0.028003601944998957, -0.004787972064971724, -0.18741813736240254)
+            }
+
+            over "right_hand_middle_1_link"
+            {
+                vector3f physics:angularVelocity = (-16.428255, 238.99017, 77.523056)
+                vector3f physics:velocity = (-0.38567132, 0.09141896, -0.36082777)
+                quatd xformOp:orient = (0.9386959479984136, 0.002004526547182642, 0.3446777519466121, -0.006568591760110915)
+                double3 xformOp:translate = (0.06291748694800559, -0.00527447655620894, -0.2170563251587917)
+            }
+
+            over "right_hand_thumb_0_link"
+            {
+                vector3f physics:angularVelocity = (-39.00663, 234.9143, 50.99982)
+                vector3f physics:velocity = (0.033763316, 0.067675285, -0.051136468)
+                quatd xformOp:orient = (0.9386936173891537, 0.001930647978029495, 0.34468062650906306, -0.006769858238533106)
+                double3 xformOp:translate = (0.006677956799370888, -0.0028387483381768774, -0.13191075823239407)
+            }
+
+            over "right_hand_thumb_1_link"
+            {
+                vector3f physics:angularVelocity = (-32.826714, 234.83675, 58.28019)
+                vector3f physics:velocity = (-0.008447047, 0.06591372, -0.0687255)
+                quatd xformOp:orient = (0.9387178757442447, 0.004232595998021074, 0.34466009974609635, -0.0005005320581779436)
+                double3 xformOp:translate = (0.005043152785631166, 0.0164877980726974, -0.13031305901087176)
+            }
+
+            over "right_hand_thumb_2_link"
+            {
+                vector3f physics:angularVelocity = (-34.209885, 234.8541, 56.650715)
+                vector3f physics:velocity = (-0.0399145, 0.06645019, -0.089400396)
+                quatd xformOp:orient = (0.9387178554239962, 0.004224140284526347, 0.34466022461145446, -0.0005235626149614071)
+                double3 xformOp:translate = (0.005219858797237187, 0.062286165211159705, -0.12996489269315004)
+            }
+
+            over "joints"
+            {
+                over "right_hand_index_0_joint"
+                {
+                    float state:angular:physics:position = 0.08034828
+                    float state:angular:physics:velocity = -126.865654
+                }
+
+                over "right_hand_middle_0_joint"
+                {
+                    float state:angular:physics:position = 0.043488562
+                    float state:angular:physics:velocity = 13.029153
+                }
+
+                over "right_hand_thumb_0_joint"
+                {
+                    float state:angular:physics:position = 0.00031351275
+                    float state:angular:physics:velocity = -4.358914
+                }
+
+                over "right_hand_index_1_joint"
+                {
+                    float state:angular:physics:position = -0.00027507063
+                    float state:angular:physics:velocity = 687.5405
+                }
+
+                over "right_hand_middle_1_joint"
+                {
+                    float state:angular:physics:position = -0.018925339
+                    float state:angular:physics:velocity = 21.76852
+                }
+
+                over "right_hand_thumb_1_joint"
+                {
+                    float state:angular:physics:position = 0.76531506
+                    float state:angular:physics:velocity = 9.5499325
+                }
+
+                over "right_hand_thumb_2_joint"
+                {
+                    float state:angular:physics:position = -0.0028316025
+                    float state:angular:physics:velocity = -2.1374383
+                }
+            }
+        }
+
+        over "joints"
+        {
+            over "left_hip_pitch_joint"
+            {
+                float state:angular:physics:position = -0.20899184
+                float state:angular:physics:velocity = -40.85397
+            }
+
+            over "right_hip_pitch_joint"
+            {
+                float state:angular:physics:position = -0.5079169
+                float state:angular:physics:velocity = -16.222448
+            }
+
+            over "waist_yaw_joint"
+            {
+                float state:angular:physics:position = 0.09613091
+                float state:angular:physics:velocity = 30.511278
+            }
+
+            over "left_hip_roll_joint"
+            {
+                float state:angular:physics:position = -0.15107143
+                float state:angular:physics:velocity = -9.186772
+            }
+
+            over "right_hip_roll_joint"
+            {
+                float state:angular:physics:position = -0.09064033
+                float state:angular:physics:velocity = -14.926267
+            }
+
+            over "waist_roll_joint"
+            {
+                float state:angular:physics:position = -0.08170723
+                float state:angular:physics:velocity = -12.387304
+            }
+
+            over "left_hip_yaw_joint"
+            {
+                float state:angular:physics:position = 0.01997063
+                float state:angular:physics:velocity = -19.120527
+            }
+
+            over "right_hip_yaw_joint"
+            {
+                float state:angular:physics:position = -0.04219084
+                float state:angular:physics:velocity = 2.0356646
+            }
+
+            over "waist_pitch_joint"
+            {
+                float state:angular:physics:position = -0.22422583
+                float state:angular:physics:velocity = -92.290924
+            }
+
+            over "left_knee_joint"
+            {
+                float state:angular:physics:position = -0.13647954
+                float state:angular:physics:velocity = -28.530172
+            }
+
+            over "right_knee_joint"
+            {
+                float state:angular:physics:position = -0.1423822
+                float state:angular:physics:velocity = -56.75527
+            }
+
+            over "left_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = -0.11891097
+                float state:angular:physics:velocity = -25.120743
+            }
+
+            over "right_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = -0.17141329
+                float state:angular:physics:velocity = -1.2323115
+            }
+
+            over "left_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = -0.6167834
+                float state:angular:physics:velocity = 76.037025
+            }
+
+            over "right_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = -0.5409151
+                float state:angular:physics:velocity = 36.304234
+            }
+
+            over "left_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = 0.011450053
+                float state:angular:physics:velocity = -15.434098
+            }
+
+            over "right_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = -0.050479766
+                float state:angular:physics:velocity = -19.672884
+            }
+
+            over "left_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0.30574635
+                float state:angular:physics:velocity = -127.06179
+            }
+
+            over "right_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0.027581843
+                float state:angular:physics:velocity = -81.57875
+            }
+
+            over "left_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = -0.01195933
+                float state:angular:physics:velocity = -5.0333033
+            }
+
+            over "right_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = -0.034546044
+                float state:angular:physics:velocity = 2.8177152
+            }
+
+            over "left_elbow_joint"
+            {
+                float state:angular:physics:position = -0.0076307687
+                float state:angular:physics:velocity = -32.409744
+            }
+
+            over "right_elbow_joint"
+            {
+                float state:angular:physics:position = 0.110668376
+                float state:angular:physics:velocity = -76.469124
+            }
+
+            over "left_wrist_roll_joint"
+            {
+                float state:angular:physics:position = -0.023148615
+                float state:angular:physics:velocity = -9.991943
+            }
+
+            over "right_wrist_roll_joint"
+            {
+                float state:angular:physics:position = -0.016189912
+                float state:angular:physics:velocity = -18.45693
+            }
+
+            over "left_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 39.28598
+                float state:angular:physics:velocity = 237.38905
+            }
+
+            over "right_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 39.446987
+                float state:angular:physics:velocity = 354.91046
+            }
+
+            over "left_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = -0.048179764
+                float state:angular:physics:velocity = -28.607962
+            }
+
+            over "right_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = -0.03095136
+                float state:angular:physics:velocity = -9.235361
+            }
+        }
+    }
+
+    def "g1_01" (
+        prepend payload = @https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/Robots/Unitree/G1/g1.usd@
+    )
+    {
+        string[] isaac:changelog (
+            displayName = "Changelog"
+        )
+        string isaac:description (
+            displayName = "Description"
+        )
+        token isaac:license (
+            displayName = "License"
+        )
+        string isaac:namespace (
+            displayName = "Namespace"
+            doc = "Namespace of the prim in Isaac Sim"
+        )
+        rel isaac:physics:robotJoints (
+            displayName = "Robot Joints"
+        )
+        rel isaac:physics:robotLinks (
+            displayName = "Robot Links"
+        )
+        token isaac:robotType (
+            displayName = "Robot Type"
+        )
+        string isaac:source (
+            displayName = "Source"
+        )
+        string isaac:version (
+            displayName = "Version"
+        )
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1.75, 2.8, 0.85)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "pelvis"
+        {
+            vector3f physics:angularVelocity = (8.826354, 38.47031, 22.087452)
+            vector3f physics:velocity = (0.04149577, -0.037994932, 0.047851488)
+            quatd xformOp:orient = (0.9999183012304154, 0.0003754098294565566, 0.010469994930542348, -0.007323191796934424)
+            double3 xformOp:translate = (0.010363101959228516, 0.0008079528808595526, -0.05696204900741575)
+        }
+
+        over "left_hip_pitch_link"
+        {
+            vector3f physics:angularVelocity = (8.34861, 5.870064, 22.067974)
+            vector3f physics:velocity = (-0.022304082, -0.028795054, 0.064178094)
+            quatd xformOp:orient = (0.9999349895062539, 0.00036270677151684994, 0.008731968542270907, -0.007323792071225275)
+            double3 xformOp:translate = (0.009157657623291016, 0.06534595489501971, -0.1596010088920593)
+        }
+
+        over "left_hip_roll_link"
+        {
+            vector3f physics:angularVelocity = (6.7598386, 5.8934975, 21.815739)
+            vector3f physics:velocity = (-0.032177053, -0.003075246, 0.06043004)
+            quatd xformOp:orient = (0.9968761807996389, -0.0009163906257718833, -0.07862956358538321, -0.007377812204089196)
+            double3 xformOp:translate = (0.009387731552124023, 0.11736626625061053, -0.19003031253814695)
+        }
+
+        over "left_hip_yaw_link"
+        {
+            vector3f physics:angularVelocity = (8.620132, 5.8580456, 10.094916)
+            vector3f physics:velocity = (-0.05059294, 0.019446835, 0.06228125)
+            quatd xformOp:orient = (0.996877981862963, -0.0009359009439829206, -0.07862933620861844, -0.007130277248552047)
+            double3 xformOp:translate = (0.053533196449279785, 0.11663122177124041, -0.308695650100708)
+        }
+
+        over "left_knee_link"
+        {
+            vector3f physics:angularVelocity = (8.267717, -18.674812, 10.113186)
+            vector3f physics:velocity = (-0.017253552, 0.03916118, 0.067688964)
+            quatd xformOp:orient = (0.9999471395692668, -0.00031952792494681744, 0.0073485909308175276, -0.00718430097350235)
+            double3 xformOp:translate = (0.0040656328201293945, 0.11935133934021014, -0.49611580967903135)
+        }
+
+        over "left_ankle_pitch_link"
+        {
+            vector3f physics:angularVelocity = (9.551878, 70.72191, 10.046618)
+            vector3f physics:velocity = (0.05561871, 0.060447633, 0.07339061)
+            quatd xformOp:orient = (0.9999728570438489, -0.0003608086497272743, 0.0016028432493848238, -0.007182331529412393)
+            double3 xformOp:translate = (-0.00034618377685546875, 0.11909670829772967, -0.7960932202637195)
+        }
+
+        over "left_ankle_roll_link"
+        {
+            vector3f physics:angularVelocity = (-126.71049, 72.679596, 10.482761)
+            vector3f physics:velocity = (-0.0006914472, 0.034821626, 0.03166142)
+            quatd xformOp:orient = (0.9999710754069466, 0.0019218159473887197, 0.001586434013506606, -0.007185972450532235)
+            double3 xformOp:translate = (-0.0004025697708129883, 0.11908454895019549, -0.8136511169373989)
+        }
+
+        over "right_hip_pitch_link"
+        {
+            vector3f physics:angularVelocity = (8.593795, 22.600967, 22.077972)
+            vector3f physics:velocity = (0.056518897, -0.029877855, 0.031085141)
+            quatd xformOp:orient = (0.9999549422284888, 0.00034287707404835144, 0.006028511754221623, -0.0073248204183404214)
+            double3 xformOp:translate = (0.0072689056396484375, -0.06354432106018049, -0.1596780180931091)
+        }
+
+        over "right_hip_roll_link"
+        {
+            vector3f physics:angularVelocity = (5.538263, 22.646046, 21.575916)
+            vector3f physics:velocity = (0.023858564, -0.005951657, 0.014360195)
+            quatd xformOp:orient = (0.9966602152130671, -0.0005494337302033698, -0.08132730833589026, -0.007347275199545066)
+            double3 xformOp:translate = (0.0061397552490234375, -0.11551527976989728, -0.19017181396484373)
+        }
+
+        over "right_hip_yaw_link"
+        {
+            vector3f physics:angularVelocity = (4.535017, 22.66022, 27.682981)
+            vector3f physics:velocity = (-0.05825882, -0.005114193, 0.027518567)
+            quatd xformOp:orient = (0.9966593282082976, -0.0005396828109507492, -0.08132734976317102, -0.007466888130092054)
+            double3 xformOp:translate = (0.05092763900756836, -0.11616330146789533, -0.30859664678573606)
+        }
+
+        over "right_knee_link"
+        {
+            vector3f physics:angularVelocity = (3.9724052, -14.91352, 27.677769)
+            vector3f physics:velocity = (-0.030340482, -0.00017159019, 0.03372337)
+            quatd xformOp:orient = (0.9999604754863827, 0.0001052841488398258, 0.004796034402491207, -0.0074856151587964935)
+            double3 xformOp:translate = (0.0024139881134033203, -0.11756019592285138, -0.49628052711486814)
+        }
+
+        over "right_ankle_pitch_link"
+        {
+            vector3f physics:angularVelocity = (4.7330594, 35.8869, 27.684822)
+            vector3f physics:velocity = (0.021211252, 0.0043905433, 0.03671446)
+            quatd xformOp:orient = (0.9999717774742009, 0.00007409881136015842, 0.0006319134860878021, -0.0074859501601059406)
+            double3 xformOp:translate = (-0.0004616975784301758, -0.11738114356994611, -0.7962766423821449)
+        }
+
+        over "right_ankle_roll_link"
+        {
+            vector3f physics:angularVelocity = (-105.23718, 37.533497, 27.823936)
+            vector3f physics:velocity = (-0.0073195454, -0.00711377, 0.015505961)
+            quatd xformOp:orient = (0.9999714219146824, 0.00084652627503722, 0.0006261196111618404, -0.00748643582931932)
+            double3 xformOp:translate = (-0.0004838705062866211, -0.117378520965576, -0.8138346135616302)
+        }
+
+        over "waist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (8.352603, 38.49077, -0.53936225)
+            vector3f physics:velocity = (0.104625106, -0.05174543, 0.044193722)
+            quatd xformOp:orient = (0.9999163688505065, 0.0003726817689210273, 0.010470148236992346, -0.007582374892628142)
+            double3 xformOp:translate = (0.010363101959228516, 0.0008077144622804511, -0.056962108612060525)
+        }
+
+        over "waist_roll_link"
+        {
+            vector3f physics:angularVelocity = (-6.2617016, 38.712334, -0.23317514)
+            vector3f physics:velocity = (0.12216855, -0.055487584, 0.048815478)
+            quatd xformOp:orient = (0.9999164292840854, -0.0001334397602420431, 0.01047398092812218, -0.0075770947672789595)
+            double3 xformOp:translate = (0.007321953773498535, 0.0008282184600831854, -0.012888765335082986)
+        }
+
+        over "torso_link"
+        {
+            vector3f physics:angularVelocity = (-7.363066, -33.97495, -0.20223619)
+            vector3f physics:velocity = (0.012750354, -0.031793654, 0.052044213)
+            quatd xformOp:orient = (0.9999269387288162, -0.00014144736204797656, 0.009417358463140733, -0.007576975428144162)
+            double3 xformOp:translate = (0.007321953773498535, 0.0008282184600831854, -0.012888765335082986)
+        }
+
+        over "left_shoulder_pitch_link"
+        {
+            vector3f physics:angularVelocity = (-7.867182, -58.256165, -7.155156)
+            vector3f physics:velocity = (-0.018281098, -0.023952238, 0.037366197)
+            quatd xformOp:orient = (0.9902179969563154, 0.13904185421235796, 0.007338795254549725, -0.009045626856317563)
+            double3 xformOp:translate = (0.017462491989135742, 0.10101146697998065, 0.23473002910614016)
+        }
+
+        over "left_shoulder_roll_link"
+        {
+            vector3f physics:angularVelocity = (1.5016633, -58.404922, -7.314932)
+            vector3f physics:velocity = (0.04899576, -0.022356313, 0.035999764)
+            quatd xformOp:orient = (0.9999321306309816, 0.0002309732486371455, 0.00852345928886546, -0.007939233268707714)
+            double3 xformOp:translate = (0.018054485321044922, 0.14134640693664569, 0.23189404010772707)
+        }
+
+        over "left_shoulder_yaw_link"
+        {
+            vector3f physics:angularVelocity = (1.5962961, -58.40824, -1.7629198)
+            vector3f physics:velocity = (0.16308592, -0.01953024, 0.04509054)
+            quatd xformOp:orient = (0.9999343739223165, 0.00023342762174233549, 0.008523430686884208, -0.007651437084373649)
+            double3 xformOp:translate = (0.016394853591918945, 0.14764709472656268, 0.1287111282348633)
+        }
+
+        over "left_elbow_link"
+        {
+            vector3f physics:angularVelocity = (1.1676491, -86.41023, -1.7723408)
+            vector3f physics:velocity = (0.18884417, -0.021220533, 0.14803323)
+            quatd xformOp:orient = (0.999935977894681, 0.00023197659476893105, 0.008333177300077719, -0.0076514348166160755)
+            double3 xformOp:translate = (0.03080153465270996, 0.1474539756774904, 0.047935748100280784)
+        }
+
+        over "left_wrist_roll_link"
+        {
+            vector3f physics:angularVelocity = (15.848756, -86.63489, -2.0171206)
+            vector3f physics:velocity = (0.18997733, -0.022817189, 0.22674812)
+            quatd xformOp:orient = (0.9999359154003116, 0.0004229704870873648, 0.008331723094842203, -0.0076530110923001115)
+            double3 xformOp:translate = (0.1306382417678833, 0.1478175640106203, 0.03627088069915774)
+        }
+
+        over "left_wrist_pitch_link"
+        {
+            vector3f physics:angularVelocity = (18.537727, 88.95569, -1.8909628)
+            vector3f physics:velocity = (0.16746816, -0.019251775, 0.23021299)
+            quatd xformOp:orient = (0.9478055809771573, 0.002781055872528217, 0.3187567001186823, -0.007142305386617326)
+            double3 xformOp:translate = (0.16862845420837402, 0.14723629951477069, 0.035637521743774436)
+        }
+
+        over "left_wrist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (20.542084, 88.923096, 0.75223345)
+            vector3f physics:velocity = (0.12732749, -0.010823073, 0.17332219)
+            quatd xformOp:orient = (0.9478069028622842, 0.0028405594479096524, 0.31875616132050977, -0.0069653233119960165)
+            double3 xformOp:translate = (0.2052760124206543, 0.14669485092163104, 0.007840716838836692)
+        }
+
+        over "left_hand"
+        {
+            over "left_hand_palm_link"
+            {
+                vector3f physics:angularVelocity = (20.542084, 88.923096, 0.75223345)
+                vector3f physics:velocity = (0.062294208, 0.0048492984, 0.096595004)
+                quatd xformOp:orient = (0.9478069057875504, 0.0027799666546515322, 0.3187562716832972, -0.006984295912444095)
+                double3 xformOp:translate = (-0.0045340032272587205, -0.0024228082078239233, -0.11191497301985454)
+            }
+
+            over "left_hand_index_0_link"
+            {
+                vector3f physics:angularVelocity = (9.707407, 89.10035, -13.5341215)
+                vector3f physics:velocity = (0.034561224, 0.0010945047, -0.013895211)
+                quatd xformOp:orient = (0.9478073706376337, 0.0027998711368845577, 0.3187560086696905, -0.006925014336473238)
+                double3 xformOp:translate = (0.07461042142486485, -0.002015494570209775, -0.1361644864983076)
+            }
+
+            over "left_hand_index_1_link"
+            {
+                vector3f physics:angularVelocity = (43.81879, 88.542274, 31.444368)
+                vector3f physics:velocity = (-0.0012958803, 0.023998743, -0.0576805)
+                quatd xformOp:orient = (0.9478073647503665, 0.0028001046549767966, 0.31875603981341605, -0.006924292119398351)
+                double3 xformOp:translate = (0.1110973606935528, -0.0025437565153509922, -0.1638423667869987)
+            }
+
+            over "left_hand_middle_0_link"
+            {
+                vector3f physics:angularVelocity = (33.036774, 88.71867, 17.227444)
+                vector3f physics:velocity = (-0.03600516, 0.04083235, 0.040116463)
+                quatd xformOp:orient = (0.9478058215453146, 0.0027302907553279606, 0.3187566553066083, -0.007131960105527317)
+                double3 xformOp:translate = (0.04016848110247673, -0.0014578486369378751, -0.18157865826336017)
+            }
+
+            over "left_hand_middle_1_link"
+            {
+                vector3f physics:angularVelocity = (29.226896, 88.781006, 12.203822)
+                vector3f physics:velocity = (-0.07089566, 0.059602994, -0.004457792)
+                quatd xformOp:orient = (0.9478062135656191, 0.002747066042222107, 0.318756457701893, -0.007082077936947141)
+                double3 xformOp:translate = (0.07665506657431975, -0.0020061378107327776, -0.20925653737002514)
+            }
+
+            over "left_hand_thumb_0_link"
+            {
+                vector3f physics:angularVelocity = (19.721767, 34.972607, 0.7049519)
+                vector3f physics:velocity = (0.08194424, -0.00013866121, 0.11860236)
+                quatd xformOp:orient = (0.9475957690090436, 0.002784599437144078, 0.3193833893568462, -0.006982489890224111)
+                double3 xformOp:translate = (0.015779808985026733, -0.002727883959499522, -0.12732718056572268)
+            }
+
+            over "left_hand_thumb_1_link"
+            {
+                vector3f physics:angularVelocity = (9.030262, 35.147495, -13.353926)
+                vector3f physics:velocity = (0.0741927, 0.00010232815, 0.11165364)
+                quatd xformOp:orient = (0.9475442715148291, 0.0010615419106731142, 0.31939387865426433, -0.012094499840372246)
+                double3 xformOp:translate = (0.013496739837886684, -0.02199650544161802, -0.12582822590883236)
+            }
+
+            over "left_hand_thumb_2_link"
+            {
+                vector3f physics:angularVelocity = (4.1599975, 35.227158, -19.758118)
+                vector3f physics:velocity = (0.06343371, 0.00054764387, 0.1089132)
+                quatd xformOp:orient = (0.9475442451051191, 0.001061424006775143, 0.31939394412649913, -0.01209485024985912)
+                double3 xformOp:translate = (0.012407327888670272, -0.0677826027964552, -0.12556339778400305)
+            }
+
+            over "joints"
+            {
+                over "left_hand_index_0_joint"
+                {
+                    float state:angular:physics:position = 0.007170486
+                    float state:angular:physics:velocity = -17.931026
+                }
+
+                over "left_hand_middle_0_joint"
+                {
+                    float state:angular:physics:position = -0.017864468
+                    float state:angular:physics:velocity = 20.678291
+                }
+
+                over "left_hand_thumb_0_joint"
+                {
+                    float state:angular:physics:position = 0.07584399
+                    float state:angular:physics:velocity = -53.956764
+                }
+
+                over "left_hand_index_1_joint"
+                {
+                    float state:angular:physics:position = 0.00010658018
+                    float state:angular:physics:velocity = 56.453186
+                }
+
+                over "left_hand_middle_1_joint"
+                {
+                    float state:angular:physics:position = 0.0060484195
+                    float state:angular:physics:velocity = -6.3052254
+                }
+
+                over "left_hand_thumb_1_joint"
+                {
+                    float state:angular:physics:position = -0.61820155
+                    float state:angular:physics:velocity = -17.663265
+                }
+
+                over "left_hand_thumb_2_joint"
+                {
+                    float state:angular:physics:position = -0.00004574296
+                    float state:angular:physics:velocity = -8.046086
+                }
+            }
+        }
+
+        over "right_shoulder_pitch_link"
+        {
+            vector3f physics:angularVelocity = (-7.4885325, -47.12307, 3.5741925)
+            vector3f physics:velocity = (-0.021674262, -0.023881821, 0.07036275)
+            quatd xformOp:orient = (0.9901770989296284, -0.13933299429906196, 0.009961693510515152, -0.006032753713282293)
+            double3 xformOp:translate = (0.014425992965698242, -0.09939556121826154, 0.23481538295745852)
+        }
+
+        over "right_shoulder_roll_link"
+        {
+            vector3f physics:angularVelocity = (-4.740775, -47.163536, 3.5245917)
+            vector3f physics:velocity = (0.032244503, -0.029408706, 0.070040345)
+            quatd xformOp:orient = (0.9999321604457643, -0.00021230524008944491, 0.009025439311810572, -0.007360086818794304)
+            double3 xformOp:translate = (0.013781309127807617, -0.1397319316864012, 0.2320140838623047)
+        }
+
+        over "right_shoulder_yaw_link"
+        {
+            vector3f physics:angularVelocity = (-4.6024075, -47.1613, 11.187884)
+            vector3f physics:velocity = (0.12395476, -0.036685538, 0.077170484)
+            quatd xformOp:orient = (0.9999318296979162, -0.00021270826424659448, 0.009025467940325407, -0.007404839000955129)
+            double3 xformOp:translate = (0.011826515197753906, -0.14600138664245588, 0.1288343906402588)
+        }
+
+        over "right_elbow_link"
+        {
+            vector3f physics:angularVelocity = (-4.989167, -73.2824, 11.20249)
+            vector3f physics:velocity = (0.14704753, -0.024766412, 0.16458578)
+            quatd xformOp:orient = (0.9999316551700704, -0.00021258087963885506, 0.009044761034461047, -0.007404869751890572)
+            double3 xformOp:translate = (0.026151657104492188, -0.14625887870788556, 0.0480447053909302)
+        }
+
+        over "right_wrist_roll_link"
+        {
+            vector3f physics:angularVelocity = (-0.31332275, -73.351685, 11.117903)
+            vector3f physics:velocity = (0.14792968, -0.014637075, 0.2311978)
+            quatd xformOp:orient = (0.9999316028362699, -0.0003869087495572971, 0.00904605751617428, -0.007403296179523162)
+            double3 xformOp:translate = (0.12591540813446045, -0.14963083267211896, 0.03623887300491335)
+        }
+
+        over "right_wrist_pitch_link"
+        {
+            vector3f physics:angularVelocity = (1.5034527, 49.39993, 11.006458)
+            vector3f physics:velocity = (0.13551883, -0.006799683, 0.24264517)
+            quatd xformOp:orient = (0.948449974840948, 0.001914079213562168, 0.3168401573304536, -0.007162138492296268)
+            double3 xformOp:translate = (0.16390490531921387, -0.15019373893737775, 0.0355516314506531)
+        }
+
+        over "right_wrist_yaw_link"
+        {
+            vector3f physics:angularVelocity = (6.327577, 49.33435, 17.42178)
+            vector3f physics:velocity = (0.11386326, 0.00405177, 0.21069774)
+            quatd xformOp:orient = (0.9484478339335993, 0.0018214136990743217, 0.3168407191916379, -0.007439584728065256)
+            double3 xformOp:translate = (0.20066463947296143, -0.15076260566711408, 0.00790371894836428)
+        }
+
+        over "right_hand"
+        {
+            over "right_hand_palm_link"
+            {
+                vector3f physics:angularVelocity = (6.327577, 49.33435, 17.42178)
+                vector3f physics:velocity = (0.06987618, 0.028935684, 0.15620847)
+                quatd xformOp:orient = (0.9484478430401765, 0.0018824164319795934, 0.3168407836564297, -0.007420468502249714)
+                double3 xformOp:translate = (-0.009125733103662048, -0.002617735219399897, -0.11172197109874371)
+            }
+
+            over "right_hand_index_0_link"
+            {
+                vector3f physics:angularVelocity = (5.8613086, 49.34064, 16.801788)
+                vector3f physics:velocity = (0.06487932, 0.04701184, 0.1054778)
+                quatd xformOp:orient = (0.948447289262355, 0.0018569066598278538, 0.31684079410487626, -0.0074968379693622685)
+                double3 xformOp:translate = (0.07006756543862802, -0.005429764341341237, -0.13564994372205508)
+            }
+
+            over "right_hand_index_1_link"
+            {
+                vector3f physics:angularVelocity = (5.851402, 49.340775, 16.788614)
+                vector3f physics:velocity = (0.045992825, 0.05778322, 0.08041276)
+                quatd xformOp:orient = (0.9484472522748277, 0.001856269973944746, 0.31684086201558426, -0.007498804660384502)
+                double3 xformOp:translate = (0.10666693259109317, -0.006027105634301755, -0.16317762381312273)
+            }
+
+            over "right_hand_middle_0_link"
+            {
+                vector3f physics:angularVelocity = (4.493887, 49.359093, 14.983545)
+                vector3f physics:velocity = (0.025469279, 0.040216662, 0.1350508)
+                quatd xformOp:orient = (0.9484475579499647, 0.0018684958269580341, 0.3168407395253623, -0.007462192647908117)
+                double3 xformOp:translate = (0.03580893232427029, -0.004961284587564396, -0.1812033978382065)
+            }
+
+            over "right_hand_middle_1_link"
+            {
+                vector3f physics:angularVelocity = (4.5400496, 49.35847, 15.044926)
+                vector3f physics:velocity = (0.0065349615, 0.049577784, 0.11000722)
+                quatd xformOp:orient = (0.9484473661988989, 0.0018599522792754207, 0.3168407600566305, -0.007487783024852424)
+                double3 xformOp:translate = (0.07240830011839194, -0.005555288016908744, -0.20873113733362825)
+            }
+
+            over "right_hand_thumb_0_link"
+            {
+                vector3f physics:angularVelocity = (6.4201484, 55.473343, 17.414457)
+                vector3f physics:velocity = (0.08786125, 0.017505748, 0.18210228)
+                quatd xformOp:orient = (0.9484174698614266, 0.0018831299659896738, 0.3169316897073876, -0.007420292608875409)
+                double3 xformOp:translate = (0.011250182370142081, -0.00293327908114005, -0.12705172061716663)
+            }
+
+            over "right_hand_thumb_1_link"
+            {
+                vector3f physics:angularVelocity = (35.052235, 55.086975, 55.470978)
+                vector3f physics:velocity = (0.05073171, 0.016276577, 0.20716318)
+                quatd xformOp:orient = (0.9484360514101166, 0.002875298665774048, 0.31692424358779714, -0.004451164956723404)
+                double3 xformOp:translate = (0.009547436086506877, 0.01639650596733766, -0.12557055201864198)
+            }
+
+            over "right_hand_thumb_2_link"
+            {
+                vector3f physics:angularVelocity = (35.050407, 55.086998, 55.46855)
+                vector3f physics:velocity = (0.016271062, 0.015607022, 0.22960381)
+                quatd xformOp:orient = (0.9484359841687473, 0.002871972973713712, 0.3169243351222527, -0.004461111118991394)
+                double3 xformOp:translate = (0.010017647721743295, 0.06219399616484056, -0.12544999975180238)
+            }
+
+            over "joints"
+            {
+                over "right_hand_index_0_joint"
+                {
+                    float state:angular:physics:position = -0.009239317
+                    float state:angular:physics:velocity = -0.7757804
+                }
+
+                over "right_hand_middle_0_joint"
+                {
+                    float state:angular:physics:position = -0.0050552376
+                    float state:angular:physics:velocity = -3.050905
+                }
+
+                over "right_hand_thumb_0_joint"
+                {
+                    float state:angular:physics:position = 0.010995671
+                    float state:angular:physics:velocity = 6.139694
+                }
+
+                over "right_hand_index_1_joint"
+                {
+                    float state:angular:physics:position = -0.00025173082
+                    float state:angular:physics:velocity = -0.016483247
+                }
+
+                over "right_hand_middle_1_joint"
+                {
+                    float state:angular:physics:position = -0.0030965554
+                    float state:angular:physics:velocity = 0.076805174
+                }
+
+                over "right_hand_thumb_1_joint"
+                {
+                    float state:angular:physics:position = 0.3587351
+                    float state:angular:physics:velocity = 47.6261
+                }
+
+                over "right_hand_thumb_2_joint"
+                {
+                    float state:angular:physics:position = -0.0012149245
+                    float state:angular:physics:velocity = -0.003040668
+                }
+            }
+        }
+
+        over "joints"
+        {
+            over "left_hip_pitch_joint"
+            {
+                float state:angular:physics:position = -0.19918758
+                float state:angular:physics:velocity = -32.60376
+            }
+
+            over "right_hip_pitch_joint"
+            {
+                float state:angular:physics:position = -0.5089908
+                float state:angular:physics:velocity = -15.871055
+            }
+
+            over "waist_yaw_joint"
+            {
+                float state:angular:physics:position = -0.029712144
+                float state:angular:physics:velocity = -22.631783
+            }
+
+            over "left_hip_roll_joint"
+            {
+                float state:angular:physics:position = -0.07334239
+                float state:angular:physics:velocity = -1.6088403
+            }
+
+            over "right_hip_roll_joint"
+            {
+                float state:angular:physics:position = -0.028896626
+                float state:angular:physics:velocity = -3.0968316
+            }
+
+            over "waist_roll_joint"
+            {
+                float state:angular:physics:position = -0.058013715
+                float state:angular:physics:velocity = -14.619194
+            }
+
+            over "left_hip_yaw_joint"
+            {
+                float state:angular:physics:position = 0.028472114
+                float state:angular:physics:velocity = -11.867589
+            }
+
+            over "right_hip_yaw_joint"
+            {
+                float state:angular:physics:position = -0.013772231
+                float state:angular:physics:velocity = 6.188941
+            }
+
+            over "waist_pitch_joint"
+            {
+                float state:angular:physics:position = -0.121104166
+                float state:angular:physics:velocity = -72.69565
+            }
+
+            over "left_knee_joint"
+            {
+                float state:angular:physics:position = -0.15912504
+                float state:angular:physics:velocity = -24.535402
+            }
+
+            over "right_knee_joint"
+            {
+                float state:angular:physics:position = -0.14143024
+                float state:angular:physics:velocity = -37.577957
+            }
+
+            over "left_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = -0.10948221
+                float state:angular:physics:velocity = -25.26213
+            }
+
+            over "right_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = -0.050073814
+                float state:angular:physics:velocity = -13.680291
+            }
+
+            over "left_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = -0.65843225
+                float state:angular:physics:velocity = 89.406006
+            }
+
+            over "right_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = -0.47719517
+                float state:angular:physics:velocity = 50.80613
+            }
+
+            over "left_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = 0.040415723
+                float state:angular:physics:velocity = 9.371393
+            }
+
+            over "right_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = -0.004574162
+                float state:angular:physics:velocity = 2.7485037
+            }
+
+            over "left_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0.26158512
+                float state:angular:physics:velocity = -136.27716
+            }
+
+            over "right_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0.088521525
+                float state:angular:physics:velocity = -109.9827
+            }
+
+            over "left_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = 0.03299884
+                float state:angular:physics:velocity = 5.552822
+            }
+
+            over "right_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = -0.005137637
+                float state:angular:physics:velocity = 7.6645446
+            }
+
+            over "left_elbow_joint"
+            {
+                float state:angular:physics:position = -0.021818629
+                float state:angular:physics:velocity = -28.005285
+            }
+
+            over "right_elbow_joint"
+            {
+                float state:angular:physics:position = 0.0022234593
+                float state:angular:physics:velocity = -26.123981
+            }
+
+            over "left_wrist_roll_joint"
+            {
+                float state:angular:physics:position = 0.021901555
+                float state:angular:physics:velocity = 14.684866
+            }
+
+            over "right_wrist_roll_joint"
+            {
+                float state:angular:physics:position = -0.019990245
+                float state:angular:physics:velocity = 4.677122
+            }
+
+            over "left_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 36.221874
+                float state:angular:physics:velocity = 175.61122
+            }
+
+            over "right_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 35.908302
+                float state:angular:physics:velocity = 122.76512
+            }
+
+            over "left_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = 0.021395667
+                float state:angular:physics:velocity = 3.3173788
+            }
+
+            over "right_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = -0.033535913
+                float state:angular:physics:velocity = 8.027006
+            }
+        }
+    }
+
+    def Xform "GroundPlane"
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "CollisionMesh"
+        {
+            uniform bool doubleSided = 0
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)]
+            point3f[] points = [(-25, -25, 0), (25, -25, 0), (25, 25, 0), (-25, 25, 0)]
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "varying"
+            )
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (-0.0027632494664197836, 0.1475941214469908, -0.007549337830693004)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Plane "CollisionPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            uniform token purpose = "guide"
+        }
+    }
+
+    def Mesh "wall_01" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (2.95, 0.15, 0.7)
+        double3 xformOp:translate = (-0.5, 1, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "long_box" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        vector3f physics:angularVelocity = (13.7019, 323.2923, -11.299188)
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 10
+        bool physics:rigidBodyEnabled = 1
+        vector3f physics:velocity = (0.38753223, -0.029817455, -0.28903908)
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (0.6561607341458003, 0.2675432606590148, 0.2590953079143997, 0.6563103808853927)
+        double3 xformOp:scale = (2.2, 0.1, 0.1)
+        double3 xformOp:translate = (-1.4060066938400269, 2.3429853916168213, 0.8618221282958984) (
+            customData = {
+                dictionary omni = {
+                    dictionary kit = {
+                        bool locked = 0
+                    }
+                }
+            }
+        )
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "target"
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+        int[] faceVertexIndices = [0, 1, 33, 32, 1, 2, 34, 33, 2, 3, 35, 34, 3, 4, 36, 35, 4, 5, 37, 36, 5, 6, 38, 37, 6, 7, 39, 38, 7, 8, 40, 39, 8, 9, 41, 40, 9, 10, 42, 41, 10, 11, 43, 42, 11, 12, 44, 43, 12, 13, 45, 44, 13, 14, 46, 45, 14, 15, 47, 46, 15, 16, 48, 47, 16, 17, 49, 48, 17, 18, 50, 49, 18, 19, 51, 50, 19, 20, 52, 51, 20, 21, 53, 52, 21, 22, 54, 53, 22, 23, 55, 54, 23, 24, 56, 55, 24, 25, 57, 56, 25, 26, 58, 57, 26, 27, 59, 58, 27, 28, 60, 59, 28, 29, 61, 60, 29, 30, 62, 61, 30, 31, 63, 62, 31, 0, 32, 63, 0, 64, 1, 1, 64, 2, 2, 64, 3, 3, 64, 4, 4, 64, 5, 5, 64, 6, 6, 64, 7, 7, 64, 8, 8, 64, 9, 9, 64, 10, 10, 64, 11, 11, 64, 12, 12, 64, 13, 13, 64, 14, 14, 64, 15, 15, 64, 16, 16, 64, 17, 17, 64, 18, 18, 64, 19, 19, 64, 20, 20, 64, 21, 21, 64, 22, 22, 64, 23, 23, 64, 24, 24, 64, 25, 25, 64, 26, 26, 64, 27, 27, 64, 28, 28, 64, 29, 29, 64, 30, 30, 64, 31, 31, 64, 0, 32, 33, 65, 33, 34, 65, 34, 35, 65, 35, 36, 65, 36, 37, 65, 37, 38, 65, 38, 39, 65, 39, 40, 65, 40, 41, 65, 41, 42, 65, 42, 43, 65, 43, 44, 65, 44, 45, 65, 45, 46, 65, 46, 47, 65, 47, 48, 65, 48, 49, 65, 49, 50, 65, 50, 51, 65, 51, 52, 65, 52, 53, 65, 53, 54, 65, 54, 55, 65, 55, 56, 65, 56, 57, 65, 57, 58, 65, 58, 59, 65, 59, 60, 65, 60, 61, 65, 61, 62, 65, 62, 63, 65, 63, 32, 65]
+        normal3f[] normals = [(50, 0, 0), (49.03926, 9.754517, 0), (49.03926, 9.754517, 0), (50, 0, 0), (49.03926, 9.754517, 0), (46.193974, 19.13417, 0), (46.193974, 19.13417, 0), (49.03926, 9.754517, 0), (46.193974, 19.13417, 0), (41.57348, 27.778513, 0), (41.57348, 27.778513, 0), (46.193974, 19.13417, 0), (41.57348, 27.778513, 0), (35.35534, 35.35534, 0), (35.35534, 35.35534, 0), (41.57348, 27.778513, 0), (35.35534, 35.35534, 0), (27.778513, 41.57348, 0), (27.778513, 41.57348, 0), (35.35534, 35.35534, 0), (27.778513, 41.57348, 0), (19.13417, 46.193974, 0), (19.13417, 46.193974, 0), (27.778513, 41.57348, 0), (19.13417, 46.193974, 0), (9.754517, 49.03926, 0), (9.754517, 49.03926, 0), (19.13417, 46.193974, 0), (9.754517, 49.03926, 0), (3.061617e-15, 50, 0), (3.061617e-15, 50, 0), (9.754517, 49.03926, 0), (3.061617e-15, 50, 0), (-9.754517, 49.03926, 0), (-9.754517, 49.03926, 0), (3.061617e-15, 50, 0), (-9.754517, 49.03926, 0), (-19.13417, 46.193974, 0), (-19.13417, 46.193974, 0), (-9.754517, 49.03926, 0), (-19.13417, 46.193974, 0), (-27.778513, 41.57348, 0), (-27.778513, 41.57348, 0), (-19.13417, 46.193974, 0), (-27.778513, 41.57348, 0), (-35.35534, 35.35534, 0), (-35.35534, 35.35534, 0), (-27.778513, 41.57348, 0), (-35.35534, 35.35534, 0), (-41.57348, 27.778513, 0), (-41.57348, 27.778513, 0), (-35.35534, 35.35534, 0), (-41.57348, 27.778513, 0), (-46.193974, 19.13417, 0), (-46.193974, 19.13417, 0), (-41.57348, 27.778513, 0), (-46.193974, 19.13417, 0), (-49.03926, 9.754517, 0), (-49.03926, 9.754517, 0), (-46.193974, 19.13417, 0), (-49.03926, 9.754517, 0), (-50, 6.123234e-15, 0), (-50, 6.123234e-15, 0), (-49.03926, 9.754517, 0), (-50, 6.123234e-15, 0), (-49.03926, -9.754517, 0), (-49.03926, -9.754517, 0), (-50, 6.123234e-15, 0), (-49.03926, -9.754517, 0), (-46.193974, -19.13417, 0), (-46.193974, -19.13417, 0), (-49.03926, -9.754517, 0), (-46.193974, -19.13417, 0), (-41.57348, -27.778513, 0), (-41.57348, -27.778513, 0), (-46.193974, -19.13417, 0), (-41.57348, -27.778513, 0), (-35.35534, -35.35534, 0), (-35.35534, -35.35534, 0), (-41.57348, -27.778513, 0), (-35.35534, -35.35534, 0), (-27.778513, -41.57348, 0), (-27.778513, -41.57348, 0), (-35.35534, -35.35534, 0), (-27.778513, -41.57348, 0), (-19.13417, -46.193974, 0), (-19.13417, -46.193974, 0), (-27.778513, -41.57348, 0), (-19.13417, -46.193974, 0), (-9.754517, -49.03926, 0), (-9.754517, -49.03926, 0), (-19.13417, -46.193974, 0), (-9.754517, -49.03926, 0), (-9.184851e-15, -50, 0), (-9.184851e-15, -50, 0), (-9.754517, -49.03926, 0), (-9.184851e-15, -50, 0), (9.754517, -49.03926, 0), (9.754517, -49.03926, 0), (-9.184851e-15, -50, 0), (9.754517, -49.03926, 0), (19.13417, -46.193974, 0), (19.13417, -46.193974, 0), (9.754517, -49.03926, 0), (19.13417, -46.193974, 0), (27.778513, -41.57348, 0), (27.778513, -41.57348, 0), (19.13417, -46.193974, 0), (27.778513, -41.57348, 0), (35.35534, -35.35534, 0), (35.35534, -35.35534, 0), (27.778513, -41.57348, 0), (35.35534, -35.35534, 0), (41.57348, -27.778513, 0), (41.57348, -27.778513, 0), (35.35534, -35.35534, 0), (41.57348, -27.778513, 0), (46.193974, -19.13417, 0), (46.193974, -19.13417, 0), (41.57348, -27.778513, 0), (46.193974, -19.13417, 0), (49.03926, -9.754517, 0), (49.03926, -9.754517, 0), (46.193974, -19.13417, 0), (49.03926, -9.754517, 0), (50, 0, 0), (50, 0, 0), (49.03926, -9.754517, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(0.5, 0, -0.5), (0.4903926, 0.09754517, -0.5), (0.46193972, 0.1913417, -0.5), (0.4157348, 0.27778512, -0.5), (0.35355338, 0.35355338, -0.5), (0.27778512, 0.4157348, -0.5), (0.1913417, 0.46193972, -0.5), (0.09754517, 0.4903926, -0.5), (3.061617e-17, 0.5, -0.5), (-0.09754517, 0.4903926, -0.5), (-0.1913417, 0.46193972, -0.5), (-0.27778512, 0.4157348, -0.5), (-0.35355338, 0.35355338, -0.5), (-0.4157348, 0.27778512, -0.5), (-0.46193972, 0.1913417, -0.5), (-0.4903926, 0.09754517, -0.5), (-0.5, 6.123234e-17, -0.5), (-0.4903926, -0.09754517, -0.5), (-0.46193972, -0.1913417, -0.5), (-0.4157348, -0.27778512, -0.5), (-0.35355338, -0.35355338, -0.5), (-0.27778512, -0.4157348, -0.5), (-0.1913417, -0.46193972, -0.5), (-0.09754517, -0.4903926, -0.5), (-9.184851e-17, -0.5, -0.5), (0.09754517, -0.4903926, -0.5), (0.1913417, -0.46193972, -0.5), (0.27778512, -0.4157348, -0.5), (0.35355338, -0.35355338, -0.5), (0.4157348, -0.27778512, -0.5), (0.46193972, -0.1913417, -0.5), (0.4903926, -0.09754517, -0.5), (0.5, 0, 0.5), (0.4903926, 0.09754517, 0.5), (0.46193972, 0.1913417, 0.5), (0.4157348, 0.27778512, 0.5), (0.35355338, 0.35355338, 0.5), (0.27778512, 0.4157348, 0.5), (0.1913417, 0.46193972, 0.5), (0.09754517, 0.4903926, 0.5), (3.061617e-17, 0.5, 0.5), (-0.09754517, 0.4903926, 0.5), (-0.1913417, 0.46193972, 0.5), (-0.27778512, 0.4157348, 0.5), (-0.35355338, 0.35355338, 0.5), (-0.4157348, 0.27778512, 0.5), (-0.46193972, 0.1913417, 0.5), (-0.4903926, 0.09754517, 0.5), (-0.5, 6.123234e-17, 0.5), (-0.4903926, -0.09754517, 0.5), (-0.46193972, -0.1913417, 0.5), (-0.4157348, -0.27778512, 0.5), (-0.35355338, -0.35355338, 0.5), (-0.27778512, -0.4157348, 0.5), (-0.1913417, -0.46193972, 0.5), (-0.09754517, -0.4903926, 0.5), (-9.184851e-17, -0.5, 0.5), (0.09754517, -0.4903926, 0.5), (0.1913417, -0.46193972, 0.5), (0.27778512, -0.4157348, 0.5), (0.35355338, -0.35355338, 0.5), (0.4157348, -0.27778512, 0.5), (0.46193972, -0.1913417, 0.5), (0.4903926, -0.09754517, 0.5), (0, 0, -0.5), (0, 0, 0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (0.03125, 0), (0.03125, 1), (0, 1), (0.03125, 0), (0.0625, 0), (0.0625, 1), (0.03125, 1), (0.0625, 0), (0.09375, 0), (0.09375, 1), (0.0625, 1), (0.09375, 0), (0.125, 0), (0.125, 1), (0.09375, 1), (0.125, 0), (0.15625, 0), (0.15625, 1), (0.125, 1), (0.15625, 0), (0.1875, 0), (0.1875, 1), (0.15625, 1), (0.1875, 0), (0.21875, 0), (0.21875, 1), (0.1875, 1), (0.21875, 0), (0.25, 0), (0.25, 1), (0.21875, 1), (0.25, 0), (0.28125, 0), (0.28125, 1), (0.25, 1), (0.28125, 0), (0.3125, 0), (0.3125, 1), (0.28125, 1), (0.3125, 0), (0.34375, 0), (0.34375, 1), (0.3125, 1), (0.34375, 0), (0.375, 0), (0.375, 1), (0.34375, 1), (0.375, 0), (0.40625, 0), (0.40625, 1), (0.375, 1), (0.40625, 0), (0.4375, 0), (0.4375, 1), (0.40625, 1), (0.4375, 0), (0.46875, 0), (0.46875, 1), (0.4375, 1), (0.46875, 0), (0.5, 0), (0.5, 1), (0.46875, 1), (0.5, 0), (0.53125, 0), (0.53125, 1), (0.5, 1), (0.53125, 0), (0.5625, 0), (0.5625, 1), (0.53125, 1), (0.5625, 0), (0.59375, 0), (0.59375, 1), (0.5625, 1), (0.59375, 0), (0.625, 0), (0.625, 1), (0.59375, 1), (0.625, 0), (0.65625, 0), (0.65625, 1), (0.625, 1), (0.65625, 0), (0.6875, 0), (0.6875, 1), (0.65625, 1), (0.6875, 0), (0.71875, 0), (0.71875, 1), (0.6875, 1), (0.71875, 0), (0.75, 0), (0.75, 1), (0.71875, 1), (0.75, 0), (0.78125, 0), (0.78125, 1), (0.75, 1), (0.78125, 0), (0.8125, 0), (0.8125, 1), (0.78125, 1), (0.8125, 0), (0.84375, 0), (0.84375, 1), (0.8125, 1), (0.84375, 0), (0.875, 0), (0.875, 1), (0.84375, 1), (0.875, 0), (0.90625, 0), (0.90625, 1), (0.875, 1), (0.90625, 0), (0.9375, 0), (0.9375, 1), (0.90625, 1), (0.9375, 0), (0.96875, 0), (0.96875, 1), (0.9375, 1), (0.96875, 0), (1, 0), (1, 1), (0.96875, 1), (1, 0.5), (0.5, 0.5), (0.99039257, 0.40245485), (0.99039257, 0.40245485), (0.5, 0.5), (0.9619397, 0.3086583), (0.9619397, 0.3086583), (0.5, 0.5), (0.91573477, 0.22221488), (0.91573477, 0.22221488), (0.5, 0.5), (0.8535534, 0.14644659), (0.8535534, 0.14644659), (0.5, 0.5), (0.7777851, 0.08426523), (0.7777851, 0.08426523), (0.5, 0.5), (0.6913417, 0.038060308), (0.6913417, 0.038060308), (0.5, 0.5), (0.59754515, 0.009607434), (0.59754515, 0.009607434), (0.5, 0.5), (0.5, 0), (0.5, 0), (0.5, 0.5), (0.40245482, 0.009607434), (0.40245482, 0.009607434), (0.5, 0.5), (0.3086583, 0.038060308), (0.3086583, 0.038060308), (0.5, 0.5), (0.22221488, 0.08426523), (0.22221488, 0.08426523), (0.5, 0.5), (0.14644662, 0.14644659), (0.14644662, 0.14644659), (0.5, 0.5), (0.0842652, 0.22221488), (0.0842652, 0.22221488), (0.5, 0.5), (0.038060278, 0.3086583), (0.038060278, 0.3086583), (0.5, 0.5), (0.0096074045, 0.40245485), (0.0096074045, 0.40245485), (0.5, 0.5), (0, 0.5), (0, 0.5), (0.5, 0.5), (0.0096074045, 0.59754515), (0.0096074045, 0.59754515), (0.5, 0.5), (0.038060278, 0.6913417), (0.038060278, 0.6913417), (0.5, 0.5), (0.0842652, 0.7777851), (0.0842652, 0.7777851), (0.5, 0.5), (0.14644662, 0.8535534), (0.14644662, 0.8535534), (0.5, 0.5), (0.22221488, 0.91573477), (0.22221488, 0.91573477), (0.5, 0.5), (0.3086583, 0.9619397), (0.3086583, 0.9619397), (0.5, 0.5), (0.40245482, 0.99039257), (0.40245482, 0.99039257), (0.5, 0.5), (0.5, 1), (0.5, 1), (0.5, 0.5), (0.59754515, 0.99039257), (0.59754515, 0.99039257), (0.5, 0.5), (0.6913417, 0.9619397), (0.6913417, 0.9619397), (0.5, 0.5), (0.7777851, 0.91573477), (0.7777851, 0.91573477), (0.5, 0.5), (0.8535534, 0.8535534), (0.8535534, 0.8535534), (0.5, 0.5), (0.91573477, 0.7777851), (0.91573477, 0.7777851), (0.5, 0.5), (0.9619397, 0.6913417), (0.9619397, 0.6913417), (0.5, 0.5), (0.99039257, 0.59754515), (0.99039257, 0.59754515), (0.5, 0.5), (1, 0.5), (1, 0.5), (0.99039257, 0.59754515), (0.5, 0.5), (0.99039257, 0.59754515), (0.9619397, 0.6913417), (0.5, 0.5), (0.9619397, 0.6913417), (0.91573477, 0.7777851), (0.5, 0.5), (0.91573477, 0.7777851), (0.8535534, 0.8535534), (0.5, 0.5), (0.8535534, 0.8535534), (0.7777851, 0.91573477), (0.5, 0.5), (0.7777851, 0.91573477), (0.6913417, 0.9619397), (0.5, 0.5), (0.6913417, 0.9619397), (0.59754515, 0.99039257), (0.5, 0.5), (0.59754515, 0.99039257), (0.5, 1), (0.5, 0.5), (0.5, 1), (0.40245482, 0.99039257), (0.5, 0.5), (0.40245482, 0.99039257), (0.3086583, 0.9619397), (0.5, 0.5), (0.3086583, 0.9619397), (0.22221488, 0.91573477), (0.5, 0.5), (0.22221488, 0.91573477), (0.14644662, 0.8535534), (0.5, 0.5), (0.14644662, 0.8535534), (0.0842652, 0.7777851), (0.5, 0.5), (0.0842652, 0.7777851), (0.038060278, 0.6913417), (0.5, 0.5), (0.038060278, 0.6913417), (0.0096074045, 0.59754515), (0.5, 0.5), (0.0096074045, 0.59754515), (0, 0.5), (0.5, 0.5), (0, 0.5), (0.0096074045, 0.40245482), (0.5, 0.5), (0.0096074045, 0.40245482), (0.038060278, 0.3086583), (0.5, 0.5), (0.038060278, 0.3086583), (0.0842652, 0.22221488), (0.5, 0.5), (0.0842652, 0.22221488), (0.14644662, 0.14644662), (0.5, 0.5), (0.14644662, 0.14644662), (0.22221488, 0.0842652), (0.5, 0.5), (0.22221488, 0.0842652), (0.3086583, 0.038060278), (0.5, 0.5), (0.3086583, 0.038060278), (0.40245482, 0.0096074045), (0.5, 0.5), (0.40245482, 0.0096074045), (0.5, 0), (0.5, 0.5), (0.5, 0), (0.59754515, 0.0096074045), (0.5, 0.5), (0.59754515, 0.0096074045), (0.6913417, 0.038060278), (0.5, 0.5), (0.6913417, 0.038060278), (0.7777851, 0.0842652), (0.5, 0.5), (0.7777851, 0.0842652), (0.8535534, 0.14644662), (0.5, 0.5), (0.8535534, 0.14644662), (0.91573477, 0.22221488), (0.5, 0.5), (0.91573477, 0.22221488), (0.9619397, 0.3086583), (0.5, 0.5), (0.9619397, 0.3086583), (0.99039257, 0.40245482), (0.5, 0.5), (0.99039257, 0.40245482), (1, 0.5), (0.5, 0.5)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.6, 0.6, 0.6)
+        double3 xformOp:translate = (9, 2.35, 0.29999999999999993)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Scope "Looks"
+    {
+        def Material "Aluminum_Anodized_Red"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Aluminum_Anodized_Red/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Aluminum_Anodized_Red/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Aluminum_Anodized_Red/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Base/Metals/Aluminum_Anodized_Red.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Aluminum_Anodized_Red"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+
+        def Material "Cherry_Red_Metallic"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/Cherry_Red_Metallic/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/Cherry_Red_Metallic/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/Cherry_Red_Metallic/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/vMaterials_2/Paint/Carpaint/Carpaint_Metallic.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "Cherry_Red_Metallic"
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+    }
+
+    def Mesh "wall_05" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (2.95, 0.15, 0.7)
+        double3 xformOp:translate = (-0.5, 3.7, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_06" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.15, 2.7, 0.7)
+        double3 xformOp:translate = (0.9, 5, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_07" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.15, 4.7, 0.7)
+        double3 xformOp:translate = (3.6, 2.35, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_08" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (5.4, 0.15, 0.7)
+        double3 xformOp:translate = (3.52, 6.4, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_09" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.15, 2.7, 0.7)
+        double3 xformOp:translate = (6.15, 5, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_10" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (3.05, 0.15, 0.7)
+        double3 xformOp:translate = (7.6, 3.7, 0.3499999999999999)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_11" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.15, 2.7, 0.7)
+        double3 xformOp:translate = (0.9, -0.3, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_12" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (5.4, 0.15, 0.7)
+        double3 xformOp:translate = (3.5199999999999996, -1.7, 0.35)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_13" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.15, 2.7, 0.7)
+        double3 xformOp:translate = (6.150000000000001, -0.3, 0.35000000000000003)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Mesh "wall_14" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token physics:approximation = "none"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (3.05, 0.15, 0.7)
+        double3 xformOp:translate = (7.6, 1, 0.34999999999983644)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
+def Xform "Environment"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Xform "Colored_Lights" (
+        hide_in_stage_window = false
+        no_delete = false
+    )
+    {
+        matrix4d xformOp:transform = ( (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+
+        def DistantLight "DistantLight" (
+            apiSchemas = ["ShapingAPI"]
+        )
+        {
+            float inputs:angle = 5
+            color3f inputs:color = (0.33692104, 0.76232195, 0.8996139)
+            float inputs:exposure = 0.2
+            float inputs:intensity = 3000
+            float inputs:shaping:cone:angle = 180
+            double3 xformOp:rotateXYZ = (293.12090746423974, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def DistantLight "DistantLight_01" (
+            apiSchemas = ["ShapingAPI"]
+        )
+        {
+            float inputs:angle = 10
+            color3f inputs:color = (0.8108108, 0.44140664, 0.44140664)
+            float inputs:exposure = 0
+            float inputs:intensity = 3000
+            float inputs:shaping:cone:angle = 180
+            double3 xformOp:rotateXYZ = (315, -179.32902833160193, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def DistantLight "DistantLight_02" (
+            apiSchemas = ["ShapingAPI"]
+        )
+        {
+            float inputs:angle = 10
+            color3f inputs:color = (0.8918919, 0.5545123, 0.28926224)
+            float inputs:exposure = 0
+            float inputs:intensity = 3000
+            float inputs:shaping:cone:angle = 180
+            double3 xformOp:rotateXYZ = (293.12090746423974, -216.57111056617208, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:adaptiveSampling:filterError = 0
+                uint omni:rtx:pt:adaptiveSampling:fixedSppIterations = 2
+                int omni:rtx:pt:clampSpp = 64
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
+                uint omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:maxVolumeBounces = 4
+                uint omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                int omni:rtx:pt:samplesPerIteration = 64
+                int omni:rtx:pt:samplesPerPixel = 64
+                float omni:rtx:realtime:mgpu:masterDeviceLoadBalancingWeight = 0
+                int omni:rtx:realtime:mgpu:tileCount = 4
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                int omni:rtx:rt:sss:samples = 1
+                uint omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                bool omni:rtx:scene:useViewLightingMode
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}
+
+over "OmniverseKit_Persp" (
+    prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (0.01, 10000000)
+    float exposure:fStop = 5
+    float exposure:responsivity = 1.1026709
+    float exposure:time = 0.02
+    float focalLength = 18.147562
+    float focusDistance = 400
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -26.37753065487766)
+    float3 xformOp:rotateXYZ = (76.37389, -4.1665266e-13, 88.40429)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (5.533837449634662, 1.917880767096276, 2.7731226387949124)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+def PhysicsScene "PhysicsScene" (
+    prepend apiSchemas = ["PhysxSceneAPI", "NewtonSceneAPI"]
+)
+{
+}
+
+over "OmniverseKit_Front" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.2722219e-14, 90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (5, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Right" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.41245e-30, 1.2722219e-14)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, -5, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Top" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (-1.2722219e-14, -7.016709e-15, -90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 5)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+

@@ -1,0 +1,52 @@
+{
+  "kind": "coevolve_production_decision_prompt_artifact",
+  "schema_version": 1,
+  "method_variant": "no_dynamic_experience",
+  "artifact_scope": "production_live_decision_roles",
+  "policy_representation": "praxis_code_as_policy",
+  "shared_prompt_contract_binding": "lock://shared_prompt_contract_fingerprint",
+  "frozen_v83_prompt_binding": "lock://full_method_compatibility.prompt_sha256",
+  "decision_structure": "hierarchical_evolution",
+  "hierarchical_evolution": true,
+  "durable_dynamic_memory": false,
+  "memory_gates": {
+    "strategy_retrieval": false,
+    "strategy_promotion": false,
+    "action_exemplar_retrieval": false,
+    "action_exemplar_promotion": false,
+    "memory_writer_call": false
+  },
+  "common_runtime_roles": [
+    "vlm_failure_analyzer",
+    "code_repair"
+  ],
+  "forbidden_method_roles": [
+    "memory_update"
+  ],
+  "roles": [
+    {
+      "role": "task_orchestrator",
+      "prompt_base": "frozen_v83_task_orchestrator",
+      "output_contract": "v83_task_orchestrator_json_v1",
+      "prompt_file": null
+    },
+    {
+      "role": "policy_generator",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": null
+    },
+    {
+      "role": "evolution_manager",
+      "prompt_base": "frozen_v83_evolution_manager",
+      "output_contract": "v83_evolution_manager_json_v1",
+      "prompt_file": null
+    },
+    {
+      "role": "mutation_operator",
+      "prompt_base": "frozen_v83_mutation_operator",
+      "output_contract": "v83_mutation_operator_json_v1",
+      "prompt_file": null
+    }
+  ]
+}

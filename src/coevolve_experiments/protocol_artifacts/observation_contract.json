@@ -1,0 +1,28 @@
+{
+  "kind": "coevolve_protocol_contract_artifact",
+  "payload": {
+    "inputs": [
+      "natural_language_task_instruction",
+      "compact_physical_state_serialization",
+      "fixed_global_camera_view",
+      "payload_centered_camera_view",
+      "condition_permitted_cooperative_experience",
+      "host_validated_directed_route_reference"
+    ],
+    "physical_acceptance_authority": "host_physics_verifier",
+    "route_reference_fields": [
+      "connected_route_geometry",
+      "local_direction",
+      "progress_gates"
+    ],
+    "route_reference_must_not_prescribe": [
+      "coordination_primitive",
+      "coordination_mode",
+      "temporary_inner_outer_assignment",
+      "bounded_action_parameters"
+    ]
+  },
+  "payload_sha256": "6db91c391a207f1aa4a1b39e4f124a488b270510ad4721dfead7efd5f72be1c3",
+  "role": "observation_contract",
+  "schema_version": 1
+}

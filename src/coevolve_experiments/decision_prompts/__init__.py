@@ -1,0 +1,53 @@
+"""Production Code-as-Policy prompt artifacts for Tables 2--4."""
+
+from .contracts import (
+    EXTERNAL_PROMPT_VARIANTS,
+    FROZEN_V83_PROMPT_BINDING,
+    FROZEN_V83_PROMPT_BASE_SYMBOLS,
+    FROZEN_V83_FULL_DECISION_PROMPT_SHA256,
+    PROMPT_ARTIFACT_KIND,
+    PROMPT_ARTIFACT_SCHEMA_VERSION,
+    PROMPT_FINGERPRINT_KIND,
+    PROMPT_FINGERPRINT_SCHEMA_VERSION,
+    PROMPT_REGISTRY_KIND,
+    PROMPT_REGISTRY_SCHEMA_VERSION,
+    PRODUCTION_ARTIFACT_SCOPE,
+    PRODUCTION_POLICY_REPRESENTATION,
+    SHARED_PROMPT_CONTRACT_BINDING,
+    ProductionDecisionPromptArtifact,
+    ProductionPromptArtifactError,
+    ProductionPromptIdentity,
+    ProductionPromptRegistry,
+    ProductionPromptRole,
+    PromptMemoryGates,
+)
+from .registry import (
+    build_production_prompt_identity,
+    decision_prompt_fingerprint_payload,
+    load_production_prompt_registry,
+)
+
+__all__ = [
+    "EXTERNAL_PROMPT_VARIANTS",
+    "FROZEN_V83_PROMPT_BINDING",
+    "FROZEN_V83_PROMPT_BASE_SYMBOLS",
+    "FROZEN_V83_FULL_DECISION_PROMPT_SHA256",
+    "PROMPT_ARTIFACT_KIND",
+    "PROMPT_ARTIFACT_SCHEMA_VERSION",
+    "PROMPT_FINGERPRINT_KIND",
+    "PROMPT_FINGERPRINT_SCHEMA_VERSION",
+    "PROMPT_REGISTRY_KIND",
+    "PROMPT_REGISTRY_SCHEMA_VERSION",
+    "PRODUCTION_ARTIFACT_SCOPE",
+    "PRODUCTION_POLICY_REPRESENTATION",
+    "ProductionDecisionPromptArtifact",
+    "ProductionPromptArtifactError",
+    "ProductionPromptIdentity",
+    "ProductionPromptRegistry",
+    "ProductionPromptRole",
+    "PromptMemoryGates",
+    "SHARED_PROMPT_CONTRACT_BINDING",
+    "build_production_prompt_identity",
+    "decision_prompt_fingerprint_payload",
+    "load_production_prompt_registry",
+]

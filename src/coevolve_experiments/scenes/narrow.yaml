@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "scene_id": "narrow",
+  "label": "Controlled reduced-clearance corridor",
+  "scene_hash": "750a3331f0899b8b06dc44d616878e2a91f9c0ed337a5447b3079b3a1eeff5a4",
+  "protocol_invariant_ref": "lock://invariant_fingerprint",
+  "terminal_predicate_ref": "lock://terminal_fingerprint",
+  "asset": {
+    "source_path": "assets/manual_scenes/two_g1_box_push_layout.usda",
+    "source_sha256": "3630ef188052bcf9a2fe1ffc42068210495c626dbd9843d42f83210b0e5857a5",
+    "realization": "narrow_corridor",
+    "realization_parameters": [
+      {"parameter_id": "wall_01", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_01"], "values": [0.5058648057412142, 1.0, 0.35, 6.2, 0.15, 0.7, 0.0]},
+      {"parameter_id": "wall_03", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_03"], "values": [3.4203591112592585, 4.919146542360552, 0.35, 8.0, 0.15, 0.7, 1.5707963267948966]},
+      {"parameter_id": "wall_04", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_04"], "values": [1.2804683874547643, 4.914580524100318, 0.35, 3.0, 0.15, 0.7, 1.5707963267948966]},
+      {"parameter_id": "wall_05", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_05"], "values": [-0.554619088883452, 3.492934201495414, 0.35, 3.5, 0.15, 0.7, 0.0]},
+      {"parameter_id": "wall_06", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_06"], "values": [0.4916011368108351, 8.585251993684825, 0.35, 6.2, 0.15, 0.7, 0.0]},
+      {"parameter_id": "wall_07", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_07"], "values": [-0.5546190888834519, 6.331826136121795, 0.35, 3.5, 0.15, 0.7, 0.0]},
+      {"parameter_id": "wall_08", "operation": "set_box_transform_xyz_scale_xyz_yaw", "targets": ["/World/wall_08"], "values": [-2.4193596811389874, 2.2552938124255535, 0.35, 2.7, 0.15, 0.7, 1.5707963267948966]}
+    ],
+    "execution_path": "assets/generated_scenes/narrow.usda",
+    "execution_sha256": "e7539fe97fb491d7041f1cf8650daa65d6de411b40c3d74c2aa013d109b3e93c",
+    "execution_composite_sha256": "85396eed77c85ba6e9ad169cb7681ec5bce7cab533a5bf88f2e6ecffc2c10bb3"
+  },
+  "initial_state": {
+    "checkpoint_id": "c0",
+    "fresh_physical_state": true,
+    "robots": [
+      {
+        "robot_id": "front",
+        "pose": {"position": [-1.75, 1.8677590667687531, 0.85], "yaw_rad": 0.0}
+      },
+      {
+        "robot_id": "back",
+        "pose": {"position": [-1.75, 2.708284735552654, 0.85], "yaw_rad": 0.0}
+      }
+    ],
+    "payload": {
+      "position": [-1.5372304009030973, 2.278660886367952, 1.1741440920218444],
+      "yaw_rad": 1.5707963267948966
+    }
+  },
+  "target": {"center": [-1.5, 7.6, 0.3], "radius_m": 0.3},
+  "corridor": {
+    "envelope_min": [-2.77, 0.925],
+    "envelope_max": [3.77, 8.935],
+    "segments": [
+      {
+        "segment_id": "initial_straight",
+        "start": [-1.5372304009030973, 2.278660886367952],
+        "end": [1.35, 2.35],
+        "clear_width_m": 2.2
+      },
+      {
+        "segment_id": "first_corner_entry",
+        "start": [1.35, 2.35],
+        "end": [1.35, 2.85],
+        "clear_width_m": 1.85
+      },
+      {
+        "segment_id": "cross_passage",
+        "start": [1.35, 2.85],
+        "end": [1.35, 7.35],
+        "clear_width_m": 1.85
+      },
+      {
+        "segment_id": "second_corner_entry",
+        "start": [1.35, 7.35],
+        "end": [0.85, 7.6],
+        "clear_width_m": 2.1
+      },
+      {
+        "segment_id": "final_straight",
+        "start": [0.85, 7.6],
+        "end": [-1.5, 7.6],
+        "clear_width_m": 2.2
+      }
+    ]
+  },
+  "camera": {
+    "global_eye": [0.5, 4.95, 11.5],
+    "global_target": [0.5, 4.95, 0.0],
+    "global_up": [0.0, 1.0, 0.0],
+    "payload_eye_offset": [2.8, -3.0, 2.2],
+    "payload_target_offset": [0.0, 0.0, 0.0]
+  },
+  "route": {
+    "schema_version": 1,
+    "kind": "directed_connected_route",
+    "scene_id": "two_g1_box_push_layout_narrow",
+    "agent_visible": true,
+    "host_validated_reference": true,
+    "host_selects_primitive": false,
+    "host_selects_coordination_mode": false,
+    "host_selects_robot_roles": false,
+    "host_selects_bounded_parameters": false,
+    "mission_topology": [
+      "transport through the initial straight passage",
+      "negotiate the first corner into the cross passage",
+      "transport through the cross passage",
+      "negotiate the second corner into the final straight passage",
+      "transport through the final straight passage",
+      "place and release the payload on the target"
+    ],
+    "progress_gates": [
+      {"phase_name": "first_corner", "normal_x": 1.0, "normal_y": 0.0, "threshold_m": 1.15},
+      {"phase_name": "cross_passage", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 2.85},
+      {"phase_name": "second_corner", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 7.35},
+      {"phase_name": "final_straight", "normal_x": -1.0, "normal_y": 0.0, "threshold_m": -0.85}
+    ],
+    "segments": [
+      {"segment_id": "initial_straight", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": -1.55, "start_y_m": 2.28, "goal_x_m": 1.35, "goal_y_m": 2.35, "center_x_m": -0.10, "center_y_m": 2.32, "half_width_m": 1.25, "detour_margin_m": 0.35},
+      {"segment_id": "first_corner_entry", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": 1.35, "start_y_m": 2.35, "goal_x_m": 1.35, "goal_y_m": 2.85, "center_x_m": 1.35, "center_y_m": 2.60, "half_width_m": 1.025, "detour_margin_m": 0.35},
+      {"segment_id": "cross_passage", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": 1.35, "start_y_m": 2.85, "goal_x_m": 1.35, "goal_y_m": 7.35, "center_x_m": 1.35, "center_y_m": 5.10, "half_width_m": 1.025, "detour_margin_m": 0.35},
+      {"segment_id": "second_corner_entry", "direction_x": -1.0, "direction_y": 0.0, "start_x_m": 1.35, "start_y_m": 7.35, "goal_x_m": 0.85, "goal_y_m": 7.60, "center_x_m": 1.10, "center_y_m": 7.48, "half_width_m": 1.20, "detour_margin_m": 0.35},
+      {"segment_id": "final_straight", "direction_x": -1.0, "direction_y": 0.0, "start_x_m": 0.85, "start_y_m": 7.60, "goal_x_m": -1.50, "goal_y_m": 7.60, "center_x_m": -0.33, "center_y_m": 7.60, "half_width_m": 1.25, "detour_margin_m": 0.35}
+    ]
+  },
+  "derivation": {"kind": "narrow", "source_scene": "base", "transform_axis": null},
+  "evidence": {
+    "simulator_integrity": null,
+    "initial_collision": null,
+    "scripted_solvability": null
+  }
+}

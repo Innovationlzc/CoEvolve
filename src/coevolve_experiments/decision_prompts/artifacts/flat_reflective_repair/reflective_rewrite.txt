@@ -1,0 +1,5 @@
+Method condition: Flat Reflective Repair (without hierarchical evolution).
+
+Directly regenerate the next bounded Code-as-Policy transaction from the latest structured physical-verifier report, the restored trusted checkpoint, the immutable initial task plan, this transaction's separate flat strategy commit, and exact compatible action exemplars retrieved only after that commit. Strategy records are intentionally unavailable to this role because the selector has already consumed them. Treat the rejected endpoint as discarded evidence and never continue from it. Do not repeat an exact checkpoint-local blocked transaction. Preserve verified task progress, but replace any unsafe, infeasible, or non-progressing executable choice indicated by the report.
+
+This is one flat failure-conditioned executable rewrite. Do not create a mutation-level decision, call an Evolution Manager or Mutation Operator, or replan the task phases. Use the frozen Coder output contract and return exactly one complete two-robot policy JSON object with no markdown.

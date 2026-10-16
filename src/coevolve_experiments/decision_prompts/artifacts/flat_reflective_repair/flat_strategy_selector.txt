@@ -1,0 +1,5 @@
+Method condition: Flat Reflective Repair (without hierarchical evolution).
+
+At every trusted checkpoint, select and commit exactly one current coordination strategy from the immutable initial task plan, the current trusted observation, the latest physical-verifier report, and the freshly retrieved balanced strategy records. The committed object must contain the primitive, semantic objective, and coordination mode needed for exact action-exemplar retrieval. Temporary front/back roles and bounded parameters may also be selected, but no executable script is generated in this role.
+
+Do not add, remove, reorder, or rewrite task-plan phases. Do not invoke or emulate an Evolution Manager, Mutation Operator, typed mutation level, or task-level replanner. Return exactly one strategy-commit JSON object and no markdown.

@@ -1,0 +1,143 @@
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/input_command.hpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/input_command.hpp
+index 153d776..ca7e973 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/input_command.hpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/input_command.hpp
+@@ -29,7 +29,8 @@
+  * @brief Wire format for the ZMQ "command" topic.
+  *
+  * Packed binary layout sent by the remote controller:
+- *   { start: bool, stop: bool, planner: bool, delta_heading?: f32/f64 }
++ *   { start: bool, stop: bool, planner: bool,
++ *     delta_heading?: f32/f64, heading_increment?: f32/f64 }
+  *
+  * Multiple messages between two update() calls are accumulated using OR logic
+  * for start/stop (so a transient pulse is never lost), while the planner flag
+@@ -43,6 +44,9 @@ struct CommandMessage {
+   /// Optional absolute heading override (radians).  When set, the value is
+   /// written directly into HeadingState.delta_heading.
+   std::optional<double> delta_heading;
++  /// Optional relative heading increment (radians).  This mirrors keyboard Q/E
++  /// behavior by adding to the current HeadingState.delta_heading.
++  std::optional<double> heading_increment;
+   bool valid = false;     ///< Set to true once a message has been decoded successfully.
+ };
+ 
+diff --git a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
+index 6917e59..aeba4bc 100644
+--- a/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
++++ b/gear_sonic_deploy/src/g1/g1_deploy_onnx_ref/include/input_interface/zmq_manager.hpp
+@@ -360,6 +360,30 @@ class ZMQManager : public InputInterface {
+         has_hand_joints_ = false;
+       }
+ 
++      {
++        std::optional<double> pending_delta_heading;
++        std::optional<double> pending_heading_increment;
++        {
++          std::lock_guard<std::mutex> lock(command_mutex_);
++          pending_delta_heading.swap(pending_delta_heading_);
++          pending_heading_increment.swap(pending_heading_increment_);
++        }
++        if (pending_delta_heading.has_value()) {
++          auto current_heading_state = heading_state_buffer.GetDataWithTime().data;
++          HeadingState current_state =
++            current_heading_state ? *current_heading_state : HeadingState();
++          heading_state_buffer.SetData(
++              HeadingState(current_state.init_base_quat, pending_delta_heading.value()));
++        }
++        if (pending_heading_increment.has_value()) {
++          auto current_heading_state = heading_state_buffer.GetDataWithTime().data;
++          HeadingState current_state =
++            current_heading_state ? *current_heading_state : HeadingState();
++          double new_delta = current_state.delta_heading + pending_heading_increment.value();
++          heading_state_buffer.SetData(HeadingState(current_state.init_base_quat, new_delta));
++        }
++      }
++
+       // Delegate based on current mode
+       if (active_mode_ == ManagedMode::PLANNER) {
+         // Planner mode: handle planner input ourselves
+@@ -675,10 +699,13 @@ class ZMQManager : public InputInterface {
+       if (hdr.fields.empty() || bufs.empty()) return;
+       
+       int start_idx = -1, stop_idx = -1, planner_idx = -1;
++      int delta_heading_idx = -1, heading_increment_idx = -1;
+       for (size_t i = 0; i < hdr.fields.size(); ++i) {
+         if (hdr.fields[i].name == "start") start_idx = static_cast<int>(i);
+         else if (hdr.fields[i].name == "stop") stop_idx = static_cast<int>(i);
+         else if (hdr.fields[i].name == "planner") planner_idx = static_cast<int>(i);
++        else if (hdr.fields[i].name == "delta_heading") delta_heading_idx = static_cast<int>(i);
++        else if (hdr.fields[i].name == "heading_increment") heading_increment_idx = static_cast<int>(i);
+       }
+       
+       if (start_idx < 0 || stop_idx < 0 || planner_idx < 0) {
+@@ -744,6 +771,46 @@ class ZMQManager : public InputInterface {
+           cmd.planner = (val != 0);
+         }
+       }
++
++      if (delta_heading_idx >= 0) {
++        const auto& delta_heading_buf = bufs[delta_heading_idx];
++        const auto& delta_heading_field = hdr.fields[delta_heading_idx];
++        if (delta_heading_field.dtype == "f32") {
++          float val = 0.0f;
++          if (delta_heading_buf.size >= sizeof(float)) {
++            std::memcpy(&val, delta_heading_buf.data, sizeof(float));
++            if (needs_swap) val = byte_swap(val);
++            cmd.delta_heading = static_cast<double>(val);
++          }
++        } else if (delta_heading_field.dtype == "f64") {
++          double val = 0.0;
++          if (delta_heading_buf.size >= sizeof(double)) {
++            std::memcpy(&val, delta_heading_buf.data, sizeof(double));
++            if (needs_swap) val = byte_swap(val);
++            cmd.delta_heading = val;
++          }
++        }
++      }
++
++      if (heading_increment_idx >= 0) {
++        const auto& heading_increment_buf = bufs[heading_increment_idx];
++        const auto& heading_increment_field = hdr.fields[heading_increment_idx];
++        if (heading_increment_field.dtype == "f32") {
++          float val = 0.0f;
++          if (heading_increment_buf.size >= sizeof(float)) {
++            std::memcpy(&val, heading_increment_buf.data, sizeof(float));
++            if (needs_swap) val = byte_swap(val);
++            cmd.heading_increment = static_cast<double>(val);
++          }
++        } else if (heading_increment_field.dtype == "f64") {
++          double val = 0.0;
++          if (heading_increment_buf.size >= sizeof(double)) {
++            std::memcpy(&val, heading_increment_buf.data, sizeof(double));
++            if (needs_swap) val = byte_swap(val);
++            cmd.heading_increment = val;
++          }
++        }
++      }
+       
+       // Update buffer with OR logic to accumulate start/stop signals
+       std::lock_guard<std::mutex> lock(command_mutex_);
+@@ -758,6 +825,13 @@ class ZMQManager : public InputInterface {
+       latest_command_.start = latest_command_.start || cmd.start;
+       latest_command_.stop = latest_command_.stop || cmd.stop;
+       latest_command_.planner = cmd.planner;  // Overwrite (mode should be latest)
++      if (cmd.delta_heading.has_value()) {
++        pending_delta_heading_ = cmd.delta_heading.value();
++      }
++      if (cmd.heading_increment.has_value()) {
++        pending_heading_increment_ =
++          pending_heading_increment_.value_or(0.0) + cmd.heading_increment.value();
++      }
+       latest_command_.valid = true;
+       
+       if constexpr (DEBUG_LOGGING) {
+@@ -1231,6 +1305,8 @@ class ZMQManager : public InputInterface {
+     
+     std::mutex command_mutex_;          ///< Guards access to latest_command_.
+     CommandMessage latest_command_;     ///< Most recent (or accumulated) command message.
++    std::optional<double> pending_delta_heading_;
++    std::optional<double> pending_heading_increment_;
+     
+     std::mutex planner_mutex_;          ///< Guards access to latest_planner_message_.
+     PlannerMessage latest_planner_message_;  ///< Most recent planner movement message.

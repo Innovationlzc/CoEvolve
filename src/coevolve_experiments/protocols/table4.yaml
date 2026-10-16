@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "table_id": "table4_memory_transfer",
+  "conditions": [
+    {
+      "condition_id": "empty",
+      "label": "Empty",
+      "core": true,
+      "execution": "reuse",
+      "method_variant": "coevolve_full",
+      "scene_id": "mirrored",
+      "memory_condition": "empty",
+      "source": "table3_mirrored"
+    },
+    {
+      "condition_id": "gpt_to_gpt",
+      "label": "GPT to GPT",
+      "core": true,
+      "execution": "new",
+      "method_variant": "coevolve_full",
+      "scene_id": "mirrored",
+      "memory_condition": "gpt_to_gpt"
+    },
+    {
+      "condition_id": "gemini_to_gpt",
+      "label": "Gemini to GPT",
+      "core": true,
+      "execution": "new",
+      "method_variant": "coevolve_full",
+      "scene_id": "mirrored",
+      "memory_condition": "gemini_to_gpt"
+    }
+  ]
+}

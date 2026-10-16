@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "scene_id": "altered_topology",
+  "label": "Held-out corridor with an additional route leg",
+  "scene_hash": "804428bf024322ec964dd3c442cf8f667f7f85bab206aecaa9656017a22665dd",
+  "protocol_invariant_ref": "lock://invariant_fingerprint",
+  "terminal_predicate_ref": "lock://terminal_fingerprint",
+  "asset": {
+    "source_path": "assets/manual_scenes/two_g1_box_push_layout.usda",
+    "source_sha256": "3630ef188052bcf9a2fe1ffc42068210495c626dbd9843d42f83210b0e5857a5",
+    "realization": "altered_topology",
+    "realization_parameters": [
+      {"parameter_id": "remove_authored_walls", "operation": "remove_matching_prims", "targets": ["/World/wall_*"], "values": []},
+      {"parameter_id": "topology_wall_01", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_01"], "values": [0.25, 1.0, 0.35, 6.0, 0.15, 0.7, 0.0]},
+      {"parameter_id": "topology_wall_02", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_02"], "values": [3.2, 3.8, 0.35, 5.6, 0.15, 0.7, 1.5707963267948966]},
+      {"parameter_id": "topology_wall_03", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_03"], "values": [0.0, 3.65, 0.35, 3.4, 0.15, 0.7, 0.0]},
+      {"parameter_id": "topology_wall_04", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_04"], "values": [-1.7, 5.0, 0.35, 2.7, 0.15, 0.7, 1.5707963267948966]},
+      {"parameter_id": "topology_wall_05", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_05"], "values": [-0.55, 7.6, 0.35, 2.3, 0.15, 0.7, 0.0]},
+      {"parameter_id": "topology_wall_06", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_06"], "values": [3.2, 7.65, 0.35, 3.0, 0.15, 0.7, 1.5707963267948966]},
+      {"parameter_id": "topology_wall_07", "operation": "add_collision_box_xyz_scale_xyz_yaw", "targets": ["/World/topology_wall_07"], "values": [0.25, 9.1, 0.35, 6.0, 0.15, 0.7, 0.0]}
+    ],
+    "execution_path": "assets/generated_scenes/altered_topology.usda",
+    "execution_sha256": "774cc2245f940944f94092ccd4fdc08bfa23e96dfd091969e19c90d252fa05fa",
+    "execution_composite_sha256": "0486cc22d84b46f431db13a4eae52d52350ba0d8668d784e14590a9093202a3b"
+  },
+  "initial_state": {
+    "checkpoint_id": "c0",
+    "fresh_physical_state": true,
+    "robots": [
+      {
+        "robot_id": "front",
+        "pose": {"position": [-1.75, 1.8677590667687531, 0.85], "yaw_rad": 0.0}
+      },
+      {
+        "robot_id": "back",
+        "pose": {"position": [-1.75, 2.708284735552654, 0.85], "yaw_rad": 0.0}
+      }
+    ],
+    "payload": {
+      "position": [-1.5372304009030973, 2.278660886367952, 1.1741440920218444],
+      "yaw_rad": 1.5707963267948966
+    }
+  },
+  "target": {"center": [2.4, 8.0, 0.3], "radius_m": 0.3},
+  "corridor": {
+    "envelope_min": [-2.77, 0.925],
+    "envelope_max": [3.25, 9.1],
+    "segments": [
+      {
+        "segment_id": "initial_straight",
+        "start": [-1.5372304009030973, 2.278660886367952],
+        "end": [1.55, 2.35],
+        "clear_width_m": 2.6
+      },
+      {
+        "segment_id": "north_leg",
+        "start": [1.55, 2.35],
+        "end": [1.55, 6.4],
+        "clear_width_m": 2.4
+      },
+      {
+        "segment_id": "west_connector",
+        "start": [1.55, 6.4],
+        "end": [0.2, 6.4],
+        "clear_width_m": 2.4
+      },
+      {
+        "segment_id": "upper_north_leg",
+        "start": [0.2, 6.4],
+        "end": [0.2, 8.0],
+        "clear_width_m": 2.4
+      },
+      {
+        "segment_id": "east_target_approach",
+        "start": [0.2, 8.0],
+        "end": [1.4, 8.0],
+        "clear_width_m": 2.6
+      },
+      {
+        "segment_id": "target_entry",
+        "start": [1.4, 8.0],
+        "end": [2.4, 8.0],
+        "clear_width_m": 2.6
+      }
+    ]
+  },
+  "camera": {
+    "global_eye": [0.25, 5.0, 11.8],
+    "global_target": [0.25, 5.0, 0.0],
+    "global_up": [0.0, 1.0, 0.0],
+    "payload_eye_offset": [2.8, -3.0, 2.2],
+    "payload_target_offset": [0.0, 0.0, 0.0]
+  },
+  "route": {
+    "schema_version": 1,
+    "kind": "directed_connected_route",
+    "scene_id": "two_g1_box_push_layout_altered_topology",
+    "agent_visible": true,
+    "host_validated_reference": true,
+    "host_selects_primitive": false,
+    "host_selects_coordination_mode": false,
+    "host_selects_robot_roles": false,
+    "host_selects_bounded_parameters": false,
+    "mission_topology": [
+      "transport through the initial straight passage",
+      "turn into the north leg",
+      "turn west through the connector",
+      "turn into the upper north leg",
+      "turn east toward the target",
+      "align with the target entry",
+      "place and release the payload on the target"
+    ],
+    "progress_gates": [
+      {"phase_name": "first_corner", "normal_x": 1.0, "normal_y": 0.0, "threshold_m": 1.35},
+      {"phase_name": "north_leg", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 6.2},
+      {"phase_name": "west_connector", "normal_x": -1.0, "normal_y": 0.0, "threshold_m": -0.4},
+      {"phase_name": "upper_north_leg", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 7.8},
+      {"phase_name": "target_approach", "normal_x": 1.0, "normal_y": 0.0, "threshold_m": 1.2}
+    ],
+    "segments": [
+      {"segment_id": "initial_straight", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": -1.55, "start_y_m": 2.28, "goal_x_m": 1.55, "goal_y_m": 2.35, "center_x_m": 0.0, "center_y_m": 2.32, "half_width_m": 1.45, "detour_margin_m": 0.35},
+      {"segment_id": "north_leg", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": 1.55, "start_y_m": 2.35, "goal_x_m": 1.55, "goal_y_m": 6.40, "center_x_m": 1.55, "center_y_m": 4.375, "half_width_m": 1.30, "detour_margin_m": 0.35},
+      {"segment_id": "west_connector", "direction_x": -1.0, "direction_y": 0.0, "start_x_m": 1.55, "start_y_m": 6.40, "goal_x_m": 0.20, "goal_y_m": 6.40, "center_x_m": 0.875, "center_y_m": 6.40, "half_width_m": 1.30, "detour_margin_m": 0.35},
+      {"segment_id": "upper_north_leg", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": 0.20, "start_y_m": 6.40, "goal_x_m": 0.20, "goal_y_m": 8.0, "center_x_m": 0.20, "center_y_m": 7.20, "half_width_m": 1.30, "detour_margin_m": 0.35},
+      {"segment_id": "east_target_approach", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": 0.20, "start_y_m": 8.0, "goal_x_m": 1.40, "goal_y_m": 8.0, "center_x_m": 0.80, "center_y_m": 8.0, "half_width_m": 1.45, "detour_margin_m": 0.35},
+      {"segment_id": "target_entry", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": 1.40, "start_y_m": 8.0, "goal_x_m": 2.40, "goal_y_m": 8.0, "center_x_m": 1.90, "center_y_m": 8.0, "half_width_m": 1.45, "detour_margin_m": 0.35}
+    ]
+  },
+  "derivation": {"kind": "altered_topology", "source_scene": "base", "transform_axis": null},
+  "evidence": {
+    "simulator_integrity": null,
+    "initial_collision": null,
+    "scripted_solvability": null
+  }
+}

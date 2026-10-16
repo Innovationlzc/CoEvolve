@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "table_id": "table2_method_comparison",
+  "conditions": [
+    {
+      "condition_id": "remac_adapted",
+      "label": "REMAC-Adapted",
+      "core": true,
+      "execution": "new",
+      "method_variant": "remac_adapted",
+      "scene_id": "base",
+      "memory_condition": "empty"
+    },
+    {
+      "condition_id": "coherent_adapted",
+      "label": "COHERENT-Adapted",
+      "core": false,
+      "execution": "new",
+      "method_variant": "coherent_adapted",
+      "scene_id": "base",
+      "memory_condition": "empty"
+    },
+    {
+      "condition_id": "flat_reflective_repair",
+      "label": "Flat Reflective Repair",
+      "core": true,
+      "execution": "new",
+      "method_variant": "flat_reflective_repair",
+      "scene_id": "base",
+      "memory_condition": "empty"
+    },
+    {
+      "condition_id": "no_dynamic_experience",
+      "label": "CoEvolve w/o Dynamic Experience",
+      "core": true,
+      "execution": "new",
+      "method_variant": "no_dynamic_experience",
+      "scene_id": "base",
+      "memory_condition": "no_dynamic"
+    },
+    {
+      "condition_id": "coevolve_full",
+      "label": "Full CoEvolve",
+      "core": true,
+      "execution": "reuse",
+      "method_variant": "coevolve_full",
+      "scene_id": "base",
+      "memory_condition": "empty",
+      "source": "table1_gpt_base"
+    }
+  ]
+}

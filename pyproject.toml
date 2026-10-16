@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "praxis-coop"
+version = "0.1.0"
+description = "Verified self-evolution of cooperative skill graphs over SONIC whole-body control."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pillow",
+]
+
+[project.urls]
+Repository = "https://github.com/Innovationlzc/CoEvolve"
+Issues = "https://github.com/Innovationlzc/CoEvolve/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff"]
+local-vlm = ["accelerate", "bitsandbytes>=0.46,<0.50", "huggingface-hub", "transformers"]
+sim = ["mujoco", "pyzmq", "opencv-python", "pyyaml"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["praxis_coop*", "coevolve_experiments*"]
+
+[project.scripts]
+coevolve-experiments = "coevolve_experiments.cli:main"
+
+[tool.setuptools.package-data]
+praxis_coop = ["data/*.jsonl"]
+coevolve_experiments = [
+  "protocols/*.yaml",
+  "protocol_artifacts/*.json",
+  "scenes/*.yaml",
+  "decision_prompts/*.json",
+  "decision_prompts/artifacts/*/*.json",
+  "decision_prompts/artifacts/*/*.txt",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+markers = ["integration: requires the separately installed SONIC runtime and assets"]

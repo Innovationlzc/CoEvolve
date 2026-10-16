@@ -1,0 +1,54 @@
+{
+  "kind": "coevolve_production_decision_prompt_artifact",
+  "schema_version": 1,
+  "method_variant": "remac_adapted",
+  "artifact_scope": "production_live_decision_roles",
+  "policy_representation": "praxis_code_as_policy",
+  "shared_prompt_contract_binding": "lock://shared_prompt_contract_fingerprint",
+  "frozen_v83_prompt_binding": "lock://full_method_compatibility.prompt_sha256",
+  "decision_structure": "task_plan_reflection_and_replanning",
+  "hierarchical_evolution": false,
+  "durable_dynamic_memory": false,
+  "memory_gates": {
+    "strategy_retrieval": false,
+    "strategy_promotion": false,
+    "action_exemplar_retrieval": false,
+    "action_exemplar_promotion": false,
+    "memory_writer_call": false
+  },
+  "common_runtime_roles": [
+    "vlm_failure_analyzer",
+    "code_repair"
+  ],
+  "forbidden_method_roles": [
+    "evolution_manager",
+    "mutation_operator",
+    "memory_update"
+  ],
+  "roles": [
+    {
+      "role": "remac_planner",
+      "prompt_base": "none",
+      "output_contract": "remac_task_plan_json_v1",
+      "prompt_file": "remac_planner.txt"
+    },
+    {
+      "role": "remac_precondition_reflection",
+      "prompt_base": "frozen_v83_policy_coder",
+      "output_contract": "v83_team_policy_json_v1",
+      "prompt_file": "remac_precondition_reflection.txt"
+    },
+    {
+      "role": "remac_postcondition_reflection",
+      "prompt_base": "none",
+      "output_contract": "remac_postcondition_reflection_json_v1",
+      "prompt_file": "remac_postcondition_reflection.txt"
+    },
+    {
+      "role": "remac_replanner",
+      "prompt_base": "none",
+      "output_contract": "remac_task_plan_json_v1",
+      "prompt_file": "remac_replanner.txt"
+    }
+  ]
+}

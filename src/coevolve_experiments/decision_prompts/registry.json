@@ -1,0 +1,30 @@
+{
+  "kind": "coevolve_production_decision_prompt_registry",
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "method_variant": "no_dynamic_experience",
+      "manifest_relpath": "artifacts/no_dynamic_experience/manifest.json",
+      "manifest_sha256": "6c48740c32403492fd30eeaf445b409990428dc5f959e3eae0edfd2f4155cd61",
+      "decision_prompt_fingerprint": "d8b7d10ae7625b056dd92871e6c3d7a165121e79c7a1f00f87d51a36208583da"
+    },
+    {
+      "method_variant": "flat_reflective_repair",
+      "manifest_relpath": "artifacts/flat_reflective_repair/manifest.json",
+      "manifest_sha256": "29313615877ae9d6a836f5be407b1c030eebb444b02f7e9cfc75f397cdeda9d8",
+      "decision_prompt_fingerprint": "872aa77d8160583a87098a4644127a2a01336d0bded3b9749a4e7cea18b0e8c2"
+    },
+    {
+      "method_variant": "remac_adapted",
+      "manifest_relpath": "artifacts/remac_adapted/manifest.json",
+      "manifest_sha256": "49bec7e047fa48d694328ac8c98b85834ef7e7a01011004d6bd3e82e419c83da",
+      "decision_prompt_fingerprint": "88549fc300d479aa5126256b04e96c3071bd5b65ded5b1a6c084d5d2eafe5b91"
+    },
+    {
+      "method_variant": "coherent_adapted",
+      "manifest_relpath": "artifacts/coherent_adapted/manifest.json",
+      "manifest_sha256": "6629c8142f3e3ef869a11ffe3a73ccb6911c7adc73e79cb70e9a741bcb1accac",
+      "decision_prompt_fingerprint": "98a924ae565c23000b8e1fe815b1d880905d0325f05270de1b754199d107b0ce"
+    }
+  ]
+}

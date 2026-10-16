@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "scene_id": "mirrored",
+  "label": "Base corridor mirrored across x=0",
+  "scene_hash": "1351de412084d40b813144b40bc1180f544bc20377d8df7af09f461943ae3524",
+  "protocol_invariant_ref": "lock://invariant_fingerprint",
+  "terminal_predicate_ref": "lock://terminal_fingerprint",
+  "asset": {
+    "source_path": "assets/manual_scenes/two_g1_box_push_layout.usda",
+    "source_sha256": "3630ef188052bcf9a2fe1ffc42068210495c626dbd9843d42f83210b0e5857a5",
+    "realization": "mirror_x",
+    "realization_parameters": [
+      {
+        "parameter_id": "world_reflection",
+        "operation": "apply_xy_matrix_and_pi_minus_yaw",
+        "targets": ["/World/g1", "/World/g1_01", "/World/long_box", "/World/target", "/World/wall_*"],
+        "values": [-1.0, 0.0, 0.0, 1.0]
+      }
+    ],
+    "execution_path": "assets/generated_scenes/mirrored.usda",
+    "execution_sha256": "cb16655154e1541797c7a6ae1541950dd9f26f271e4b4c82ca637137f81a4091",
+    "execution_composite_sha256": "342d49665c9baed5ef79b4a4214d96ff99af624c31604135956553a9e4f8b422"
+  },
+  "initial_state": {
+    "checkpoint_id": "c0",
+    "fresh_physical_state": true,
+    "robots": [
+      {
+        "robot_id": "front",
+        "pose": {"position": [1.75, 1.8677590667687531, 0.85], "yaw_rad": 3.141592653589793}
+      },
+      {
+        "robot_id": "back",
+        "pose": {"position": [1.75, 2.708284735552654, 0.85], "yaw_rad": 3.141592653589793}
+      }
+    ],
+    "payload": {
+      "position": [1.5372304009030973, 2.278660886367952, 1.1741440920218444],
+      "yaw_rad": 1.5707963267948966
+    }
+  },
+  "target": {"center": [1.5, 7.6, 0.3], "radius_m": 0.3},
+  "corridor": {
+    "envelope_min": [-3.77, 0.925],
+    "envelope_max": [2.77, 8.935],
+    "segments": [
+      {
+        "segment_id": "initial_straight",
+        "start": [1.5372304009030973, 2.278660886367952],
+        "end": [-1.35, 2.35],
+        "clear_width_m": 2.6
+      },
+      {
+        "segment_id": "first_corner_entry",
+        "start": [-1.35, 2.35],
+        "end": [-1.35, 2.85],
+        "clear_width_m": 2.4
+      },
+      {
+        "segment_id": "cross_passage",
+        "start": [-1.35, 2.85],
+        "end": [-1.35, 7.35],
+        "clear_width_m": 2.4
+      },
+      {
+        "segment_id": "second_corner_entry",
+        "start": [-1.35, 7.35],
+        "end": [-0.85, 7.6],
+        "clear_width_m": 2.6
+      },
+      {
+        "segment_id": "final_straight",
+        "start": [-0.85, 7.6],
+        "end": [1.5, 7.6],
+        "clear_width_m": 2.6
+      }
+    ]
+  },
+  "camera": {
+    "global_eye": [-0.5, 4.95, 11.5],
+    "global_target": [-0.5, 4.95, 0.0],
+    "global_up": [0.0, 1.0, 0.0],
+    "payload_eye_offset": [-2.8, -3.0, 2.2],
+    "payload_target_offset": [0.0, 0.0, 0.0]
+  },
+  "route": {
+    "schema_version": 1,
+    "kind": "directed_connected_route",
+    "scene_id": "two_g1_box_push_layout_mirrored",
+    "agent_visible": true,
+    "host_validated_reference": true,
+    "host_selects_primitive": false,
+    "host_selects_coordination_mode": false,
+    "host_selects_robot_roles": false,
+    "host_selects_bounded_parameters": false,
+    "mission_topology": [
+      "transport through the initial straight passage",
+      "negotiate the first corner into the cross passage",
+      "transport through the cross passage",
+      "negotiate the second corner into the final straight passage",
+      "transport through the final straight passage",
+      "place and release the payload on the target"
+    ],
+    "progress_gates": [
+      {"phase_name": "first_corner", "normal_x": -1.0, "normal_y": 0.0, "threshold_m": 1.15},
+      {"phase_name": "cross_passage", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 2.85},
+      {"phase_name": "second_corner", "normal_x": 0.0, "normal_y": 1.0, "threshold_m": 7.35},
+      {"phase_name": "final_straight", "normal_x": 1.0, "normal_y": 0.0, "threshold_m": -0.85}
+    ],
+    "segments": [
+      {"segment_id": "initial_straight", "direction_x": -1.0, "direction_y": 0.0, "start_x_m": 1.55, "start_y_m": 2.28, "goal_x_m": -1.35, "goal_y_m": 2.35, "center_x_m": 0.10, "center_y_m": 2.32, "half_width_m": 1.45, "detour_margin_m": 0.35},
+      {"segment_id": "first_corner_entry", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": -1.35, "start_y_m": 2.35, "goal_x_m": -1.35, "goal_y_m": 2.85, "center_x_m": -1.35, "center_y_m": 2.60, "half_width_m": 1.30, "detour_margin_m": 0.35},
+      {"segment_id": "cross_passage", "direction_x": 0.0, "direction_y": 1.0, "start_x_m": -1.35, "start_y_m": 2.85, "goal_x_m": -1.35, "goal_y_m": 7.35, "center_x_m": -1.35, "center_y_m": 5.10, "half_width_m": 1.30, "detour_margin_m": 0.35},
+      {"segment_id": "second_corner_entry", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": -1.35, "start_y_m": 7.35, "goal_x_m": -0.85, "goal_y_m": 7.60, "center_x_m": -1.10, "center_y_m": 7.48, "half_width_m": 1.45, "detour_margin_m": 0.35},
+      {"segment_id": "final_straight", "direction_x": 1.0, "direction_y": 0.0, "start_x_m": -0.85, "start_y_m": 7.60, "goal_x_m": 1.50, "goal_y_m": 7.60, "center_x_m": 0.33, "center_y_m": 7.60, "half_width_m": 1.45, "detour_margin_m": 0.35}
+    ]
+  },
+  "derivation": {"kind": "mirrored", "source_scene": "base", "transform_axis": "x=0"},
+  "evidence": {
+    "simulator_integrity": null,
+    "initial_collision": null,
+    "scripted_solvability": null
+  }
+}

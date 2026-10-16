@@ -1,0 +1,18 @@
+{
+  "kind": "coevolve_protocol_contract_artifact",
+  "payload": {
+    "instruction": "Two G1 robots carry the long_box through the authored scene and stably place it on the red target cylinder.",
+    "lifecycle": [
+      "joint_transport",
+      "multi_segment_corridor_navigation",
+      "placement",
+      "release",
+      "retreat",
+      "upright_recovery"
+    ],
+    "task_id": "two_g1_long_box_carry_manual_layout"
+  },
+  "payload_sha256": "d5d548c77ada71adefb7d8179fb79283c404fa9b8a7ab5c44f00f02114973496",
+  "role": "task_instruction",
+  "schema_version": 1
+}

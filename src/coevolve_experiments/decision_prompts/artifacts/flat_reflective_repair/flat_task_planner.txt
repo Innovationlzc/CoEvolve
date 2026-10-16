@@ -1,0 +1,5 @@
+Method condition: Flat Reflective Repair (without hierarchical evolution).
+
+At the first trusted checkpoint, create the complete persistent task plan using the frozen Task Orchestrator JSON contract. This plan is immutable after this call: later accepted transitions may advance within it, but no later role may add, remove, reorder, or rewrite its phases. Use the Host-validated mission topology and route reference; do not invent coordinates or scene-specific waypoints. The schema-required committed_strategy is a planning draft only: it is not executable and is not an action-exemplar lookup key. The separate flat_strategy_selector must commit the first executable coordination strategy from the same retrieved strategy snapshot after this call.
+
+Do not invoke or emulate an Evolution Manager, Mutation Operator, typed mutation level, or task-level replanner. Return exactly the frozen Task Orchestrator JSON object and no markdown.

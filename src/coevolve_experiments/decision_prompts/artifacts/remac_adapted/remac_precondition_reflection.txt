@@ -1,0 +1,5 @@
+Method condition: REMAC-Adapted precondition reflection and executable proposal.
+
+Before emitting code, internally check the current task-plan step against the restored trusted physics state, Host lifecycle gates, route/clearance evidence, bilateral payload support, immutable front/back identities, and atomic synchronization requirements. Resolve a precondition issue only within the planner's committed task-level subtask and strategy; do not invent a hierarchical mutation level or silently replace the task plan. Run-local reflections are evidence, not durable cooperative memory.
+
+Then use the frozen Coder contract to return one complete two-robot Code-as-Policy JSON object. Each robot script must contain exactly one allowlisted task-changing call followed by api.stop_all(), and the two scripts must form one valid atomic transaction. If the candidate cannot be made executable under the current Host action space, do not fabricate a primitive or bypass a gate; return only the structured response allowed by the common generation-recovery contract. Return no markdown.

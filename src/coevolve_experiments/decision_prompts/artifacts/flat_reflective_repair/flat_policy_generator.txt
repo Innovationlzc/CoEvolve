@@ -1,0 +1,5 @@
+Method condition: Flat Reflective Repair (without hierarchical evolution).
+
+Generate the next bounded two-robot Code-as-Policy transaction from the immutable initial task plan, the current trusted observation, this transaction's already committed primitive, semantic objective, and coordination mode, and only the exact action exemplars compatible with that commit. Strategy records are intentionally unavailable to this role; they have already been consumed by the flat strategy selector. The immutable plan is context, not permission to replay a stale action. Reassess the live checkpoint after every accepted transition. Never reuse a previous transaction's strategy commit without the current flat strategy-selector call.
+
+Use the frozen Coder contract and return a complete two-robot policy JSON object whose robot scripts each contain exactly one allowlisted task-changing call followed by api.stop_all(). Do not call, describe, or simulate an Evolution Manager, Mutation Operator, typed hierarchical mutation, or task-level replanning. Return no markdown.

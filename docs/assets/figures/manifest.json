@@ -1,0 +1,47 @@
+{
+  "description": "Approved public figure previews and integrity checks. Private manuscript provenance is not distributed.",
+  "figures": [
+    {
+      "image": "teaser.png",
+      "png_sha256": "d23efcb55a77e7b81d55f78e68b4257fb07d2f3c8979e9baa727e0385969a107",
+      "png_bytes": 252122,
+      "width_px": 1800,
+      "height_px": 692
+    },
+    {
+      "image": "framework.png",
+      "png_sha256": "ebb038ecbf38454c89299a46efcfde933d6bf0787890e65bfc534123216496e7",
+      "png_bytes": 401321,
+      "width_px": 1800,
+      "height_px": 791
+    },
+    {
+      "image": "baseline_comparison.png",
+      "png_sha256": "fb17b9dd384366eceb62d71d5403ff1cb4f82a378c9eb656d199e93a643c9912",
+      "png_bytes": 923102,
+      "width_px": 1800,
+      "height_px": 806
+    },
+    {
+      "image": "cross_layouts.png",
+      "png_sha256": "d1025bd7d78381e360612180c322c9e387b39ea12f3fe1ed46a783925f16e46d",
+      "png_bytes": 1682948,
+      "width_px": 1800,
+      "height_px": 1216
+    },
+    {
+      "image": "repair_case.png",
+      "png_sha256": "22d0504287538d129bd8ef07058ebfc88e094370533db274f38cd706cb8fff42",
+      "png_bytes": 505703,
+      "width_px": 1800,
+      "height_px": 353
+    },
+    {
+      "image": "layout_overview.png",
+      "png_sha256": "e93a65e08623f25158911c86f19a11d9726113f7a54437d92d039b548aac21aa",
+      "png_bytes": 891426,
+      "width_px": 1800,
+      "height_px": 532
+    }
+  ]
+}
